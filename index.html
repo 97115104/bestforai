@@ -288,6 +288,24 @@
     .speedup-medium { background: #fff3cd; color: #856404; }
     .speedup-low    { background: #f8d7da; color: #721c24; }
     .speedup-neutral{ background: #e2e3e5; color: #383d41; }
+    /* ── Operating Systems tab ── */
+    .opt-card-header.os-header-windows { background: #e8f4fd; border-left: 4px solid #0078d4; }
+    .opt-card-header.os-header-mac     { background: #f4f4f4; border-left: 4px solid #555; }
+    .opt-card-header.os-header-linux   { background: #fff8f0; border-left: 4px solid #e67e00; }
+    .support-yes     { color: #155724; font-weight: 600; }
+    .support-partial { color: #856404; font-weight: 600; }
+    .support-no      { color: #721c24; font-weight: 600; }
+    /* ── Software tab ── */
+    .sw-tag { display: inline-block; padding: 0.1em 0.5em; border-radius: 3px; font-size: 0.78em; font-weight: 700; margin: 0 0.15em 0.25em 0; vertical-align: middle; }
+    .sw-free     { background: #d4edda; color: #155724; }
+    .sw-freemium { background: #fff3cd; color: #856404; }
+    .sw-paid     { background: #f8d7da; color: #721c24; }
+    .sw-win      { background: #e8f4fd; color: #004a8c; }
+    .sw-mac      { background: #f0f0f0; color: #333; }
+    .sw-lin      { background: #fff0e0; color: #8a3c00; }
+    .sw-all      { background: #e9e9e9; color: #333; }
+    .sw-tool-name { font-size: 1em; font-weight: 700; margin-bottom: 0.2em; }
+    .sw-tool-desc { font-size: 0.88em; color: #555; margin-bottom: 0.5em; }
   </style>
 </head>
 <body>
@@ -303,6 +321,8 @@
   <button class="tab-button" onclick="openTab(event, 'bestmatch')">Best Match Finder</button>
   <button class="tab-button" onclick="openTab(event, 'compare')">Compare Systems</button>
   <button class="tab-button" onclick="openTab(event, 'optimization')">Optimization Guide</button>
+  <button class="tab-button" onclick="openTab(event, 'opsystems')">Operating Systems</button>
+  <button class="tab-button" onclick="openTab(event, 'software')">Software</button>
   <a href="benchmark.html" class="tab-button" style="text-decoration:none;margin-left:auto">Benchmark My System</a>
 </div>
 
@@ -926,7 +946,6 @@
 
       <div class="opt-card">
         <div class="opt-card-header opt-nvidia">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect width="16" height="16" rx="3" fill="#76b900"/><text x="3" y="12" font-size="10" fill="white" font-family="sans-serif" font-weight="bold">N</text></svg>
           NVIDIA — CUDA Ecosystem
         </div>
         <div class="opt-card-body">
@@ -943,7 +962,6 @@
 
       <div class="opt-card">
         <div class="opt-card-header opt-apple">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect width="16" height="16" rx="3" fill="#555"/><text x="3" y="12" font-size="10" fill="white" font-family="sans-serif" font-weight="bold">A</text></svg>
           Apple Silicon — Metal / MLX
         </div>
         <div class="opt-card-body">
@@ -960,7 +978,6 @@
 
       <div class="opt-card">
         <div class="opt-card-header opt-amd">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect width="16" height="16" rx="3" fill="#ed1c24"/><text x="4" y="12" font-size="9" fill="white" font-family="sans-serif" font-weight="bold">AMD</text></svg>
           AMD — ROCm / Vulkan / HIP
         </div>
         <div class="opt-card-body">
@@ -977,7 +994,6 @@
 
       <div class="opt-card">
         <div class="opt-card-header opt-general">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect width="16" height="16" rx="3" fill="#007bff"/><text x="3" y="12" font-size="10" fill="white" font-family="sans-serif" font-weight="bold">+</text></svg>
           CPU-Only Inference (x86 / ARM)
         </div>
         <div class="opt-card-body">
@@ -993,7 +1009,6 @@
 
       <div class="opt-card">
         <div class="opt-card-header opt-general">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect width="16" height="16" rx="3" fill="#007bff"/><text x="4" y="12" font-size="9" fill="white" font-family="sans-serif" font-weight="bold">SW</text></svg>
           Inference Framework Selection
         </div>
         <div class="opt-card-body">
@@ -1009,7 +1024,6 @@
 
       <div class="opt-card">
         <div class="opt-card-header opt-general">
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect width="16" height="16" rx="3" fill="#007bff"/><text x="4" y="12" font-size="9" fill="white" font-family="sans-serif" font-weight="bold">KV</text></svg>
           Context Length and KV-Cache
         </div>
         <div class="opt-card-body">
@@ -1071,6 +1085,653 @@
       </tbody>
     </table>
   </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     OPERATING SYSTEMS TAB
+═══════════════════════════════════════════════════════════ -->
+<div id="opsystems" class="tab-content">
+  <h2>Operating Systems for Local AI Development</h2>
+  <p style="max-width:820px;margin-bottom:1.5em">Your operating system determines which GPU acceleration paths, quantization formats, and developer tools are available. This page compares Windows, macOS, and Linux across the dimensions that matter most for running, developing, and fine-tuning local AI models.</p>
+
+  <div class="opt-section">
+    <h3>Feature Compatibility Matrix</h3>
+    <table class="opt-table">
+      <thead><tr>
+        <th style="min-width:230px">Feature / Tool</th>
+        <th>Windows 11</th>
+        <th>macOS (Apple Silicon)</th>
+        <th>Linux (Ubuntu 22.04+)</th>
+      </tr></thead>
+      <tbody>
+        <tr><td><strong>NVIDIA CUDA</strong></td>
+          <td><span class="speedup-tag speedup-high">Full</span></td>
+          <td><span class="speedup-tag speedup-low">Not available</span></td>
+          <td><span class="speedup-tag speedup-high">Full</span> &mdash; best driver control</td></tr>
+        <tr><td><strong>AMD ROCm (discrete GPU)</strong></td>
+          <td><span class="speedup-tag speedup-low">Not available</span> &mdash; ROCm for discrete is Linux-only</td>
+          <td><span class="speedup-tag speedup-low">Not available</span></td>
+          <td><span class="speedup-tag speedup-high">Full</span> &mdash; ROCm 6.0+ on RX 6000/7000</td></tr>
+        <tr><td><strong>Apple MLX / Metal</strong></td>
+          <td><span class="speedup-tag speedup-low">Not available</span></td>
+          <td><span class="speedup-tag speedup-high">Native</span> &mdash; best inference path</td>
+          <td><span class="speedup-tag speedup-low">Not available</span></td></tr>
+        <tr><td><strong>DirectML (Microsoft)</strong></td>
+          <td><span class="speedup-tag speedup-high">Native</span> &mdash; ONNX on NVIDIA, AMD, Intel GPU</td>
+          <td><span class="speedup-tag speedup-low">Not available</span></td>
+          <td><span class="speedup-tag speedup-low">Not available</span></td></tr>
+        <tr><td><strong>Vulkan inference (llama.cpp)</strong></td>
+          <td><span class="speedup-tag speedup-high">Full</span></td>
+          <td><span class="speedup-tag speedup-low">Not available</span></td>
+          <td><span class="speedup-tag speedup-high">Full</span></td></tr>
+        <tr><td><strong>Ollama</strong></td>
+          <td><span class="speedup-tag speedup-high">Full</span></td>
+          <td><span class="speedup-tag speedup-high">Full</span></td>
+          <td><span class="speedup-tag speedup-high">Full</span></td></tr>
+        <tr><td><strong>LM Studio</strong></td>
+          <td><span class="speedup-tag speedup-high">Full</span></td>
+          <td><span class="speedup-tag speedup-high">Full</span></td>
+          <td><span class="speedup-tag speedup-high">Full</span></td></tr>
+        <tr><td><strong>vLLM (production serving)</strong></td>
+          <td><span class="speedup-tag speedup-medium">Via WSL2 only</span></td>
+          <td><span class="speedup-tag speedup-low">Not supported</span></td>
+          <td><span class="speedup-tag speedup-high">Full</span> &mdash; native, best performance</td></tr>
+        <tr><td><strong>ExLlamaV2</strong></td>
+          <td><span class="speedup-tag speedup-high">Full</span> (CUDA)</td>
+          <td><span class="speedup-tag speedup-low">Not available</span></td>
+          <td><span class="speedup-tag speedup-high">Full</span> (CUDA)</td></tr>
+        <tr><td><strong>Claude Code</strong></td>
+          <td><span class="speedup-tag speedup-medium">WSL2 required</span></td>
+          <td><span class="speedup-tag speedup-high">Native</span> &mdash; recommended</td>
+          <td><span class="speedup-tag speedup-high">Native</span> &mdash; recommended</td></tr>
+        <tr><td><strong>Aider coding agent</strong></td>
+          <td><span class="speedup-tag speedup-medium">Works; WSL2 preferred</span></td>
+          <td><span class="speedup-tag speedup-high">Full</span></td>
+          <td><span class="speedup-tag speedup-high">Full</span></td></tr>
+        <tr><td><strong>Docker + GPU passthrough</strong></td>
+          <td><span class="speedup-tag speedup-medium">Via Docker Desktop + WSL2</span></td>
+          <td><span class="speedup-tag speedup-low">No GPU passthrough to containers</span></td>
+          <td><span class="speedup-tag speedup-high">Full</span> &mdash; NVIDIA Container Toolkit</td></tr>
+        <tr><td><strong>Axolotl / Unsloth fine-tuning</strong></td>
+          <td><span class="speedup-tag speedup-medium">Via WSL2 + CUDA</span></td>
+          <td><span class="speedup-tag speedup-low">Not supported</span></td>
+          <td><span class="speedup-tag speedup-high">Full</span> &mdash; recommended platform</td></tr>
+        <tr><td><strong>GGUF quantization</strong></td>
+          <td><span class="speedup-tag speedup-high">Full</span></td>
+          <td><span class="speedup-tag speedup-high">Full</span></td>
+          <td><span class="speedup-tag speedup-high">Full</span></td></tr>
+        <tr><td><strong>EXL2 format</strong></td>
+          <td><span class="speedup-tag speedup-high">Full</span> (CUDA)</td>
+          <td><span class="speedup-tag speedup-low">Not available</span></td>
+          <td><span class="speedup-tag speedup-high">Full</span> (CUDA)</td></tr>
+        <tr><td><strong>GPTQ / AWQ formats</strong></td>
+          <td><span class="speedup-tag speedup-high">Full</span> (CUDA)</td>
+          <td><span class="speedup-tag speedup-low">Not available</span></td>
+          <td><span class="speedup-tag speedup-high">Full</span> (CUDA)</td></tr>
+        <tr><td><strong>MLX native format</strong></td>
+          <td><span class="speedup-tag speedup-low">Not available</span></td>
+          <td><span class="speedup-tag speedup-high">Native</span> &mdash; Apple Silicon only</td>
+          <td><span class="speedup-tag speedup-low">Not available</span></td></tr>
+        <tr><td><strong>BitsAndBytes / QLoRA</strong></td>
+          <td><span class="speedup-tag speedup-medium">Via WSL2 (unreliable natively)</span></td>
+          <td><span class="speedup-tag speedup-low">Not supported</span></td>
+          <td><span class="speedup-tag speedup-high">Full</span> &mdash; recommended for QLoRA</td></tr>
+        <tr><td><strong>Hugging Face transformers</strong></td>
+          <td><span class="speedup-tag speedup-medium">Works; WSL2 for training</span></td>
+          <td><span class="speedup-tag speedup-medium">Inference via MPS; no CUDA</span></td>
+          <td><span class="speedup-tag speedup-high">Full</span></td></tr>
+        <tr><td><strong>GPU driver management</strong></td>
+          <td><span class="speedup-tag speedup-high">Easy</span> &mdash; NVIDIA App or AMD Adrenaline</td>
+          <td><span class="speedup-tag speedup-high">Automatic</span> &mdash; macOS system updates</td>
+          <td><span class="speedup-tag speedup-medium">Manual</span> &mdash; DKMS, kernel headers</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="opt-section">
+    <h3>Platform Detail</h3>
+    <div class="opt-cards">
+
+      <div class="opt-card">
+        <div class="opt-card-header os-header-windows">Windows 11</div>
+        <div class="opt-card-body">
+          <p style="font-size:0.88em;margin-top:0"><strong>Best for:</strong> NVIDIA CUDA users wanting a dual-purpose gaming and AI workstation. Widest consumer GPU support, easiest driver management, and the best GUI tool ecosystem.</p>
+          <ul>
+            <li><strong>CUDA works natively.</strong> Ollama, LM Studio, ExLlamaV2, and llama.cpp all run without WSL2 on NVIDIA GPUs. CUDA driver installation is handled automatically by the NVIDIA App.</li>
+            <li><strong>WSL2 is near-mandatory for serious Python-based AI work.</strong> Tools like vLLM, Axolotl, Unsloth, and BitsAndBytes are Linux-first. Install WSL2 (Ubuntu 22.04 LTS) and do Python AI development inside it. NVIDIA GPU passthrough to WSL2 delivers near-native CUDA performance with minimal overhead.</li>
+            <li><strong>Claude Code requires WSL2.</strong> It is not natively supported on PowerShell or Command Prompt. After enabling WSL2, install Node.js inside Ubuntu and run <code>npm install -g @anthropic-ai/claude-code</code>. This one step also resolves most Python ML compatibility issues.</li>
+            <li><strong>AMD discrete GPU ROCm is not available on Windows.</strong> AMD users should use the Vulkan backend in llama.cpp/Ollama (which works well for inference) as an alternative. For PyTorch training with AMD discrete GPUs, Linux is required.</li>
+            <li><strong>DirectML</strong> accelerates ONNX Runtime models (Phi-3, Mistral, Llama via ONNX) on any Windows GPU including Intel Arc. Slower than CUDA but hardware-agnostic &mdash; useful when CUDA is not an option.</li>
+            <li><strong>Recommended setup:</strong> NVIDIA drivers natively &rarr; WSL2 + Ubuntu 22.04 &rarr; Ollama and LM Studio on native Windows for daily chat &rarr; Claude Code and Python tools (vLLM, transformers, axolotl) inside WSL2.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="opt-card">
+        <div class="opt-card-header os-header-mac">macOS (Apple Silicon)</div>
+        <div class="opt-card-body">
+          <p style="font-size:0.88em;margin-top:0"><strong>Best for:</strong> Developers who want a polished Unix environment, large unified-memory model capacity, low power draw, and the best Claude Code experience without Linux complexity.</p>
+          <ul>
+            <li><strong>MLX is the optimal inference path.</strong> Apple's open-source MLX framework is 20&ndash;30% faster than llama.cpp Metal for inference on Apple Silicon. Install via <code>pip install mlx-lm</code>, then run models directly with <code>mlx_lm.generate</code>. Ollama uses Metal/llama.cpp internally and is slightly slower but simpler to set up.</li>
+            <li><strong>Unified memory is the key architectural advantage.</strong> CPU and GPU share one high-bandwidth pool &mdash; up to 512 GB on Mac Studio M3/M4 Ultra. A 70B model (40 GB Q4) loads without any VRAM/host memory boundary or PCIe transfer overhead.</li>
+            <li><strong>Claude Code works natively.</strong> macOS is a first-class Claude Code platform. zsh, Homebrew, and all standard Unix utilities work out of the box. No WSL2 or compatibility layer needed.</li>
+            <li><strong>No CUDA, EXL2, GPTQ/AWQ, vLLM, or BitsAndBytes.</strong> Axolotl and Unsloth for fine-tuning are not supported. MLX includes its own LoRA fine-tuning path (<code>mlx_lm.lora</code>) for Apple Silicon.</li>
+            <li><strong>Supported quantization formats:</strong> GGUF (all variants via Ollama/llama.cpp) and MLX native formats (int4, int8, fp16, bf16). EXL2, GPTQ, AWQ, and BitsAndBytes are not available.</li>
+            <li><strong>RAM is soldered and non-upgradeable.</strong> Choose your memory configuration at purchase. The 128 GB step (M4 Max MacBook Pro or Mac Studio) is the threshold for 70B Q4 models; 192&ndash;512 GB (Mac Studio M3/M4 Ultra) enables 120B+ models.</li>
+            <li><strong>Power efficiency.</strong> An M3 Ultra running 70B at 18 t/s draws ~150 W. An equivalent-speed NVIDIA A100 draws 300&ndash;400 W. For always-on home servers this is a meaningful difference over time.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="opt-card">
+        <div class="opt-card-header os-header-linux">Linux (Ubuntu 22.04 / 24.04)</div>
+        <div class="opt-card-body">
+          <p style="font-size:0.88em;margin-top:0"><strong>Best for:</strong> Fine-tuning, production multi-user serving, AMD discrete GPU acceleration, multi-GPU setups, and developers who need the full toolchain without compatibility workarounds.</p>
+          <ul>
+            <li><strong>The reference platform for all AI/ML work.</strong> vLLM, Axolotl, Unsloth, TensorRT-LLM, and BitsAndBytes are developed and tested on Linux first. Some capabilities are Linux-only or substantially faster on Linux.</li>
+            <li><strong>ROCm works properly only on Linux.</strong> AMD ROCm 6.0+ enables full GPU acceleration for llama.cpp, vLLM, and PyTorch on RX 6000/7000 series GPUs. On Windows, ROCm support for discrete GPUs is not available &mdash; use Vulkan there instead.</li>
+            <li><strong>Claude Code and Aider are native.</strong> The full agentic experience &mdash; file editing, bash commands, multi-file reasoning, git integration &mdash; works without any wrapper or workaround.</li>
+            <li><strong>Fine-tuning requires Linux.</strong> Axolotl (most widely used LoRA/QLoRA pipeline), Unsloth (2&times; faster LoRA with less VRAM), and BitsAndBytes (required for QLoRA) all require Linux + CUDA. Attempting native Windows fine-tuning consistently produces environment and CUDA library compatibility errors.</li>
+            <li><strong>Docker + NVIDIA Container Toolkit</strong> enables fully reproducible GPU-accelerated environments. Deploy vLLM in one command: <code>docker run --gpus all vllm/vllm-openai:latest --model meta-llama/Llama-3.1-70B-Instruct</code> &mdash; the standard production pattern.</li>
+            <li><strong>Driver management is the main friction point.</strong> NVIDIA drivers require matching kernel headers and DKMS modules. Before upgrading the kernel, confirm the driver package is compatible. Use <code>apt-mark hold linux-image-generic</code> to pin a stable kernel once the driver is working.</li>
+            <li><strong>Full quantization access:</strong> GGUF, EXL2, GPTQ, AWQ, BitsAndBytes (4-bit/8-bit), and all llama.cpp-supported formats. Linux + CUDA gives access to every inference and training optimization path simultaneously.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="opt-section">
+    <h3>Recommended Setup by Goal</h3>
+    <table class="opt-table">
+      <thead><tr><th>Goal</th><th>Recommended OS</th><th>Reasoning</th></tr></thead>
+      <tbody>
+        <tr><td>Run local chat models (beginner)</td><td>Windows or macOS</td><td>Ollama and LM Studio work on all platforms. Windows has the widest consumer GPU support; macOS has the simplest environment setup.</td></tr>
+        <tr><td>Fine-tune models (LoRA / QLoRA)</td><td>Linux (Ubuntu 22.04)</td><td>Axolotl, Unsloth, and BitsAndBytes require Linux + CUDA. Most tutorials, Docker images, and Hugging Face guides assume Ubuntu.</td></tr>
+        <tr><td>Production multi-user model serving</td><td>Linux</td><td>vLLM with PagedAttention, Docker + NVIDIA Container Toolkit, and production monitoring (Prometheus, Grafana) are all Linux-native.</td></tr>
+        <tr><td>Daily Claude Code use</td><td>macOS or Linux</td><td>Native first-class support on both. On Windows, WSL2 setup is required and file I/O across the WSL2/Windows boundary is slower.</td></tr>
+        <tr><td>AMD discrete GPU inference</td><td>Linux</td><td>ROCm is Linux-only for discrete GPUs. On Windows, use Vulkan in llama.cpp/Ollama &mdash; functional but ~10&ndash;15% slower than ROCm on Linux for the same hardware.</td></tr>
+        <tr><td>Run 70B+ parameter models</td><td>macOS (Apple Silicon) or Linux (multi-GPU)</td><td>Apple unified memory and NVIDIA NVLink multi-GPU are the two viable paths to 70B+ at usable speed without an extreme budget.</td></tr>
+        <tr><td>Gaming + AI on one machine</td><td>Windows</td><td>Windows remains the primary gaming platform. NVIDIA CUDA AI tools work natively on Windows alongside games without issue.</td></tr>
+        <tr><td>Power-efficient always-on server</td><td>macOS (Apple Silicon)</td><td>Apple Silicon offers the best performance-per-watt ratio for LLM inference. A Mac mini M4 Pro can idle at under 10 W while ready to serve requests.</td></tr>
+        <tr><td>Maximum quantization format access</td><td>Linux</td><td>Linux + CUDA is the only platform where GGUF, EXL2, GPTQ, AWQ, BitsAndBytes, and ONNX with CUDA EP are all simultaneously available.</td></tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SOFTWARE TAB
+═══════════════════════════════════════════════════════════ -->
+<div id="software" class="tab-content">
+  <h2>Software Guide &mdash; Inference, Coding Assistants, Fine-tuning &amp; Cloud Tools</h2>
+  <p style="max-width:820px;margin-bottom:1.5em">A structured catalog of the tools available across each stage of AI work: running local models, developing with AI assistance, fine-tuning models, and accessing cloud AI services. All tools listed are open source or have a meaningful free tier unless noted.</p>
+
+  <!-- LOCAL INFERENCE ENGINES -->
+  <div class="opt-section">
+    <h3>Local Inference Engines</h3>
+    <p style="font-size:0.88em;color:#555;margin-top:0">These tools load model files from disk and run them on your CPU or GPU. They are the foundation of local AI use.</p>
+    <div class="opt-cards">
+
+      <div class="opt-card">
+        <div class="opt-card-header opt-general">Ollama</div>
+        <div class="opt-card-body">
+          <div class="sw-tool-desc">The easiest way to run local models. Wraps llama.cpp with automatic GPU detection and exposes a REST API on localhost:11434 compatible with the OpenAI API spec.</div>
+          <span class="sw-tag sw-free">Open source</span>
+          <span class="sw-tag sw-all">Windows / macOS / Linux</span>
+          <ul>
+            <li><strong>Model library:</strong> <code>ollama pull llama3.1:70b</code> downloads, quantizes, and runs in one command. 200+ curated models available.</li>
+            <li><strong>GPU:</strong> Auto-detects CUDA (NVIDIA), Metal (Apple), and ROCm/Vulkan (AMD). No configuration needed for most setups.</li>
+            <li><strong>API compatibility:</strong> Exposes <code>/v1/chat/completions</code> endpoint, so any OpenAI-compatible client (Open WebUI, Continue.dev, Cursor) connects immediately.</li>
+            <li><strong>Limitation:</strong> Not optimised for high-throughput multi-user serving. Single-user development and local apps are the sweet spot.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="opt-card">
+        <div class="opt-card-header opt-general">LM Studio</div>
+        <div class="opt-card-body">
+          <div class="sw-tool-desc">GUI application for discovering, downloading, and running GGUF models. Built-in model browser, GPU layer slider, and a local server with OpenAI-compatible API.</div>
+          <span class="sw-tag sw-free">Free (closed source)</span>
+          <span class="sw-tag sw-all">Windows / macOS / Linux</span>
+          <ul>
+            <li><strong>Best for beginners:</strong> No command line required. Browse models from Hugging Face directly in the app, download with one click, adjust GPU layers via slider.</li>
+            <li><strong>GPU offload:</strong> Drag the "GPU Layers" slider to send as many transformer layers as fit into VRAM. Rule of thumb: each 7B layer &asymp; 100 MB VRAM.</li>
+            <li><strong>Local server mode:</strong> Enables a persistent server that other apps (Open WebUI, Continue.dev) can connect to.</li>
+            <li><strong>Limitation:</strong> Closed source; slightly behind llama.cpp direct on performance. Does not support vLLM-style batching.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="opt-card">
+        <div class="opt-card-header opt-general">Jan.ai</div>
+        <div class="opt-card-body">
+          <div class="sw-tool-desc">Open-source desktop app providing a full ChatGPT-style local interface with model management, extension support, and a local API server.</div>
+          <span class="sw-tag sw-free">Open source</span>
+          <span class="sw-tag sw-all">Windows / macOS / Linux</span>
+          <ul>
+            <li><strong>Full offline operation:</strong> Designed to work with no internet connection. Model files are stored locally; no data leaves the machine.</li>
+            <li><strong>Extension ecosystem:</strong> Supports plugins for additional functionality such as web search, document retrieval, and remote model endpoints.</li>
+            <li><strong>API server:</strong> Exposes an OpenAI-compatible API on localhost:1337, allowing integration with any client that speaks the OpenAI format.</li>
+            <li><strong>Good alternative to LM Studio</strong> for users who prefer open-source software with the same ease of use.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="opt-card">
+        <div class="opt-card-header opt-general">GPT4All</div>
+        <div class="opt-card-body">
+          <div class="sw-tool-desc">Fully offline AI assistant desktop app. No internet access required at any point, including model downloads (which can be done offline via direct GGUF import).</div>
+          <span class="sw-tag sw-free">Open source</span>
+          <span class="sw-tag sw-all">Windows / macOS / Linux</span>
+          <ul>
+            <li><strong>Air-gap friendly:</strong> The strongest choice for environments where internet connectivity must be fully severed after setup.</li>
+            <li><strong>LocalDocs feature:</strong> Index local documents (PDF, Word, text) and ask questions about them with retrieval-augmented generation (RAG).</li>
+            <li><strong>CPU-first design:</strong> Works well on CPU-only systems. GPU acceleration via Vulkan is available but less optimised than Ollama/LM Studio.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="opt-card">
+        <div class="opt-card-header opt-general">KoboldCPP</div>
+        <div class="opt-card-body">
+          <div class="sw-tool-desc">A single-binary fork of llama.cpp with a built-in web UI, advanced sampling controls, and strong support for long-form creative writing and roleplay use cases.</div>
+          <span class="sw-tag sw-free">Open source</span>
+          <span class="sw-tag sw-all">Windows / macOS / Linux</span>
+          <ul>
+            <li><strong>Single executable:</strong> Download one file and run it &mdash; no Python environment or package manager required.</li>
+            <li><strong>Advanced sampling:</strong> Includes mirostat, tail-free sampling, and Typical P sampling not found in all frontends &mdash; particularly useful for creative/story generation.</li>
+            <li><strong>SillyTavern/Agnai integration:</strong> The community-standard backend for character-based AI chat interfaces.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="opt-card">
+        <div class="opt-card-header opt-general">llama.cpp (direct)</div>
+        <div class="opt-card-body">
+          <div class="sw-tool-desc">The foundational C++ inference engine that powers Ollama, LM Studio, and KoboldCPP. Run it directly for maximum control over every parameter.</div>
+          <span class="sw-tag sw-free">Open source</span>
+          <span class="sw-tag sw-all">Windows / macOS / Linux</span>
+          <ul>
+            <li><strong>Maximum control:</strong> Exposes every optimization flag: <code>-ngl</code> (GPU layers), <code>--ctx-size</code>, <code>--cache-type-k</code>, <code>--flash-attn</code>, <code>-t</code> (threads), <code>--mlock</code>, and more.</li>
+            <li><strong>Supports all GPU backends</strong> in one codebase: CUDA, Metal, ROCm (HIPrt), Vulkan, OpenCL, and CPU-only (AVX2, AVX-512).</li>
+            <li><strong>GGUF quantization server:</strong> Includes <code>llama-quantize</code> to convert and quantize models locally without uploading to a cloud service.</li>
+            <li><strong>Best choice when</strong> you are benchmarking, scripting, or need a parameter not exposed by higher-level tools.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="opt-card">
+        <div class="opt-card-header opt-nvidia">vLLM</div>
+        <div class="opt-card-body">
+          <div class="sw-tool-desc">Production-grade inference server for NVIDIA GPUs. Uses PagedAttention for efficient KV-cache memory management and continuous batching for high-throughput multi-user serving.</div>
+          <span class="sw-tag sw-free">Open source</span>
+          <span class="sw-tag sw-lin">Linux (CUDA required)</span>
+          <ul>
+            <li><strong>PagedAttention:</strong> Manages KV-cache in variable-size pages, dramatically reducing memory fragmentation and enabling 2&ndash;5&times; higher throughput than llama.cpp for concurrent users.</li>
+            <li><strong>Continuous batching:</strong> Processes multiple requests simultaneously without waiting for a full batch, reducing latency under load.</li>
+            <li><strong>OpenAI-compatible API:</strong> Drop-in replacement for OpenAI endpoints &mdash; connect any client without code changes.</li>
+            <li><strong>Requires Linux + CUDA.</strong> Not supported on macOS or Windows without WSL2. The standard choice for production NVIDIA deployments.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="opt-card">
+        <div class="opt-card-header opt-nvidia">ExLlamaV2</div>
+        <div class="opt-card-body">
+          <div class="sw-tool-desc">The fastest CUDA inference engine for quantized models. Uses the EXL2 quantization format, which achieves higher quality than GGUF Q4 at the same file size via per-row quantization.</div>
+          <span class="sw-tag sw-free">Open source</span>
+          <span class="sw-tag sw-win">Windows</span>
+          <span class="sw-tag sw-lin">Linux</span>
+          <ul>
+            <li><strong>EXL2 format:</strong> Per-row mixed-precision quantization. A 4-bit EXL2 model typically outperforms a GGUF Q4_K_M on the same hardware in quality benchmarks.</li>
+            <li><strong>Speed:</strong> Consistently outperforms TensorRT-LLM on chat workloads at Q4&ndash;Q5. Best choice for maximum CUDA inference speed with quantized models.</li>
+            <li><strong>Speculative decoding support:</strong> Use a small draft model to propose tokens &mdash; can yield near 2&times; speed on certain workloads.</li>
+            <li><strong>Tabby API server:</strong> ExLlamaV2 is the backend for TabbyAPI, a high-performance OpenAI-compatible server used by many frontends.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- AI CODING ASSISTANTS -->
+  <div class="opt-section">
+    <h3>AI Coding Assistants</h3>
+    <p style="font-size:0.88em;color:#555;margin-top:0">Tools that integrate AI into the code-writing and editing workflow, from inline completions to full agentic coding agents that can edit multiple files and run commands.</p>
+    <div class="opt-cards">
+
+      <div class="opt-card">
+        <div class="opt-card-header opt-general">Claude Code (Anthropic)</div>
+        <div class="opt-card-body">
+          <div class="sw-tool-desc">Terminal-based agentic coding assistant. Reads and edits files, runs shell commands, searches the codebase, and writes and executes code autonomously within a directory. Uses Claude models via API.</div>
+          <span class="sw-tag sw-freemium">Pay-per-token</span>
+          <span class="sw-tag sw-mac">macOS native</span>
+          <span class="sw-tag sw-lin">Linux native</span>
+          <span class="sw-tag sw-win">WSL2 on Windows</span>
+          <ul>
+            <li><strong>Full agentic loop:</strong> Can read project files, propose and apply edits, run tests, and iterate on errors without constant user prompting. Most effective on large codebases.</li>
+            <li><strong>Git integration:</strong> Understands git history, creates commits, and works across branches. Best used in a git-tracked repository.</li>
+            <li><strong>Windows note:</strong> Requires WSL2 (Ubuntu 22.04+). Running inside WSL2 gives the same experience as Linux. File edits across the <code>/mnt/c</code> mount work but are slower than editing files inside the WSL2 filesystem.</li>
+            <li><strong>Model selection:</strong> Defaults to Claude Sonnet; can be configured to use Claude Opus for complex reasoning tasks at higher cost.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="opt-card">
+        <div class="opt-card-header opt-general">GitHub Copilot</div>
+        <div class="opt-card-body">
+          <div class="sw-tool-desc">The most widely used AI coding assistant. Provides inline code completion and a chat panel within VS Code, JetBrains IDEs, Neovim, and others. Uses GPT-4o and Claude models depending on task.</div>
+          <span class="sw-tag sw-paid">$10/month (individual)</span>
+          <span class="sw-tag sw-all">All platforms</span>
+          <ul>
+            <li><strong>Inline completion:</strong> Suggests single lines or entire function bodies as you type with low latency. Works in virtually all languages.</li>
+            <li><strong>Copilot Chat:</strong> Ask questions about the codebase, get explanations, generate tests, and fix errors directly in the IDE sidebar.</li>
+            <li><strong>Copilot Workspace / Agent:</strong> Multi-step task completion &mdash; describe a feature and Copilot proposes a plan, creates files, and opens PRs (enterprise tier).</li>
+            <li><strong>Model choice:</strong> GitHub now lets users select the underlying model (GPT-4o, Claude Sonnet, Gemini 2.0) per session.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="opt-card">
+        <div class="opt-card-header opt-general">Cursor</div>
+        <div class="opt-card-body">
+          <div class="sw-tool-desc">AI-first code editor forked from VS Code. Adds a multi-file edit "Composer" mode, codebase-wide context awareness, and tight model integration beyond what VS Code extensions provide.</div>
+          <span class="sw-tag sw-freemium">Free tier / $20 month pro</span>
+          <span class="sw-tag sw-all">Windows / macOS / Linux</span>
+          <ul>
+            <li><strong>Composer mode:</strong> Describe a change in natural language; Cursor proposes and applies diffs across multiple files simultaneously &mdash; the main differentiator from GitHub Copilot.</li>
+            <li><strong>Codebase indexing:</strong> Indexes your entire repository for semantic search, giving the model accurate context even in large codebases.</li>
+            <li><strong>Model selection:</strong> Supports Claude 3.5/3.7 Sonnet, GPT-4o, and o3 &mdash; swappable per-task. Can also point to a local Ollama endpoint for completions.</li>
+            <li><strong>Tab / Ghost text:</strong> A distinctive predictive editing feature that anticipates your next edit based on recent changes &mdash; faster than standard autocomplete.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="opt-card">
+        <div class="opt-card-header opt-general">Continue.dev</div>
+        <div class="opt-card-body">
+          <div class="sw-tool-desc">Open-source AI coding extension for VS Code and JetBrains. Unique in that it supports local Ollama models as well as cloud APIs, giving you AI coding assistance with no data leaving your machine.</div>
+          <span class="sw-tag sw-free">Open source</span>
+          <span class="sw-tag sw-all">Windows / macOS / Linux</span>
+          <ul>
+            <li><strong>Local model support:</strong> Connect to Ollama, LM Studio, or any OpenAI-compatible API. Run Qwen2.5-Coder 32B locally for code completion with full privacy.</li>
+            <li><strong>Configurable via JSON:</strong> <code>config.json</code> specifies models for chat, completion, and embedding independently &mdash; mix local and cloud models.</li>
+            <li><strong>Tab autocomplete:</strong> Uses a separate fast local model (e.g. Qwen2.5-Coder 1.5B) for low-latency line completions while using a larger model for chat.</li>
+            <li><strong>Best choice for</strong> developers who want GitHub Copilot-style features but with local models and no subscription.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="opt-card">
+        <div class="opt-card-header opt-general">Windsurf (Codeium)</div>
+        <div class="opt-card-body">
+          <div class="sw-tool-desc">AI-first code editor from Codeium, similar to Cursor. Offers a "Cascade" agent mode for multi-step task completion and deep IDE integration. Strong free tier.</div>
+          <span class="sw-tag sw-freemium">Free tier / $15 month pro</span>
+          <span class="sw-tag sw-all">Windows / macOS / Linux</span>
+          <ul>
+            <li><strong>Cascade agent:</strong> Handles multi-file edits, runs terminal commands, reads error output, and iterates &mdash; similar to Claude Code but embedded in the IDE.</li>
+            <li><strong>Generous free tier:</strong> Unlimited code completions and a meaningful number of agent interactions per month at no cost &mdash; competitive with Cursor.</li>
+            <li><strong>Codeium extension also available</strong> as a VS Code/JetBrains plugin if you don't want to switch editors, providing completions without the full Windsurf agent.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="opt-card">
+        <div class="opt-card-header opt-general">Aider</div>
+        <div class="opt-card-body">
+          <div class="sw-tool-desc">Terminal-based AI coding agent emphasizing git-awareness. Applies changes as atomic git commits, supports multiple files per session, and works with any LLM including local Ollama models.</div>
+          <span class="sw-tag sw-free">Open source</span>
+          <span class="sw-tag sw-all">Windows / macOS / Linux</span>
+          <ul>
+            <li><strong>Git-first workflow:</strong> Every change is committed with a descriptive message, making it easy to review, revert, or cherry-pick AI edits.</li>
+            <li><strong>Local model support:</strong> Connect to an Ollama endpoint and use Qwen2.5-Coder 32B or DeepSeek-Coder V2 for fully offline coding assistance.</li>
+            <li><strong>Benchmark leading:</strong> Consistently at the top of the SWE-Bench leaderboard for open-source coding agents, particularly in architect + editor mode (uses two models cooperatively).</li>
+            <li><strong>Works well alongside Claude Code</strong> &mdash; use Aider for git-structured file edits and Claude Code for broader exploration and command execution.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CHAT FRONTENDS -->
+  <div class="opt-section">
+    <h3>Local Chat Frontends &amp; Self-Hosted UIs</h3>
+    <p style="font-size:0.88em;color:#555;margin-top:0">Web or desktop interfaces that connect to Ollama, LM Studio, or vLLM and provide a chat experience similar to ChatGPT but running entirely on your hardware.</p>
+    <div class="opt-cards">
+
+      <div class="opt-card">
+        <div class="opt-card-header opt-general">Open WebUI</div>
+        <div class="opt-card-body">
+          <div class="sw-tool-desc">The most popular self-hosted ChatGPT-style web interface. Connects to Ollama and OpenAI-compatible APIs. Runs as a Docker container or Python package. Feature parity with ChatGPT's web UI including document upload, image analysis, and multi-model switching.</div>
+          <span class="sw-tag sw-free">Open source</span>
+          <span class="sw-tag sw-all">All platforms (browser-based)</span>
+          <ul>
+            <li><strong>One-command install:</strong> <code>docker run -d -p 3000:80 --add-host=host.docker.internal:host-gateway ghcr.io/open-webui/open-webui:main</code> &mdash; connects to a running Ollama instance automatically.</li>
+            <li><strong>RAG support:</strong> Upload PDFs, web URLs, or YouTube transcripts; the model retrieves relevant chunks during conversation.</li>
+            <li><strong>Multi-model conversations:</strong> Chat with multiple models side by side and compare responses.</li>
+            <li><strong>User management:</strong> Supports multiple user accounts with role-based access &mdash; suitable for sharing a local model server within a team.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="opt-card">
+        <div class="opt-card-header opt-general">LibreChat</div>
+        <div class="opt-card-body">
+          <div class="sw-tool-desc">Self-hosted multi-provider chat interface supporting OpenAI, Anthropic, Google, Azure, and local models simultaneously in one UI. Strong feature set with branching conversations, code execution, and plugin support.</div>
+          <span class="sw-tag sw-free">Open source</span>
+          <span class="sw-tag sw-all">All platforms (browser-based, Docker)</span>
+          <ul>
+            <li><strong>Multi-provider in one UI:</strong> Switch between ChatGPT, Claude, Gemini, and a local Ollama model within the same conversation history.</li>
+            <li><strong>Branching conversations:</strong> Fork any message to explore alternative responses without losing the original thread.</li>
+            <li><strong>Best choice</strong> when you want to compare cloud and local model outputs or need team access to multiple API providers from a single shared interface.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="opt-card">
+        <div class="opt-card-header opt-general">Chatbox</div>
+        <div class="opt-card-body">
+          <div class="sw-tool-desc">Desktop application for AI chat supporting OpenAI, Anthropic, Google, Azure, and local Ollama endpoints. Stores conversations locally; no cloud sync unless configured. Good low-friction option for non-technical users.</div>
+          <span class="sw-tag sw-freemium">Free (basic) / Pro subscription</span>
+          <span class="sw-tag sw-all">Windows / macOS / Linux</span>
+          <ul>
+            <li><strong>Desktop-native:</strong> Installs like a normal application; no Docker or server setup needed. Connect to Ollama by pointing it to <code>http://localhost:11434</code>.</li>
+            <li><strong>Privacy-first defaults:</strong> Conversation history stored locally by default. Suitable for sensitive work where cloud storage of chat history is undesirable.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="opt-card">
+        <div class="opt-card-header opt-general">Msty</div>
+        <div class="opt-card-body">
+          <div class="sw-tool-desc">Desktop AI assistant that aggregates local Ollama models and cloud APIs in a polished UI. Notable for its "Knowledge" feature &mdash; attach local documents to conversations &mdash; and side-by-side model comparison.</div>
+          <span class="sw-tag sw-freemium">Free tier available</span>
+          <span class="sw-tag sw-all">Windows / macOS / Linux</span>
+          <ul>
+            <li><strong>Model comparison view:</strong> Query multiple models simultaneously and view responses side by side in the same window.</li>
+            <li><strong>Knowledge library:</strong> Attach PDF, Word, or text files to a conversation with built-in RAG. No separate setup required.</li>
+            <li><strong>Good choice</strong> for users who want a more polished interface than Open WebUI without the Docker setup complexity.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- CLOUD AND API ACCESS -->
+  <div class="opt-section">
+    <h3>Cloud AI Services &amp; API Access</h3>
+    <p style="font-size:0.88em;color:#555;margin-top:0">Services that provide access to large frontier models via web interface or API. Useful when a task exceeds local hardware capacity or when the latest proprietary model is needed.</p>
+    <table class="opt-table">
+      <thead><tr>
+        <th>Service</th>
+        <th>Models Available</th>
+        <th>Pricing</th>
+        <th>Privacy / Notes</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Claude.ai (Anthropic)</strong></td>
+          <td>Claude 3.5 Haiku, Claude Sonnet 4, Claude Opus 4</td>
+          <td>Free tier / $20&ndash;$25/month Pro / API pay-per-token</td>
+          <td>Strong system prompt adherence. Pro tier includes extended context (200K tokens), Projects (persistent memory), and document upload. API keys required for Claude Code.</td>
+        </tr>
+        <tr>
+          <td><strong>ChatGPT (OpenAI)</strong></td>
+          <td>GPT-4o, o3, o3-mini, GPT-4.5</td>
+          <td>Free (GPT-4o limited) / $20/month Plus / API pay-per-token</td>
+          <td>Widest tool-use ecosystem. GPT-4o includes image generation (DALL-E 3), web browsing, and code execution in one model. o3 is the strongest reasoning model for complex multi-step problems.</td>
+        </tr>
+        <tr>
+          <td><strong>DuckDuckGo AI Chat</strong></td>
+          <td>Claude 3 Haiku, GPT-4o mini, Llama 3, Mistral</td>
+          <td>Free (no account required)</td>
+          <td>Privacy-focused: DuckDuckGo does not store conversations and removes identifying metadata before forwarding to model providers. Best for quick queries where privacy is a priority.</td>
+        </tr>
+        <tr>
+          <td><strong>Perplexity</strong></td>
+          <td>Sonar (proprietary), Claude, GPT-4o</td>
+          <td>Free / $20/month Pro</td>
+          <td>AI search engine that cites sources with inline references. Excellent for research queries, real-time information, and technical documentation lookups. Pro tier adds file upload and image generation.</td>
+        </tr>
+        <tr>
+          <td><strong>Phind</strong></td>
+          <td>Phind-70B (code-focused), GPT-4o</td>
+          <td>Free (limited) / $20/month Pro</td>
+          <td>Developer-focused search and chat. Specialises in code questions, pulls from Stack Overflow, GitHub, and documentation. Strong at answering "how do I do X in Y framework" questions with working code.</td>
+        </tr>
+        <tr>
+          <td><strong>Google Gemini</strong></td>
+          <td>Gemini 2.0 Flash, Gemini 2.5 Pro</td>
+          <td>Free / $20/month Advanced / API pay-per-token</td>
+          <td>Gemini 2.5 Pro has the longest context window of any frontier model (1M tokens). Excellent for large document analysis. Deep Google Workspace integration. Gemini 2.0 Flash is extremely cost-effective via API.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- FINE-TUNING AND TRAINING -->
+  <div class="opt-section">
+    <h3>Fine-tuning &amp; Training Frameworks</h3>
+    <p style="font-size:0.88em;color:#555;margin-top:0">Tools for customizing pre-trained models on your own data using LoRA, QLoRA, or full fine-tuning. Requires NVIDIA GPU (Linux) or Apple Silicon (MLX path only).</p>
+    <div class="opt-cards">
+
+      <div class="opt-card">
+        <div class="opt-card-header opt-nvidia">Axolotl</div>
+        <div class="opt-card-body">
+          <div class="sw-tool-desc">The most widely used open-source LoRA/QLoRA fine-tuning framework. YAML-based configuration means no Python scripting needed for most use cases. Supports virtually all major model architectures.</div>
+          <span class="sw-tag sw-free">Open source</span>
+          <span class="sw-tag sw-lin">Linux + CUDA</span>
+          <ul>
+            <li><strong>YAML configuration:</strong> Specify model, dataset, LoRA rank, batch size, learning rate, and all training parameters in a single <code>config.yml</code>. Run with <code>axolotl train config.yml</code>.</li>
+            <li><strong>Broad format support:</strong> Accepts ShareGPT, Alpaca, instruction, and completion formats out of the box. Custom tokenization templates for any chat format.</li>
+            <li><strong>QLoRA support:</strong> Load the base model in 4-bit BitsAndBytes precision while training LoRA adapters in FP16 &mdash; fine-tune a 70B model on a single A100 80GB.</li>
+            <li><strong>DeepSpeed integration:</strong> Enables multi-GPU and CPU memory offloading for training models that don't fit in VRAM alone.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="opt-card">
+        <div class="opt-card-header opt-nvidia">Unsloth</div>
+        <div class="opt-card-body">
+          <div class="sw-tool-desc">Accelerated LoRA fine-tuning library that rewrites attention kernels in Triton for 2&times; speed and up to 70% less VRAM compared to standard HuggingFace PEFT. The go-to tool for consumer GPU fine-tuning.</div>
+          <span class="sw-tag sw-free">Open source</span>
+          <span class="sw-tag sw-lin">Linux + CUDA</span>
+          <ul>
+            <li><strong>2&times; faster than HF PEFT</strong> at the same quality. Fine-tune Llama 3.1 8B on a 24 GB GPU in under 2 hours on a typical instruction dataset.</li>
+            <li><strong>70% less VRAM.</strong> Fine-tune a 7B model on 6 GB VRAM; a 13B on 12 GB. Enables fine-tuning on consumer RTX 3060/4060 GPUs that previously could not run training at all.</li>
+            <li><strong>Colab-native:</strong> Unsloth provides free Google Colab notebooks for every major model &mdash; fine-tune without owning any GPU hardware.</li>
+            <li><strong>Export to GGUF:</strong> Built-in export to GGUF quantization formats (Q4_K_M, Q5_K_M, Q8_0) immediately after training.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="opt-card">
+        <div class="opt-card-header opt-general">LLaMA-Factory</div>
+        <div class="opt-card-body">
+          <div class="sw-tool-desc">Web UI and CLI for fine-tuning over 100 model architectures with LoRA, QLoRA, DoRA, ORPO, DPO, and RLHF. Provides a visual training dashboard, dataset management, and evaluation tools in one interface.</div>
+          <span class="sw-tag sw-free">Open source</span>
+          <span class="sw-tag sw-lin">Linux + CUDA (primary)</span>
+          <ul>
+            <li><strong>Web UI (LlamaBoard):</strong> Configure and launch fine-tuning jobs from a browser without any command line or Python knowledge.</li>
+            <li><strong>Advanced alignment methods:</strong> Supports RLHF, DPO, ORPO, and reward model training &mdash; not just supervised fine-tuning. The most comprehensive fine-tuning toolkit available.</li>
+            <li><strong>Multi-GPU and distributed training</strong> via DeepSpeed and FSDP with minimal configuration.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="opt-card">
+        <div class="opt-card-header opt-apple">MLX Fine-tuning (Apple)</div>
+        <div class="opt-card-body">
+          <div class="sw-tool-desc">Apple's MLX framework includes a built-in LoRA fine-tuning path via <code>mlx_lm.lora</code>. The only fine-tuning option available on Apple Silicon &mdash; no CUDA, Axolotl, or Unsloth needed.</div>
+          <span class="sw-tag sw-free">Open source</span>
+          <span class="sw-tag sw-mac">macOS (Apple Silicon only)</span>
+          <ul>
+            <li><strong>Native Apple Silicon acceleration:</strong> Uses Metal for all matrix operations &mdash; no overhead from cross-platform abstraction layers.</li>
+            <li><strong>LoRA and QLoRA supported</strong> on most Llama, Mistral, Phi, and Qwen architecture models. Uses MLX native int4 quantization for the base model during QLoRA.</li>
+            <li><strong>Limitation:</strong> Dataset format support is narrower than Axolotl. Works best for instruction fine-tuning on simple JSONL datasets. Complex alignment training (DPO, RLHF) is not yet fully supported.</li>
+            <li><strong>Run with:</strong> <code>mlx_lm.lora --model &lt;path&gt; --train --data ./data --iters 1000 --batch-size 4</code></li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- MODEL DISCOVERY AND MANAGEMENT -->
+  <div class="opt-section">
+    <h3>Model Discovery, Evaluation &amp; Experiment Tracking</h3>
+    <table class="opt-table">
+      <thead><tr>
+        <th>Tool</th>
+        <th>Purpose</th>
+        <th>Cost</th>
+        <th>Key Features</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>Hugging Face Hub</strong></td>
+          <td>Model repository &amp; discovery</td>
+          <td>Free (storage limits) / Pro</td>
+          <td>800,000+ models, datasets, and Spaces. Filter by task, license, and quantization format. The standard place to find GGUF, GPTQ, and AWQ quantized model variants. Direct download links for Ollama and llama.cpp.</td>
+        </tr>
+        <tr>
+          <td><strong>Ollama Model Library</strong></td>
+          <td>Curated models for Ollama</td>
+          <td>Free</td>
+          <td>Curated, verified GGUF models runnable with one command. Smaller and more opinionated than HF Hub. Includes all popular models (Llama 3, Mistral, Qwen, Phi, Gemma) pre-tested with Ollama.</td>
+        </tr>
+        <tr>
+          <td><strong>LMSYS Chatbot Arena</strong></td>
+          <td>Blind model evaluation leaderboard</td>
+          <td>Free</td>
+          <td>Community-ranked model leaderboard based on blind A/B comparisons. The most reliable quality ranking because it reflects human preferences, not just academic benchmarks. Good for choosing between similar model sizes.</td>
+        </tr>
+        <tr>
+          <td><strong>Weights &amp; Biases (W&amp;B)</strong></td>
+          <td>Experiment tracking &amp; ML monitoring</td>
+          <td>Free (personal) / $50/month Teams</td>
+          <td>Log training loss curves, hyperparameters, GPU metrics, and model checkpoints. Integrates with Axolotl, Unsloth, and transformers natively. The standard tool for tracking fine-tuning runs.</td>
+        </tr>
+        <tr>
+          <td><strong>MLflow</strong></td>
+          <td>Open-source experiment tracking</td>
+          <td>Free (self-hosted)</td>
+          <td>Local alternative to W&amp;B. Track experiments, compare model versions, and serve models via its built-in REST API. No cloud dependency &mdash; runs on your own machine or server.</td>
+        </tr>
+        <tr>
+          <td><strong>lm-evaluation-harness</strong></td>
+          <td>Standardized model benchmarking</td>
+          <td>Free (open source)</td>
+          <td>Eleuther AI's framework for running standard benchmarks (MMLU, HellaSwag, ARC, TruthfulQA) against local models. The tool used to generate most public benchmark numbers. Run with <code>lm_eval --model hf --model_args pretrained=&lt;model&gt; --tasks mmlu</code>.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
 </div>
 
 <script>
