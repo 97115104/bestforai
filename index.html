@@ -132,6 +132,89 @@
     }
     .price-diff.positive { color: #28a745; }
     .price-diff.negative { color: #dc3545; }
+
+    /* ── GPU Rankings tab ─────────────────────────────────────── */
+    #gpu-controls { display: flex; gap: 0.8em; flex-wrap: wrap; margin-bottom: 1.2em; align-items: center; }
+    #gpu-controls select, #gpu-controls input { padding: 0.55em 0.75em; border: 1px solid #ccc; border-radius: var(--border-radius); font-size: 0.93em; }
+    .mfr-filter-group { display: flex; gap: 0.4em; }
+    .mfr-btn {
+      padding: 0.45em 1em; border: 2px solid #ccc; border-radius: 20px;
+      background: #fff; cursor: pointer; font-size: 0.9em; font-weight: 500; transition: all 0.15s;
+    }
+    .mfr-btn.active-nvidia  { border-color: #76b900; background: #76b900; color: #fff; }
+    .mfr-btn.active-amd     { border-color: #ed1c24; background: #ed1c24; color: #fff; }
+    .mfr-btn.active-apple   { border-color: #555;    background: #555;    color: #fff; }
+    .mfr-btn.active-all     { border-color: var(--accent-color); background: var(--accent-color); color: #fff; }
+    .score-bar-wrap { display: flex; align-items: center; gap: 0.5em; min-width: 120px; }
+    .score-bar { height: 10px; border-radius: 5px; background: var(--accent-color); transition: width 0.3s; }
+    .score-num { font-size: 0.85em; white-space: nowrap; }
+    .mfr-badge {
+      display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.78em;
+      font-weight: 700; letter-spacing: 0.04em;
+    }
+    .badge-nvidia { background: #d4edda; color: #155724; }
+    .badge-amd    { background: #fde8e8; color: #721c24; }
+    .badge-apple  { background: #e2e3e5; color: #383d41; }
+    .mfr-comparison-section { margin-top: 2em; }
+    .mfr-comparison-section h3 { margin-bottom: 0.8em; }
+    .mfr-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2em; }
+    .mfr-card { border-radius: var(--border-radius); padding: 1.4em; border: 1px solid var(--table-border-color); }
+    .mfr-card.nvidia { border-top: 4px solid #76b900; }
+    .mfr-card.amd    { border-top: 4px solid #ed1c24; }
+    .mfr-card.apple  { border-top: 4px solid #555; }
+    .mfr-card h4 { margin: 0 0 0.7em; font-size: 1.05em; }
+    .mfr-card ul { margin: 0; padding-left: 1.2em; font-size: 0.92em; line-height: 1.7; }
+    .mfr-card .verdict { margin-top: 0.8em; padding: 0.6em 0.9em; background: var(--note-bg-color); border-radius: 4px; font-size: 0.88em; }
+    #gpuTable th { white-space: nowrap; }
+
+    /* ── Best Match Finder tab ────────────────────────────────── */
+    #bestmatch { padding: 0; }
+    .finder-layout { display: grid; grid-template-columns: 340px 1fr; gap: 2em; align-items: start; }
+    @media (max-width: 800px) { .finder-layout { grid-template-columns: 1fr; } }
+    .finder-form { background: var(--note-bg-color); border: 1px solid var(--table-border-color); border-radius: var(--border-radius); padding: 1.6em; }
+    .finder-form h3 { margin-top: 0; }
+    .form-group { margin-bottom: 1.1em; }
+    .form-group label { display: block; font-weight: 600; margin-bottom: 0.35em; font-size: 0.95em; }
+    .form-group select, .form-group input[type=range] { width: 100%; padding: 0.55em 0.7em; border: 1px solid #ccc; border-radius: var(--border-radius); font-size: 0.93em; box-sizing: border-box; }
+    .budget-display { font-size: 1.05em; font-weight: 700; color: var(--accent-color); margin-top: 0.25em; }
+    .os-btn-group { display: flex; gap: 0.4em; flex-wrap: wrap; }
+    .os-btn {
+      flex: 1; padding: 0.55em 0.5em; border: 2px solid #ccc; border-radius: var(--border-radius);
+      background: #fff; cursor: pointer; font-size: 0.9em; font-weight: 500; text-align: center; transition: all 0.15s;
+    }
+    .os-btn.active { border-color: var(--accent-color); background: var(--accent-color); color: #fff; }
+    .find-btn {
+      width: 100%; padding: 0.75em; background: var(--accent-color); color: #fff;
+      border: none; border-radius: var(--border-radius); font-size: 1em; font-weight: 700;
+      cursor: pointer; margin-top: 0.4em; transition: opacity 0.15s;
+    }
+    .find-btn:hover { opacity: 0.88; }
+    .result-area { min-height: 200px; }
+    .result-placeholder { color: #999; font-style: italic; margin-top: 1em; }
+    .result-card {
+      border: 2px solid var(--accent-color); border-radius: var(--border-radius);
+      padding: 1.6em; background: #f0f7ff;
+    }
+    .result-card .result-rank { font-size: 0.82em; color: #666; text-transform: uppercase; letter-spacing: 0.06em; }
+    .result-card .result-name { font-size: 1.5em; font-weight: 700; margin: 0.15em 0 0.5em; }
+    .result-card .result-meta { display: flex; flex-wrap: wrap; gap: 0.6em; margin-bottom: 1em; }
+    .result-meta-chip {
+      background: #fff; border: 1px solid #ccc; border-radius: 20px;
+      padding: 0.25em 0.75em; font-size: 0.85em; font-weight: 500;
+    }
+    .result-card .result-why { font-size: 0.93em; line-height: 1.6; }
+    .result-card .result-why strong { color: var(--accent-color); }
+    .alt-results { margin-top: 1.4em; }
+    .alt-results h4 { margin-bottom: 0.6em; font-size: 0.95em; color: #555; }
+    .alt-card {
+      border: 1px solid var(--table-border-color); border-radius: var(--border-radius);
+      padding: 0.9em 1.1em; margin-bottom: 0.7em; background: #fff;
+      display: flex; justify-content: space-between; align-items: flex-start; gap: 1em;
+    }
+    .alt-card .alt-name { font-weight: 600; }
+    .alt-card .alt-reason { font-size: 0.85em; color: #666; margin-top: 0.2em; }
+    .alt-card .alt-price { font-weight: 700; white-space: nowrap; color: #333; }
+    .no-result { padding: 1.5em; background: #fff8e1; border: 1px solid #ffe082; border-radius: var(--border-radius); }
   </style>
 </head>
 <body>
@@ -143,6 +226,8 @@
 <div class="tabs">
   <button class="tab-button active" onclick="openTab(event, 'prebuilt')">Pre-built Systems</button>
   <button class="tab-button" onclick="openTab(event, 'diy')">DIY vs. Pre-built</button>
+  <button class="tab-button" onclick="openTab(event, 'gpus'); initGpuTab()">GPU Rankings</button>
+  <button class="tab-button" onclick="openTab(event, 'bestmatch')">Best Match Finder</button>
 </div>
 
 <div id="prebuilt" class="tab-content active">
@@ -159,6 +244,12 @@
       <option value="">Filter by Type...</option>
       <option>Desktop</option>
       <option>Laptop</option>
+    </select>
+    <select id="osFilter" onchange="filterTable()">
+      <option value="">Filter by OS...</option>
+      <option>Windows</option>
+      <option>macOS</option>
+      <option>Linux</option>
     </select>
   </div>
   <p>Table columns are sortable. All systems are evaluated for AI/ML workloads. TG = Tokens/sec Generation (batch size 1).</p>
@@ -365,6 +456,158 @@
   </div>
 </div>
 
+<!-- ═══════════════════════════════════════════════════════════ GPU RANKINGS TAB -->
+<div id="gpus" class="tab-content">
+  <div id="gpu-controls">
+    <div class="mfr-filter-group">
+      <button class="mfr-btn active-all" id="mfr-all"    onclick="setMfrFilter('all')">All</button>
+      <button class="mfr-btn"            id="mfr-nvidia" onclick="setMfrFilter('NVIDIA')">NVIDIA</button>
+      <button class="mfr-btn"            id="mfr-amd"    onclick="setMfrFilter('AMD')">AMD</button>
+      <button class="mfr-btn"            id="mfr-apple"  onclick="setMfrFilter('Apple')">Apple</button>
+    </div>
+    <select id="gpuSortSelect" onchange="renderGpuTable()">
+      <option value="score">Sort: Effectiveness Score</option>
+      <option value="tg7b">Sort: Tokens/sec (7B Q4)</option>
+      <option value="bw">Sort: Memory Bandwidth</option>
+      <option value="vram">Sort: VRAM</option>
+      <option value="price">Sort: Price (Low→High)</option>
+      <option value="valueScore">Sort: Value (t/s per $)</option>
+    </select>
+    <input type="text" id="gpuSearch" oninput="renderGpuTable()" placeholder="Search GPUs…" style="min-width:160px;">
+  </div>
+  <p style="margin-top:0;font-size:0.92em;color:#555;">
+    <strong>Effectiveness Score</strong> blends raw token generation speed, memory bandwidth, and VRAM capacity into a single 0–100 index.
+    <strong>Value Score</strong> = tokens/sec per $100 spent. Click any column header to sort.
+  </p>
+  <table id="gpuTable">
+    <thead>
+      <tr>
+        <th onclick="gpuSortCol('rank')">#</th>
+        <th onclick="gpuSortCol('name')">GPU</th>
+        <th onclick="gpuSortCol('mfr')">Maker</th>
+        <th onclick="gpuSortCol('vram')">VRAM (GB)</th>
+        <th onclick="gpuSortCol('bw')">Bandwidth (GB/s)</th>
+        <th onclick="gpuSortCol('tg7b')">TG 7B Q4 (t/s)</th>
+        <th onclick="gpuSortCol('tg70b')">TG 70B Q4 (t/s)</th>
+        <th onclick="gpuSortCol('price')">Price (USD)</th>
+        <th onclick="gpuSortCol('valueScore')">Value Score</th>
+        <th onclick="gpuSortCol('score')">Effectiveness</th>
+        <th onclick="gpuSortCol('bestFor')">Best For</th>
+      </tr>
+    </thead>
+    <tbody id="gpuTableBody"></tbody>
+  </table>
+
+  <div class="mfr-comparison-section">
+    <h3>Manufacturer Tradeoffs</h3>
+    <div class="mfr-cards">
+      <div class="mfr-card nvidia">
+        <h4>🟢 NVIDIA</h4>
+        <ul>
+          <li><strong>Speed king:</strong> Highest tokens/sec for models that fit in VRAM — RTX 5090 at 1,792 GB/s is unmatched on the consumer market.</li>
+          <li><strong>CUDA ecosystem:</strong> Every AI framework (PyTorch, vLLM, TensorRT, llama.cpp) works out of the box. Zero configuration headaches.</li>
+          <li><strong>VRAM ceiling:</strong> Consumer cards top out at 32GB (5090). Professional cards (RTX 6000 Ada: 48GB, A100: 80GB) cost significantly more.</li>
+          <li><strong>Training:</strong> Best-in-class for fine-tuning and training with full CUDA support.</li>
+          <li><strong>Power draw:</strong> RTX 5090 ≈ 575W — a space heater. Dedicated airflow/cooling needed.</li>
+          <li><strong>P2P blocked:</strong> Consumer multi-GPU peer-to-peer is disabled by default in drivers (workaround requires patched kernel modules).</li>
+        </ul>
+        <div class="verdict">✅ <strong>Choose NVIDIA if:</strong> you run models ≤30B and want maximum speed, or need fine-tuning &amp; training.</div>
+      </div>
+      <div class="mfr-card amd">
+        <h4>🔴 AMD</h4>
+        <ul>
+          <li><strong>Ryzen AI Max+ 395:</strong> The standout — 128GB unified memory at ~$1,500–2,500 is the cheapest way to run 70B models on x86.</li>
+          <li><strong>Bandwidth:</strong> Radeon RX 7900 XTX has 960 GB/s — competitive with NVIDIA RTX 4090 (1,008 GB/s), at a lower price.</li>
+          <li><strong>ROCm ecosystem:</strong> Improving rapidly (vLLM support added 2024), but still lags CUDA. Occasional bugs, fewer tutorials.</li>
+          <li><strong>Vulkan backend:</strong> llama.cpp Vulkan is often faster than ROCm for pure inference; ~20% advantage in recent tests.</li>
+          <li><strong>Discrete VRAM limit:</strong> RX 7900 XTX tops at 24GB — same ceiling as RTX 4090.</li>
+          <li><strong>BIOS gotcha:</strong> Ryzen AI Max laptops default to 32GB GPU allocation; must manually set to 96–128GB for proper performance.</li>
+        </ul>
+        <div class="verdict">✅ <strong>Choose AMD if:</strong> you need 70B+ on a budget (Ryzen AI Max+ 395), or want competitive discrete GPU performance at lower cost than NVIDIA.</div>
+      </div>
+      <div class="mfr-card apple">
+        <h4>⚫ Apple Silicon</h4>
+        <ul>
+          <li><strong>Unified memory:</strong> M3 Ultra at 192–512GB is the only consumer path to running 200B+ models locally without a multi-GPU rig.</li>
+          <li><strong>MLX framework:</strong> Apple-optimized; 20–30% faster than Ollama for inference. Speculative decoding can roughly double token generation.</li>
+          <li><strong>Token generation speed:</strong> M3 Ultra (~800 GB/s) loses to RTX 5090 (1,792 GB/s) for models that fit in VRAM — ~97 t/s vs ~250 t/s on 7B.</li>
+          <li><strong>Power efficiency:</strong> Mac Studio at ~150W vs RTX 5090 system at ~800W+. Silent under moderate load.</li>
+          <li><strong>Concurrency:</strong> Handles concurrent requests worse than NVIDIA; not ideal for multi-user serving.</li>
+          <li><strong>No GPU-only option:</strong> Apple Silicon is integrated — you buy the whole computer, not a card.</li>
+          <li><strong>macOS only:</strong> No Linux, no CUDA. Only MLX, llama.cpp, and Ollama with Metal.</li>
+        </ul>
+        <div class="verdict">✅ <strong>Choose Apple if:</strong> you need to run very large models (70B+) in a quiet, efficient package, or you're already in the Apple ecosystem.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ BEST MATCH FINDER TAB -->
+<div id="bestmatch" class="tab-content">
+  <h3 style="margin-top:0;">Find Your Best Match</h3>
+  <p style="margin-top:-0.5em;color:#555;font-size:0.94em;">Tell us your preferences and we'll narrow the field to the best hardware option for you.</p>
+  <div class="finder-layout">
+    <div class="finder-form">
+      <h3 style="margin-top:0;">Your Requirements</h3>
+
+      <div class="form-group">
+        <label>Preferred OS / Platform</label>
+        <div class="os-btn-group">
+          <button class="os-btn" id="os-macos"   onclick="setOs('macos')">macOS</button>
+          <button class="os-btn" id="os-windows" onclick="setOs('windows')">Windows</button>
+          <button class="os-btn" id="os-linux"   onclick="setOs('linux')">Linux</button>
+          <button class="os-btn active" id="os-any" onclick="setOs('any')">Any</button>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Form Factor</label>
+        <select id="ff-select">
+          <option value="any">Any (desktop or laptop)</option>
+          <option value="desktop">Desktop only</option>
+          <option value="laptop">Laptop / portable</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Budget <span class="budget-display" id="budgetLabel">$5,000</span></label>
+        <input type="range" id="budgetSlider" min="500" max="35000" step="500" value="5000"
+               oninput="document.getElementById('budgetLabel').textContent = '$' + Number(this.value).toLocaleString()">
+        <div style="display:flex;justify-content:space-between;font-size:0.78em;color:#888;margin-top:2px;">
+          <span>$500</span><span>$35,000</span>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label>Largest model I want to run</label>
+        <select id="modelSize-select">
+          <option value="7">7B – Small, fast (Mistral 7B, Gemma 7B)</option>
+          <option value="14">14B – Medium (Qwen2.5 14B, Phi-4)</option>
+          <option value="30" selected>30B – Large (Qwen 30B, Gemma 27B)</option>
+          <option value="70">70B – XL (Llama 3 70B, Qwen 72B)</option>
+          <option value="120">120B+ – Massive (Llama 3 405B, DeepSeek 671B)</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Priority</label>
+        <select id="priority-select">
+          <option value="speed">Speed (tokens/sec)</option>
+          <option value="value" selected>Value (best for budget)</option>
+          <option value="capacity">Capacity (fit largest model)</option>
+          <option value="portable">Portability</option>
+        </select>
+      </div>
+
+      <button class="find-btn" onclick="runFinder()">Find Best Match →</button>
+    </div>
+
+    <div class="result-area" id="finderResults">
+      <p class="result-placeholder">← Set your requirements and click "Find Best Match"</p>
+    </div>
+  </div>
+</div>
+
 <script>
   function openTab(evt, tabName) {
     var i, tabcontent, tablinks;
@@ -487,6 +730,267 @@
         
         tr[i].style.display = isVisible ? "" : "none";
     }
+  }
+
+  /* ══════════════════════════════════════════════════════════════
+     GPU RANKINGS DATA + LOGIC
+  ══════════════════════════════════════════════════════════════ */
+  const GPU_DATA = [
+    // name, mfr, vram, bw (GB/s), tg7b (t/s), tg70b (t/s or null), price ($USD), tier, bestFor
+    { name:"RTX 5090",           mfr:"NVIDIA", vram:32,  bw:1792, tg7b:250, tg70b:null,  price:1999,  tier:"consumer",     bestFor:"Fastest consumer GPU for ≤30B models" },
+    { name:"RTX 4090",           mfr:"NVIDIA", vram:24,  bw:1008, tg7b:140, tg70b:null,  price:1200,  tier:"consumer",     bestFor:"Best value NVIDIA for 7B–24B models" },
+    { name:"RTX 3090",           mfr:"NVIDIA", vram:24,  bw:936,  tg7b:130, tg70b:null,  price:600,   tier:"consumer",     bestFor:"Budget NVIDIA; great 24GB VRAM value" },
+    { name:"RTX 5090 (Laptop)",  mfr:"NVIDIA", vram:24,  bw:960,  tg7b:140, tg70b:null,  price:3500,  tier:"laptop",       bestFor:"Portable CUDA workload; watch thermals" },
+    { name:"RTX 4090 (Laptop)",  mfr:"NVIDIA", vram:16,  bw:576,  tg7b:80,  tg70b:null,  price:2500,  tier:"laptop",       bestFor:"Mobile CUDA inference up to 13B" },
+    { name:"A100 80GB (PCIe)",   mfr:"NVIDIA", vram:80,  bw:1935, tg7b:220, tg70b:18,    price:5000,  tier:"professional", bestFor:"70B unquantized; production inference" },
+    { name:"RTX 6000 Ada (48GB)",mfr:"NVIDIA", vram:48,  bw:960,  tg7b:200, tg70b:8,     price:6000,  tier:"professional", bestFor:"High-VRAM pro GPU; NVLink + ECC" },
+    { name:"RTX A6000 (48GB)",   mfr:"NVIDIA", vram:48,  bw:768,  tg7b:180, tg70b:7,     price:3000,  tier:"professional", bestFor:"72B Q4 capable; strong multi-GPU value" },
+    { name:"H100 80GB (PCIe)",   mfr:"NVIDIA", vram:80,  bw:2000, tg7b:260, tg70b:22,    price:25000, tier:"datacenter",   bestFor:"High-throughput production serving" },
+    { name:"RX 7900 XTX",        mfr:"AMD",    vram:24,  bw:960,  tg7b:135, tg70b:null,  price:800,   tier:"consumer",     bestFor:"Best AMD discrete; rival to RTX 4090" },
+    { name:"RX 7900 XT",         mfr:"AMD",    vram:20,  bw:800,  tg7b:115, tg70b:null,  price:650,   tier:"consumer",     bestFor:"Budget AMD; solid 20B performer" },
+    { name:"Ryzen AI Max+ 395",  mfr:"AMD",    vram:128, bw:256,  tg7b:90,  tg70b:6,     price:1800,  tier:"laptop/mini",  bestFor:"Cheapest 70B-capable x86 system" },
+    { name:"M3 Ultra (192GB)",   mfr:"Apple",  vram:192, bw:800,  tg7b:120, tg70b:20,    price:8000,  tier:"desktop",      bestFor:"Up to 120B+ models; silent & efficient" },
+    { name:"M3 Ultra (512GB)",   mfr:"Apple",  vram:512, bw:800,  tg7b:120, tg70b:20,    price:10000, tier:"desktop",      bestFor:"200B+ models; unmatched capacity" },
+    { name:"M3 Max (128GB)",     mfr:"Apple",  vram:128, bw:300,  tg7b:60,  tg70b:5,     price:4000,  tier:"laptop",       bestFor:"Portable 70B inference; macOS dev" },
+    { name:"M4 Max (128GB)",     mfr:"Apple",  vram:128, bw:410,  tg7b:75,  tg70b:6,     price:4200,  tier:"laptop",       bestFor:"Improved MacBook for 70B inference" },
+    { name:"M3 Pro (36GB)",      mfr:"Apple",  vram:36,  bw:150,  tg7b:35,  tg70b:null,  price:2200,  tier:"laptop",       bestFor:"Entry Apple; up to 30B Q4" },
+  ];
+
+  // Compute derived scores
+  GPU_DATA.forEach(g => {
+    // Value score: tokens/sec per $100
+    g.valueScore = g.price > 0 ? parseFloat((g.tg7b / g.price * 100).toFixed(2)) : 0;
+    // Effectiveness: weighted blend of normalized bw (40%), tg7b (40%), vram (20%)
+    // Will normalize after computing raw values
+  });
+  const maxBw   = Math.max(...GPU_DATA.map(g => g.bw));
+  const maxTg7b = Math.max(...GPU_DATA.map(g => g.tg7b));
+  const maxVram = Math.max(...GPU_DATA.map(g => g.vram));
+  GPU_DATA.forEach(g => {
+    g.score = parseFloat(((g.bw/maxBw)*40 + (g.tg7b/maxTg7b)*40 + (g.vram/maxVram)*20).toFixed(1));
+  });
+  // Assign rank by default score desc
+  const sorted = [...GPU_DATA].sort((a,b) => b.score - a.score);
+  sorted.forEach((g, i) => { g.rank = i + 1; });
+
+  let gpuActiveMfr = 'all';
+  let gpuSortField = 'score';
+  let gpuSortDir   = 'desc';
+  let gpuInitDone  = false;
+
+  function initGpuTab() {
+    if (!gpuInitDone) { gpuInitDone = true; renderGpuTable(); }
+  }
+
+  function setMfrFilter(mfr) {
+    gpuActiveMfr = mfr;
+    ['all','nvidia','amd','apple'].forEach(id => {
+      const el = document.getElementById('mfr-' + id);
+      el.className = 'mfr-btn';
+    });
+    const activeId = 'mfr-' + (mfr === 'NVIDIA' ? 'nvidia' : mfr === 'AMD' ? 'amd' : mfr === 'Apple' ? 'apple' : 'all');
+    const activeClass = mfr === 'NVIDIA' ? 'active-nvidia' : mfr === 'AMD' ? 'active-amd' : mfr === 'Apple' ? 'active-apple' : 'active-all';
+    document.getElementById(activeId).className = 'mfr-btn ' + activeClass;
+    renderGpuTable();
+  }
+
+  function gpuSortCol(field) {
+    if (gpuSortField === field) {
+      gpuSortDir = gpuSortDir === 'desc' ? 'asc' : 'desc';
+    } else {
+      gpuSortField = field;
+      gpuSortDir = (field === 'price' || field === 'name' || field === 'mfr' || field === 'bestFor') ? 'asc' : 'desc';
+    }
+    document.getElementById('gpuSortSelect').value = ['score','tg7b','bw','vram','price','valueScore'].includes(field) ? field : 'score';
+    renderGpuTable();
+  }
+
+  function renderGpuTable() {
+    const sortBy   = document.getElementById('gpuSortSelect').value || gpuSortField;
+    gpuSortField   = sortBy;
+    const search   = (document.getElementById('gpuSearch').value || '').toLowerCase();
+
+    let data = GPU_DATA.filter(g => {
+      if (gpuActiveMfr !== 'all' && g.mfr !== gpuActiveMfr) return false;
+      if (search && !g.name.toLowerCase().includes(search) && !g.mfr.toLowerCase().includes(search) && !g.bestFor.toLowerCase().includes(search)) return false;
+      return true;
+    });
+
+    const numericDesc = ['score','tg7b','bw','vram','valueScore'];
+    const numericAsc  = ['price'];
+    data.sort((a, b) => {
+      let av = a[sortBy], bv = b[sortBy];
+      if (typeof av === 'string') av = av.toLowerCase();
+      if (typeof bv === 'string') bv = bv.toLowerCase();
+      if (av === null) av = -1;
+      if (bv === null) bv = -1;
+      if (numericDesc.includes(sortBy)) return bv - av;
+      if (numericAsc.includes(sortBy))  return av - bv;
+      return av < bv ? -1 : av > bv ? 1 : 0;
+    });
+
+    const tbody = document.getElementById('gpuTableBody');
+    tbody.innerHTML = '';
+    const maxScore      = Math.max(...GPU_DATA.map(g => g.score));
+    const maxValueScore = Math.max(...GPU_DATA.map(g => g.valueScore));
+
+    data.forEach((g, idx) => {
+      const badgeClass = g.mfr === 'NVIDIA' ? 'badge-nvidia' : g.mfr === 'AMD' ? 'badge-amd' : 'badge-apple';
+      const barWidth   = Math.round((g.score / 100) * 100);
+      const valBarW    = Math.round((g.valueScore / maxValueScore) * 100);
+      const tg70bStr   = g.tg70b !== null ? g.tg70b : '<span style="color:#aaa">—</span>';
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${g.rank}</td>
+        <td><strong>${g.name}</strong></td>
+        <td><span class="mfr-badge ${badgeClass}">${g.mfr}</span></td>
+        <td>${g.vram}</td>
+        <td>${g.bw.toLocaleString()}</td>
+        <td>${g.tg7b}</td>
+        <td>${tg70bStr}</td>
+        <td>$${g.price.toLocaleString()}</td>
+        <td>
+          <div class="score-bar-wrap">
+            <div class="score-bar" style="width:${valBarW}%;background:#fd7e14;"></div>
+            <span class="score-num">${g.valueScore}</span>
+          </div>
+        </td>
+        <td>
+          <div class="score-bar-wrap">
+            <div class="score-bar" style="width:${barWidth}%;"></div>
+            <span class="score-num">${g.score}/100</span>
+          </div>
+        </td>
+        <td style="font-size:0.88em;">${g.bestFor}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+
+    // Update header sort arrows
+    const headers = document.querySelectorAll('#gpuTable thead th');
+    const colMap = ['rank','name','mfr','vram','bw','tg7b','tg70b','price','valueScore','score','bestFor'];
+    headers.forEach((th, i) => {
+      th.innerHTML = th.innerHTML.replace(/ [↑↓]$/, '');
+      if (colMap[i] === gpuSortField) th.innerHTML += gpuSortDir === 'desc' ? ' ↓' : ' ↑';
+    });
+  }
+
+  /* ══════════════════════════════════════════════════════════════
+     BEST MATCH FINDER LOGIC
+  ══════════════════════════════════════════════════════════════ */
+
+  // Systems dataset for recommendation engine
+  const SYSTEMS = [
+    { name:"HP Z8 G4 (Quad A100 40GB)",    os:["linux","windows"], ff:"desktop",  minPrice:25000, maxPrice:35000, maxModel:120, tg7b:540,  tg70b:50,  priority:["speed","capacity"] },
+    { name:"Dell Precision 7960 Tower",    os:["linux","windows"], ff:"desktop",  minPrice:15000, maxPrice:25000, maxModel:120, tg7b:450,  tg70b:40,  priority:["speed","capacity"] },
+    { name:"Apple Mac Studio (M3 Ultra 512GB)", os:["macos"],   ff:"desktop",  minPrice:9500,  maxPrice:11000, maxModel:200, tg7b:120,  tg70b:20,  priority:["capacity","value"] },
+    { name:"Apple Mac Studio (M3 Ultra 192GB)", os:["macos"],   ff:"desktop",  minPrice:7500,  maxPrice:9500,  maxModel:120, tg7b:120,  tg70b:18,  priority:["capacity","value"] },
+    { name:"Lenovo ThinkStation P620 (2×A6000)", os:["linux","windows"], ff:"desktop", minPrice:12000, maxPrice:18000, maxModel:70, tg7b:300, tg70b:20, priority:["capacity","speed"] },
+    { name:"HP OMEN 45L (RTX 5090)",       os:["linux","windows"], ff:"desktop",  minPrice:3500,  maxPrice:5500,  maxModel:30,  tg7b:250,  tg70b:null, priority:["speed","value"] },
+    { name:"Alienware Aurora R16 (RTX 4090)", os:["linux","windows"], ff:"desktop", minPrice:3000, maxPrice:5000, maxModel:30, tg7b:140, tg70b:null, priority:["speed","value"] },
+    { name:"DIY RTX 5090 Build",           os:["linux","windows"], ff:"desktop",  minPrice:2500,  maxPrice:4000,  maxModel:30,  tg7b:250,  tg70b:null, priority:["speed","value"] },
+    { name:"DIY RTX 4090 Build",           os:["linux","windows"], ff:"desktop",  minPrice:2000,  maxPrice:3500,  maxModel:30,  tg7b:140,  tg70b:null, priority:["speed","value"] },
+    { name:"DIY RTX 3090 Build (used)",    os:["linux","windows"], ff:"desktop",  minPrice:1200,  maxPrice:2000,  maxModel:14,  tg7b:130,  tg70b:null, priority:["value"] },
+    { name:"Apple MacBook Pro 16 (M4 Max 128GB)", os:["macos"], ff:"laptop",   minPrice:3800,  maxPrice:5000,  maxModel:70,  tg7b:75,   tg70b:6,   priority:["capacity","portable"] },
+    { name:"Apple MacBook Pro 16 (M3 Max 128GB)", os:["macos"], ff:"laptop",   minPrice:3200,  maxPrice:4200,  maxModel:70,  tg7b:60,   tg70b:5,   priority:["capacity","portable"] },
+    { name:"Asus ROG Strix Scar 18 (RTX 5090 Laptop)", os:["linux","windows"], ff:"laptop", minPrice:3500, maxPrice:5000, maxModel:30, tg7b:140, tg70b:null, priority:["speed","portable"] },
+    { name:"Asus ROG Flow Z13 / Ryzen AI Max+ 395", os:["linux","windows"], ff:"laptop", minPrice:1400, maxPrice:2800, maxModel:70, tg7b:90, tg70b:6, priority:["capacity","value","portable"] },
+    { name:"Minisforum AI MAX+ 395 Mini PC", os:["linux","windows"], ff:"laptop", minPrice:1200, maxPrice:2000, maxModel:70, tg7b:90, tg70b:6, priority:["capacity","value","portable"] },
+    { name:"ASUS Zenbook A14 (Snapdragon X Elite)", os:["windows"], ff:"laptop",  minPrice:900,  maxPrice:1600,  maxModel:7,   tg7b:25,   tg70b:null, priority:["portable"] },
+  ];
+
+  let selectedOs = 'any';
+
+  function setOs(os) {
+    selectedOs = os;
+    ['macos','windows','linux','any'].forEach(id => {
+      document.getElementById('os-' + id).classList.remove('active');
+    });
+    document.getElementById('os-' + os).classList.add('active');
+  }
+
+  function runFinder() {
+    const budget    = parseInt(document.getElementById('budgetSlider').value);
+    const modelSize = parseInt(document.getElementById('modelSize-select').value);
+    const ff        = document.getElementById('ff-select').value;
+    const priority  = document.getElementById('priority-select').value;
+
+    // Filter candidates
+    let candidates = SYSTEMS.filter(s => {
+      if (selectedOs !== 'any' && !s.os.includes(selectedOs)) return false;
+      if (ff !== 'any' && s.ff !== ff) return false;
+      if (s.minPrice > budget) return false;
+      if (s.maxModel < modelSize) return false;
+      return true;
+    });
+
+    const resultsEl = document.getElementById('finderResults');
+
+    if (candidates.length === 0) {
+      resultsEl.innerHTML = `
+        <div class="no-result">
+          <strong>No exact match found.</strong><br>
+          Your current filters (OS: ${selectedOs}, budget: $${budget.toLocaleString()}, model size: ${modelSize}B) don't match any system in our database.
+          Try increasing your budget, relaxing the OS requirement, or choosing a smaller model size.
+        </div>`;
+      return;
+    }
+
+    // Score candidates by priority
+    candidates.forEach(s => {
+      let pts = 0;
+      if (priority === 'speed')    pts = s.tg7b;
+      if (priority === 'value')    pts = s.tg7b / s.minPrice * 1000;
+      if (priority === 'capacity') pts = s.maxModel + (s.tg70b || 0) * 2;
+      if (priority === 'portable') pts = (s.ff === 'laptop' ? 50 : 0) + s.tg7b / s.minPrice * 500;
+      s._pts = pts;
+    });
+    candidates.sort((a, b) => b._pts - a._pts);
+
+    const best = candidates[0];
+    const alts = candidates.slice(1, 4);
+
+    const priorityLabel = { speed:"Maximum Speed", value:"Best Value", capacity:"Largest Model Support", portable:"Portability" }[priority];
+    const osLabel = selectedOs === 'any' ? 'Any OS' : selectedOs === 'macos' ? 'macOS' : selectedOs === 'windows' ? 'Windows' : 'Linux';
+    const modelLabel = modelSize >= 120 ? '120B+' : modelSize + 'B';
+
+    const whyMap = {
+      speed:    `delivers the highest token generation speed (~${best.tg7b} t/s on 7B models) within your budget`,
+      value:    `gives the best tokens-per-dollar ratio within your $${budget.toLocaleString()} budget`,
+      capacity: `supports up to ${best.maxModel}B parameter models${best.tg70b ? ', including 70B at ~' + best.tg70b + ' t/s' : ''}, the largest available in range`,
+      portable: `is the best portable option${best.ff === 'laptop' ? ' (laptop form factor)' : ''} with solid inference speed`
+    };
+
+    resultsEl.innerHTML = `
+      <div class="result-card">
+        <div class="result-rank">🏆 Best match for ${osLabel} · ${modelLabel} target · ${priorityLabel}</div>
+        <div class="result-name">${best.name}</div>
+        <div class="result-meta">
+          <span class="result-meta-chip">💰 From $${best.minPrice.toLocaleString()}</span>
+          <span class="result-meta-chip">⚡ ~${best.tg7b} t/s (7B Q4)</span>
+          <span class="result-meta-chip">📦 Up to ${best.maxModel >= 200 ? '200B+' : best.maxModel + 'B'} models</span>
+          <span class="result-meta-chip">${best.ff === 'laptop' ? '💼 Portable' : '🖥️ Desktop'}</span>
+          <span class="result-meta-chip">${best.os.join(' / ')}</span>
+        </div>
+        <div class="result-why">
+          <strong>Why this one?</strong> This system ${whyMap[priority]}.
+          ${modelSize >= 70 && best.maxModel >= 70 ? ' It can handle your target model size (' + modelLabel + ') fully in memory.' : ''}
+          ${priority === 'value' && best.os.includes('windows') ? ' Building a custom PC around this GPU can cut costs further — see the DIY tab.' : ''}
+        </div>
+      </div>
+      ${alts.length > 0 ? `
+      <div class="alt-results">
+        <h4>Also consider</h4>
+        ${alts.map(s => `
+          <div class="alt-card">
+            <div>
+              <div class="alt-name">${s.name}</div>
+              <div class="alt-reason">${s.tg7b} t/s · up to ${s.maxModel}B · ${s.ff} · ${s.os.join('/')}</div>
+            </div>
+            <div class="alt-price">from $${s.minPrice.toLocaleString()}</div>
+          </div>`).join('')}
+      </div>` : ''}
+    `;
   }
 </script>
 </body>
