@@ -861,3 +861,171 @@ kbd {
 @media (max-width: 768px) {
   .feat-cols { grid-template-columns: 1fr; }
 }
+
+/* ═══════════════════════════════════════════════════════════
+   MOBILE RESPONSIVE STYLES
+═══════════════════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+  /* ── GENERAL ── */
+  body { padding: 1em; font-size: 15px; }
+  h1 { font-size: 1.6em; }
+  .subtitle { font-size: 0.95em; }
+
+  /* ── TABS - horizontal scroll ── */
+  .tabs {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    flex-wrap: nowrap;
+    gap: 0;
+    position: relative;
+    z-index: 10;
+  }
+  .tabs::-webkit-scrollbar { display: none; }
+  .tab-button {
+    padding: 8px 14px;
+    font-size: 0.88em;
+    white-space: nowrap;
+    flex-shrink: 0;
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* ── TABLES - horizontal scroll wrapper ── */
+  .table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin: 0 -1em;
+    padding: 0 1em;
+  }
+  table {
+    min-width: 600px;
+    font-size: 0.85em;
+  }
+  th, td { padding: 0.55em 0.6em; }
+
+  /* ── CONTROLS ── */
+  #controls {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.8em;
+  }
+  #controls input, #controls select { width: 100%; }
+
+  /* ── GPU CONTROLS ── */
+  #gpu-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .mfr-filter-group {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.3em;
+  }
+  .mfr-btn { padding: 0.5em 0.3em; font-size: 0.82em; }
+
+  /* ── FEATURED RECOMMENDATIONS ── */
+  .feat-cols { grid-template-columns: 1fr; }
+  .feat-card { padding: 0.8em 1em; }
+  .feat-name { font-size: 0.95em; }
+
+  /* ── DIY BUILDS ── */
+  .diy-grid { grid-template-columns: 1fr; }
+  .diy-controls { flex-direction: column; align-items: stretch; }
+  .diy-controls select { width: 100%; }
+
+  /* ── BEST MATCH FINDER ── */
+  .finder-layout { grid-template-columns: 1fr; gap: 1.2em; }
+  .finder-form { padding: 1.2em; }
+  .form-group select, .form-group input[type=range] { font-size: 16px; } /* Prevent zoom on iOS */
+  .os-btn-group { display: grid; grid-template-columns: repeat(3, 1fr); }
+  .os-btn { padding: 0.6em 0.4em; font-size: 0.85em; }
+  .result-card { padding: 1.2em; }
+  .result-card .result-name { font-size: 1.2em; }
+  .result-meta { gap: 0.4em; }
+  .result-meta-chip { font-size: 0.78em; padding: 0.2em 0.6em; }
+  .alt-card { flex-direction: column; gap: 0.5em; }
+  .alt-card .alt-price { align-self: flex-start; }
+
+  /* ── COMPARE SYSTEMS ── */
+  .compare-layout { grid-template-columns: 1fr; gap: 1.2em; }
+  .compare-sidebar { position: static; padding: 1.2em; }
+  .cmp-systems-bar { grid-template-columns: 1fr; }
+  .cmp-table td, .cmp-table th { padding: 0.5em 0.6em; font-size: 0.82em; }
+  .cmp-table .row-label { width: 100px; font-size: 0.78em; }
+  .model-fit-grid { grid-template-columns: repeat(2, 1fr); }
+  .mf-cell { font-size: 0.75em; padding: 0.4em 0.5em; }
+
+  /* ── OPTIMIZATION GUIDE ── */
+  .opt-cards { grid-template-columns: 1fr; }
+  .opt-card-body { padding: 0.9em; }
+  .opt-card-body ul { padding-left: 1em; }
+  .opt-table { font-size: 0.82em; }
+  .opt-table th, .opt-table td { padding: 0.45em 0.55em; }
+
+  /* ── MANUFACTURER CARDS ── */
+  .mfr-cards { grid-template-columns: 1fr; }
+
+  /* ── MODALS ── */
+  .modal-overlay.open { padding: 1em 0.5em; }
+  .modal-box { max-width: 100%; border-radius: 8px 8px 0 0; }
+  .modal-header { padding: 0.9em 1em; }
+  .modal-header h3 { font-size: 1em; }
+  .modal-body { padding: 1em; }
+  .modal-stats { gap: 0.5em; }
+  .modal-stat { min-width: 70px; padding: 0.4em 0.6em; font-size: 0.78em; }
+  .modal-fit-grid { gap: 0.25em; }
+  .modal-fit-cell { padding: 0.3em 0.5em; font-size: 0.7em; min-width: 60px; }
+
+  /* ── BENCHMARK PAGE ── */
+  .metrics-grid { grid-template-columns: 1fr 1fr; gap: 0.7em; }
+  .metric-card { padding: 0.8em; }
+  .metric-value { font-size: 1.15em; }
+  .metric-label { font-size: 0.68em; }
+  .upgrade-grid { grid-template-columns: 1fr; }
+  .upgrade-card { padding: 0.8em; }
+  .grade-hero { padding: 1.5em 1em; }
+  .grade-circle { width: 90px; height: 90px; }
+  .grade-letter { font-size: 2em; }
+  .grade-headline { font-size: 1.1em; }
+
+  /* ── CODE BOXES ── */
+  .cmd-box { font-size: 0.75em; padding: 0.8em; }
+  .copy-btn { font-size: 0.68em; }
+
+  /* ── SECTION CARDS ── */
+  .card-body { padding: 1em; }
+  .card-header { padding: 0.6em 1em; font-size: 0.9em; }
+
+  /* ── FOOTER ── */
+  .footer-links { flex-direction: column; align-items: flex-start; gap: 0.8em; }
+  .license-section { font-size: 0.78em; }
+}
+
+/* Small phones */
+@media (max-width: 480px) {
+  body { padding: 0.8em; font-size: 14px; }
+  h1 { font-size: 1.4em; }
+  
+  .tab-button { padding: 6px 10px; font-size: 0.82em; }
+  
+  table { min-width: 500px; font-size: 0.8em; }
+  th, td { padding: 0.45em 0.5em; }
+  
+  .feat-card { padding: 0.65em 0.8em; }
+  .feat-name { font-size: 0.88em; }
+  .feat-detail { font-size: 0.72em; }
+  
+  .os-btn-group { grid-template-columns: 1fr 1fr 1fr; }
+  .os-btn { padding: 0.5em 0.3em; font-size: 0.78em; }
+  
+  .mfr-filter-group { grid-template-columns: repeat(2, 1fr); }
+  
+  .metrics-grid { grid-template-columns: 1fr; }
+  
+  .model-fit-grid { grid-template-columns: 1fr 1fr; }
+  
+  .modal-stat { min-width: auto; flex: 1; }
+}

@@ -10,19 +10,15 @@
 </head>
 <body>
 
-<!-- Mobile Warning Modal -->
-<div id="mobile-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:9999;align-items:center;justify-content:center">
-  <div style="background:#fff;border-radius:12px;padding:2em;max-width:90%;width:360px;text-align:left;box-shadow:0 8px 32px rgba(0,0,0,0.3)">
-    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#28a745" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:0.8em"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
-    <h2 style="margin:0 0 0.5em 0;font-size:1.2em">Desktop recommended</h2>
-    <p style="color:#555;font-size:0.92em;line-height:1.5;margin:0 0 1.2em 0">This tool has a lot of tables and comparison features that work better on a larger screen.</p>
-    <button onclick="document.getElementById('mobile-modal').style.display='none'" style="background:#28a745;color:#fff;border:none;padding:0.6em 1.5em;border-radius:6px;font-size:0.95em;cursor:pointer">Continue</button>
-  </div>
+<!-- Mobile Notice -->
+<div id="mobile-modal" style="display:none;position:fixed;bottom:0;left:0;right:0;background:#333;color:#fff;z-index:9999;padding:0.8em 1em;font-size:0.85em;text-align:center">
+  <span>Rotate for best experience</span>
+  <button onclick="document.getElementById('mobile-modal').style.display='none'" style="margin-left:1em;background:transparent;color:#fff;border:1px solid #fff;padding:0.3em 0.8em;border-radius:4px;font-size:0.85em;cursor:pointer">✕</button>
 </div>
 <script>
 (function(){
-  var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
-  if(isMobile) document.getElementById('mobile-modal').style.display = 'flex';
+  var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) && window.innerWidth < 768;
+  if(isMobile && window.innerWidth < window.innerHeight) document.getElementById('mobile-modal').style.display = 'flex';
 })();
 </script>
 
@@ -51,13 +47,13 @@
         <div class="feat-header feat-macos">macOS</div>
         <div class="feat-card">
           <div class="feat-tier">Top Performance</div>
-          <div class="feat-name">Mac Studio M4 Ultra &mdash; 512 GB</div>
+          <div class="feat-name">Mac Studio M3 Ultra &mdash; 512 GB</div>
           <div class="feat-price">~$11,000</div>
           <div class="feat-detail">405B Q4 capable &middot; ~135 t/s on 7B &middot; max context ~800K tokens (7B Q4)</div>
         </div>
         <div class="feat-card">
           <div class="feat-tier">High End</div>
-          <div class="feat-name">Mac Studio M4 Ultra &mdash; 192 GB</div>
+          <div class="feat-name">Mac Studio M3 Ultra &mdash; 128 GB</div>
           <div class="feat-price">~$8,500</div>
           <div class="feat-detail">120B Q4 capable &middot; ~130 t/s on 7B &middot; max context ~400K tokens (7B Q4)</div>
         </div>
@@ -153,6 +149,7 @@
     </select>
   </div>
   <p>Table columns are sortable. All systems are evaluated for AI/ML workloads. TG = Tokens/sec Generation (batch size 1).</p>
+  <div class="table-wrap">
   <table id="hardwareTable">
     <thead>
       <tr>
@@ -204,7 +201,7 @@
         <td>Apple Mac Studio (M3 Ultra)</td>
         <td>Desktop</td>
         <td>Apple 80-core GPU</td>
-        <td>192 GB (Unified)</td>
+        <td>128 GB (Unified)</td>
         <td>120B+ (Quantized)</td>
         <td>~97</td>
         <td>$8,000</td>
@@ -277,17 +274,17 @@
       </tr>
       <tr data-os="macos">
         <td>8</td>
-        <td>Apple MacBook Pro 16 (M3 Max)</td>
+        <td>Apple MacBook Pro 16 (M4 Max)</td>
         <td>Laptop</td>
         <td>Apple 40-core GPU</td>
         <td>128 GB (Unified)</td>
         <td>30B-70B</td>
-        <td>~60</td>
-        <td>$4,000</td>
+        <td>~75</td>
+        <td>$4,200</td>
         <td class="notes-cell"><ul>
             <li><strong>Popular with ML Engineers:</strong> Excellent for development and testing on the go due to its large unified memory.</li>
             <li><strong>"Not for Heavy Training":</strong> Community consensus is that it's an inference machine, not for training large models from scratch.</li>
-            <li><strong>Performance:</strong> Can achieve 55-65 t/s on 7B models (Q4 quantized) via MLX; 70B Q4 fits at ~5 t/s.</li>
+            <li><strong>Performance:</strong> Can achieve 70-80 t/s on 7B models (Q4 quantized) via MLX; 70B Q4 fits at ~6 t/s.</li>
         </ul></td>
       </tr>
       <tr data-os="windows linux">
@@ -513,6 +510,7 @@
         </ul></td>
       </tr>    </tbody>
   </table>
+</div>
 </div>
 
 <div id="diy" class="tab-content">
@@ -763,14 +761,14 @@
         <p><strong>Warranty &amp; support:</strong> A single vendor for all troubleshooting. For production AI work, downtime costs more than savings.</p>
         <p><strong>Certified driver stacks:</strong> HP and Dell workstations ship with validated configurations for GPU-intensive workloads.</p>
         <p><strong>Specialized hardware:</strong> Quad-GPU systems with NVLink bridges and server-class PSUs are impractical to DIY. The HP Z8 G4 and Dell Precision 7960 are only practical as pre-built or refurb.</p>
-        <p><strong>Apple Silicon:</strong> There is no DIY path to Apple unified memory. Mac Studio is the only option for 192 GB+ high-bandwidth unified memory.</p>
+        <p><strong>Apple Silicon:</strong> There is no DIY path to Apple unified memory. Mac Studio is the only option for 128 GB+ high-bandwidth unified memory.</p>
       </div>
       <div class="comparison-card">
         <h4>Best Value Summary</h4>
         <p><strong>Under $1,500 - DIY wins:</strong> RTX 3090 (used) + budget CPU + 64 GB DDR4 outperforms any pre-built at this price.</p>
         <p><strong>$3,000-5,000 - DIY saves 20-30%:</strong> Self-built RTX 4090 or 5090 system matches Alienware/ROG for less money.</p>
         <p><strong>$8,000-20,000 - Pre-built pulls ahead:</strong> Workstation-class multi-GPU configs from HP/Dell/Lenovo come with support and certified setups hard to replicate DIY.</p>
-        <p><strong>Apple Silicon - no DIY option:</strong> Mac Studio M3/M4 Ultra is unique in offering 192-512 GB high-bandwidth unified memory in a consumer form factor.</p>
+        <p><strong>Apple Silicon - no DIY option:</strong> Mac Studio M3 Ultra is unique in offering 192-512 GB high-bandwidth unified memory in a consumer form factor.</p>
       </div>
     </div>
   </div>
@@ -799,6 +797,7 @@
     <strong>Effectiveness Score</strong> blends raw token generation speed, memory bandwidth, and VRAM capacity into a single 0–100 index.
     <strong>Value Score</strong> = tokens/sec per $100 spent. Click any column header to sort.
   </p>
+  <div class="table-wrap">
   <table id="gpuTable">
     <thead>
       <tr>
@@ -817,6 +816,7 @@
     </thead>
     <tbody id="gpuTableBody"></tbody>
   </table>
+  </div>
 
   <div class="mfr-comparison-section">
     <h3>Manufacturer Tradeoffs</h3>
@@ -942,19 +942,13 @@
         <label>System A (baseline)</label>
         <select id="cmpA">
           <optgroup label="Apple Silicon — Mac Studio">
-            <option value="m4_ultra_base">Mac Studio M4 Ultra 28-core CPU / 64-core GPU / 192 GB</option>
-            <option value="m4_ultra_high">Mac Studio M4 Ultra 32-core CPU / 80-core GPU / 192 GB</option>
-            <option value="m4_ultra_xl">Mac Studio M4 Ultra 32-core CPU / 80-core GPU / 512 GB</option>
-            <option value="m3_ultra_base" selected>Mac Studio M3 Ultra 28-core CPU / 60-core GPU / 192 GB</option>
-            <option value="m3_ultra_high">Mac Studio M3 Ultra 32-core CPU / 80-core GPU / 192 GB</option>
+            <option value="m3_ultra_base" selected>Mac Studio M3 Ultra 28-core CPU / 60-core GPU / 128 GB</option>
+            <option value="m3_ultra_high">Mac Studio M3 Ultra 32-core CPU / 80-core GPU / 256 GB</option>
             <option value="m3_ultra_xl">Mac Studio M3 Ultra 32-core CPU / 80-core GPU / 512 GB</option>
           </optgroup>
           <optgroup label="Apple Silicon — MacBook Pro">
             <option value="m4_max_14_32">MacBook Pro M4 Max 14-core CPU / 32-core GPU / 64 GB</option>
             <option value="m4_max_16_40">MacBook Pro M4 Max 16-core CPU / 40-core GPU / 128 GB</option>
-            <option value="m3_max_14_30">MacBook Pro M3 Max 14-core CPU / 30-core GPU / 64 GB</option>
-            <option value="m3_max_16_40">MacBook Pro M3 Max 16-core CPU / 40-core GPU / 128 GB</option>
-            <option value="m3_pro_12_18">MacBook Pro M3 Pro 12-core CPU / 18-core GPU / 36 GB</option>
           </optgroup>
           <optgroup label="NVIDIA GPUs (discrete)">
             <option value="rtx5090">NVIDIA RTX 5090 (32 GB VRAM)</option>
@@ -974,19 +968,13 @@
         <select id="cmpB">
           <option value="none">— none —</option>
           <optgroup label="Apple Silicon — Mac Studio">
-            <option value="m4_ultra_base">Mac Studio M4 Ultra 28-core CPU / 64-core GPU / 192 GB</option>
-            <option value="m4_ultra_high">Mac Studio M4 Ultra 32-core CPU / 80-core GPU / 192 GB</option>
-            <option value="m4_ultra_xl">Mac Studio M4 Ultra 32-core CPU / 80-core GPU / 512 GB</option>
-            <option value="m3_ultra_base">Mac Studio M3 Ultra 28-core CPU / 60-core GPU / 192 GB</option>
-            <option value="m3_ultra_high">Mac Studio M3 Ultra 32-core CPU / 80-core GPU / 192 GB</option>
+            <option value="m3_ultra_base">Mac Studio M3 Ultra 28-core CPU / 60-core GPU / 128 GB</option>
+            <option value="m3_ultra_high">Mac Studio M3 Ultra 32-core CPU / 80-core GPU / 256 GB</option>
             <option value="m3_ultra_xl">Mac Studio M3 Ultra 32-core CPU / 80-core GPU / 512 GB</option>
           </optgroup>
           <optgroup label="Apple Silicon — MacBook Pro">
-            <option value="m4_max_14_32" selected>MacBook Pro M4 Max 16-core CPU / 40-core GPU / 128 GB</option>
+            <option value="m4_max_14_32" selected>MacBook Pro M4 Max 14-core CPU / 32-core GPU / 64 GB</option>
             <option value="m4_max_16_40">MacBook Pro M4 Max 16-core CPU / 40-core GPU / 128 GB</option>
-            <option value="m3_max_14_30">MacBook Pro M3 Max 14-core CPU / 30-core GPU / 64 GB</option>
-            <option value="m3_max_16_40">MacBook Pro M3 Max 16-core CPU / 40-core GPU / 128 GB</option>
-            <option value="m3_pro_12_18">MacBook Pro M3 Pro 12-core CPU / 18-core GPU / 36 GB</option>
           </optgroup>
           <optgroup label="NVIDIA GPUs (discrete)">
             <option value="rtx5090">NVIDIA RTX 5090 (32 GB VRAM)</option>
@@ -1006,19 +994,13 @@
         <select id="cmpC">
           <option value="none" selected>— none —</option>
           <optgroup label="Apple Silicon — Mac Studio">
-            <option value="m4_ultra_base">Mac Studio M4 Ultra 28-core CPU / 64-core GPU / 192 GB</option>
-            <option value="m4_ultra_high">Mac Studio M4 Ultra 32-core CPU / 80-core GPU / 192 GB</option>
-            <option value="m4_ultra_xl">Mac Studio M4 Ultra 32-core CPU / 80-core GPU / 512 GB</option>
-            <option value="m3_ultra_base">Mac Studio M3 Ultra 28-core CPU / 60-core GPU / 192 GB</option>
-            <option value="m3_ultra_high">Mac Studio M3 Ultra 32-core CPU / 80-core GPU / 192 GB</option>
+            <option value="m3_ultra_base">Mac Studio M3 Ultra 28-core CPU / 60-core GPU / 128 GB</option>
+            <option value="m3_ultra_high">Mac Studio M3 Ultra 32-core CPU / 80-core GPU / 256 GB</option>
             <option value="m3_ultra_xl">Mac Studio M3 Ultra 32-core CPU / 80-core GPU / 512 GB</option>
           </optgroup>
           <optgroup label="Apple Silicon — MacBook Pro">
-            <option value="m4_max_14_32">MacBook Pro M4 Max 16-core CPU / 40-core GPU / 128 GB</option>
+            <option value="m4_max_14_32">MacBook Pro M4 Max 14-core CPU / 32-core GPU / 64 GB</option>
             <option value="m4_max_16_40">MacBook Pro M4 Max 16-core CPU / 40-core GPU / 128 GB</option>
-            <option value="m3_max_14_30">MacBook Pro M3 Max 14-core CPU / 30-core GPU / 64 GB</option>
-            <option value="m3_max_16_40">MacBook Pro M3 Max 16-core CPU / 40-core GPU / 128 GB</option>
-            <option value="m3_pro_12_18">MacBook Pro M3 Pro 12-core CPU / 18-core GPU / 36 GB</option>
           </optgroup>
           <optgroup label="NVIDIA GPUs (discrete)">
             <option value="rtx5090">NVIDIA RTX 5090 (32 GB VRAM)</option>
@@ -1288,7 +1270,7 @@
         <tr style="background:#fffdf0;"><td><strong>64 GB+</strong></td><td><strong>70B Q4 (full)</strong></td><td class="impact-positive"><strong>+0% speed, full 70B access</strong></td><td class="impact-positive"><strong>Yes — Q4_K_M</strong></td><td>First tier enabling 70B Q4 fully. Apple M-series, Ryzen AI Max. 70B Q4 ≈ 40 GB; leaves 20+ GB for context.</td></tr>
         <tr><td>96 GB</td><td>~80B Q4, 120B Q3</td><td class="impact-positive">+0% speed, 120B tier</td><td class="impact-positive">Yes — with headroom</td><td>Dual 3090/A6000, M2 Ultra 96 GB. Llama 3.1 405B in Q2 just fits.</td></tr>
         <tr><td>128 GB</td><td>~105B Q4, 120B Q3</td><td class="impact-positive">+0% speed (CPU BW limited)</td><td class="impact-positive">Yes — comfortably</td><td>Ryzen AI Max+ 395, M-series 128 GB. 70B + 32K context fits easily.</td></tr>
-        <tr><td>192 GB</td><td>~160B Q4, 200B+ Q3</td><td class="impact-positive">+0% speed, 200B tier (Apple BW)</td><td class="impact-positive">Yes — fast (~18 t/s)</td><td>M3 Ultra 192 GB. Llama 3.1 405B Q2 ≈ 202 GB — just barely fits.</td></tr>
+        <tr><td>256 GB</td><td>~200B Q4, 400B Q3</td><td class="impact-positive">+0% speed, 200B tier (Apple BW)</td><td class="impact-positive">Yes — fast (~18 t/s)</td><td>M3 Ultra 256 GB. Llama 3.1 405B Q3 fits comfortably.</td></tr>
         <tr><td>512 GB</td><td>405B Q4 full</td><td class="impact-positive">+0% speed, 400B tier</td><td class="impact-positive">Yes</td><td>M3 Ultra 512 GB. 405B Q4 ≈ 230 GB. Full unquantised 70B fits.</td></tr>
       </tbody>
     </table>
@@ -1301,9 +1283,9 @@
       <tbody>
         <tr><td>Fastest possible 7B inference</td><td>NVIDIA RTX 5090 + ExLlamaV2</td><td>EXL2 Q4 format, enable Flash Attention</td></tr>
         <tr><td>Run 70B on a budget</td><td>AMD Ryzen AI Max+ 395 mini PC (~$1,500)</td><td>Set BIOS iGPU VRAM to 128 GB, use Vulkan backend</td></tr>
-        <tr><td>Quiet, large-model desktop</td><td>Apple Mac Studio M3 Ultra 192 GB + MLX</td><td>Use <code>mlx_lm.generate</code>, enable speculative decoding</td></tr>
+        <tr><td>Quiet, large-model desktop</td><td>Apple Mac Studio M3 Ultra 128 GB + MLX</td><td>Use <code>mlx_lm.generate</code>, enable speculative decoding</td></tr>
         <tr><td>Multi-user production serving</td><td>NVIDIA A100/H100 + vLLM</td><td>Enable PagedAttention, continuous batching, tensor parallelism</td></tr>
-        <tr><td>Maximum context length (&gt;64K tokens)</td><td>Apple M3 Ultra 192 GB or 512 GB</td><td>Set <code>--ctx-size 65536</code>, quantise KV cache to Q8</td></tr>
+        <tr><td>Maximum context length (&gt;64K tokens)</td><td>Apple M3 Ultra 256 GB or 512 GB</td><td>Set <code>--ctx-size 65536</code>, quantise KV cache to Q8</td></tr>
         <tr><td>Fine-tuning / LoRA training</td><td>NVIDIA GPU with 24+ GB VRAM</td><td>Use QLoRA (4-bit base + FP16 adapters), gradient checkpointing</td></tr>
         <tr><td>Best CPU-only on x86</td><td>Dual-channel DDR5 + Zen4/Raptor Lake</td><td>Compile llama.cpp with <code>-march=native</code>, use <code>-t &lt;physical cores&gt;</code></td></tr>
       </tbody>
@@ -1438,11 +1420,11 @@
           <p style="font-size:0.88em;margin-top:0"><strong>Best for:</strong> Developers who want a polished Unix environment, large unified-memory model capacity, low power draw, and the best Claude Code experience without Linux complexity.</p>
           <ul>
             <li><strong>MLX is the optimal inference path.</strong> Apple's open-source MLX framework is 20&ndash;30% faster than llama.cpp Metal for inference on Apple Silicon. Install via <code>pip install mlx-lm</code>, then run models directly with <code>mlx_lm.generate</code>. Ollama uses Metal/llama.cpp internally and is slightly slower but simpler to set up.</li>
-            <li><strong>Unified memory is the key architectural advantage.</strong> CPU and GPU share one high-bandwidth pool &mdash; up to 512 GB on Mac Studio M3/M4 Ultra. A 70B model (40 GB Q4) loads without any VRAM/host memory boundary or PCIe transfer overhead.</li>
+            <li><strong>Unified memory is the key architectural advantage.</strong> CPU and GPU share one high-bandwidth pool &mdash; up to 512 GB on Mac Studio M3 Ultra. A 70B model (40 GB Q4) loads without any VRAM/host memory boundary or PCIe transfer overhead.</li>
             <li><strong>Claude Code works natively.</strong> macOS is a first-class Claude Code platform. zsh, Homebrew, and all standard Unix utilities work out of the box. No WSL2 or compatibility layer needed.</li>
             <li><strong>No CUDA, EXL2, GPTQ/AWQ, vLLM, or BitsAndBytes.</strong> Axolotl and Unsloth for fine-tuning are not supported. MLX includes its own LoRA fine-tuning path (<code>mlx_lm.lora</code>) for Apple Silicon.</li>
             <li><strong>Supported quantization formats:</strong> GGUF (all variants via Ollama/llama.cpp) and MLX native formats (int4, int8, fp16, bf16). EXL2, GPTQ, AWQ, and BitsAndBytes are not available.</li>
-            <li><strong>RAM is soldered and non-upgradeable.</strong> Choose your memory configuration at purchase. The 128 GB step (M4 Max MacBook Pro or Mac Studio) is the threshold for 70B Q4 models; 192&ndash;512 GB (Mac Studio M3/M4 Ultra) enables 120B+ models.</li>
+            <li><strong>RAM is soldered and non-upgradeable.</strong> Choose your memory configuration at purchase. The 128 GB step (M4 Max MacBook Pro or Mac Studio) is the threshold for 70B Q4 models; 192&ndash;512 GB (Mac Studio M3 Ultra) enables 120B+ models.</li>
             <li><strong>Power efficiency.</strong> An M3 Ultra running 70B at 18 t/s draws ~150 W. An equivalent-speed NVIDIA A100 draws 300&ndash;400 W. For always-on home servers this is a meaningful difference over time.</li>
           </ul>
         </div>
@@ -1959,6 +1941,9 @@
 
 </div>
 
+<!-- Hardware Data Service - Single source of truth for specs -->
+<script src="js/hardware-data.js"></script>
+
 <script>
   function openTab(evt, tabName) {
     var i, tabcontent, tablinks;
@@ -1968,10 +1953,12 @@
     }
     tablinks = document.getElementsByClassName("tab-button");
     for (i = 0; i < tablinks.length; i++) {
-      tablinks[i].className = tablinks[i].className.replace(" active", "");
+      tablinks[i].classList.remove("active");
     }
     document.getElementById(tabName).style.display = "block";
-    evt.currentTarget.className += " active";
+    if (evt && evt.currentTarget) {
+      evt.currentTarget.classList.add("active");
+    }
   }
 
   function sortTable(n) {
@@ -2111,9 +2098,7 @@
     { name:"Ryzen AI Max+ 395",  mfr:"AMD",    vram:128, bw:256,  tg7b:90,  tg70b:6,     price:1800,  tier:"laptop/mini",  bestFor:"Cheapest 70B-capable x86 system" },
     { name:"M3 Ultra (192GB)",   mfr:"Apple",  vram:192, bw:800,  tg7b:120, tg70b:20,    price:8000,  tier:"desktop",      bestFor:"Up to 120B+ models; silent & efficient" },
     { name:"M3 Ultra (512GB)",   mfr:"Apple",  vram:512, bw:800,  tg7b:120, tg70b:20,    price:10000, tier:"desktop",      bestFor:"200B+ models; unmatched capacity" },
-    { name:"M3 Max (128GB)",     mfr:"Apple",  vram:128, bw:300,  tg7b:60,  tg70b:5,     price:4000,  tier:"laptop",       bestFor:"Portable 70B inference; macOS dev" },
-    { name:"M4 Max (128GB)",     mfr:"Apple",  vram:128, bw:410,  tg7b:75,  tg70b:6,     price:4200,  tier:"laptop",       bestFor:"Improved MacBook for 70B inference" },
-    { name:"M3 Pro (36GB)",      mfr:"Apple",  vram:36,  bw:150,  tg7b:35,  tg70b:null,  price:2200,  tier:"laptop",       bestFor:"Entry Apple; up to 30B Q4" },
+    { name:"M4 Max (128GB)",     mfr:"Apple",  vram:128, bw:410,  tg7b:75,  tg70b:6,     price:4200,  tier:"laptop",       bestFor:"Portable 70B inference; macOS dev" },
   ];
 
   // Compute derived scores
@@ -2243,8 +2228,8 @@
   const SYSTEMS = [
     { name:"HP Z8 G4 (Quad A100 40GB)",    mfr:'hp',          os:["linux","windows"], ff:"desktop", unified:false, memGB:160, vramGB:160, bwGBs:3840, minPrice:25000, maxPrice:35000, maxModel:120, tg7b:540, tg13b:400, tg70b:50,  priority:["speed","capacity"] },
     { name:"Dell Precision 7960 Tower",    mfr:'dell',        os:["linux","windows"], ff:"desktop", unified:false, memGB:80,  vramGB:80,  bwGBs:1935, minPrice:15000, maxPrice:25000, maxModel:120, tg7b:450, tg13b:350, tg70b:40,  priority:["speed","capacity"] },
-    { name:"Apple Mac Studio (M3 Ultra 512GB)", mfr:'apple',  os:["macos"],           ff:"desktop", unified:true,  memGB:512, vramGB:512, bwGBs:800,  minPrice:9500,  maxPrice:11000, maxModel:200, tg7b:120, tg13b:72,  tg70b:20,  ramTiers:[{label:'192 GB',tg7b:120,tg70b:18},{label:'512 GB',tg7b:120,tg70b:20}], priority:["capacity","value"] },
-    { name:"Apple Mac Studio (M3 Ultra 192GB)", mfr:'apple',  os:["macos"],           ff:"desktop", unified:true,  memGB:192, vramGB:192, bwGBs:800,  minPrice:7500,  maxPrice:9500,  maxModel:120, tg7b:120, tg13b:72,  tg70b:18,  ramTiers:[{label:'192 GB',tg7b:120,tg70b:18}], priority:["capacity","value"] },
+    { name:"Apple Mac Studio (M3 Ultra 512GB)", mfr:'apple',  os:["macos"],           ff:"desktop", unified:true,  memGB:512, vramGB:512, bwGBs:800,  minPrice:9500,  maxPrice:11000, maxModel:200, tg7b:120, tg13b:72,  tg70b:20,  ramTiers:[{label:'256 GB',tg7b:120,tg70b:18},{label:'512 GB',tg7b:120,tg70b:20}], priority:["capacity","value"] },
+    { name:"Apple Mac Studio (M3 Ultra 128GB)", mfr:'apple',  os:["macos"],           ff:"desktop", unified:true,  memGB:128, vramGB:128, bwGBs:800,  minPrice:3999,  maxPrice:5000,  maxModel:70, tg7b:120, tg13b:72,  tg70b:16,  ramTiers:[{label:'128 GB',tg7b:120,tg70b:16}], priority:["capacity","value"] },
     { name:"Lenovo ThinkStation P620 (2×A6000)", mfr:'lenovo', os:["linux","windows"], ff:"desktop", unified:false, memGB:96, vramGB:96,  bwGBs:1536, minPrice:12000, maxPrice:18000, maxModel:70,  tg7b:300, tg13b:200, tg70b:20,  priority:["capacity","speed"] },
     { name:"HP OMEN 45L (RTX 5090)",       mfr:'hp',          os:["linux","windows"], ff:"desktop", unified:false, memGB:32,  vramGB:32,  bwGBs:1792, minPrice:3500,  maxPrice:5500,  maxModel:30,  tg7b:250, tg13b:180, tg70b:null, priority:["speed","value"] },
     { name:"Alienware Aurora R16 (RTX 4090)", mfr:'alienware', os:["linux","windows"], ff:"desktop", unified:false, memGB:24, vramGB:24,  bwGBs:1008, minPrice:3000,  maxPrice:5000,  maxModel:30,  tg7b:140, tg13b:95,  tg70b:null, priority:["speed","value"] },
@@ -2252,7 +2237,6 @@
     { name:"DIY RTX 4090 Build",           mfr:'diy',         os:["linux","windows"], ff:"desktop", unified:false, memGB:24,  vramGB:24,  bwGBs:1008, minPrice:2000,  maxPrice:3500,  maxModel:30,  tg7b:140, tg13b:95,  tg70b:null, priority:["speed","value"] },
     { name:"DIY RTX 3090 Build (used)",    mfr:'diy',         os:["linux","windows"], ff:"desktop", unified:false, memGB:24,  vramGB:24,  bwGBs:936,  minPrice:1200,  maxPrice:2000,  maxModel:14,  tg7b:130, tg13b:85,  tg70b:null, priority:["value"] },
     { name:"Apple MacBook Pro 16 (M4 Max 128GB)", mfr:'apple', os:["macos"],          ff:"laptop",  unified:true,  memGB:128, vramGB:128, bwGBs:410,  minPrice:3800,  maxPrice:5000,  maxModel:70,  tg7b:75,  tg13b:45,  tg70b:6,   ramTiers:[{label:'64 GB',tg7b:65,tg70b:null},{label:'128 GB',tg7b:75,tg70b:6}], priority:["capacity","portable"] },
-    { name:"Apple MacBook Pro 16 (M3 Max 128GB)", mfr:'apple', os:["macos"],          ff:"laptop",  unified:true,  memGB:128, vramGB:128, bwGBs:300,  minPrice:3200,  maxPrice:4200,  maxModel:70,  tg7b:60,  tg13b:36,  tg70b:5,   ramTiers:[{label:'64 GB',tg7b:55,tg70b:null},{label:'128 GB',tg7b:60,tg70b:5}], priority:["capacity","portable"] },
     { name:"Asus ROG Strix Scar 18 (RTX 5090 Laptop)", mfr:'asus', os:["linux","windows"], ff:"laptop", unified:false, memGB:16, vramGB:16, bwGBs:576, minPrice:3500, maxPrice:5000, maxModel:30, tg7b:140, tg13b:95, tg70b:null, priority:["speed","portable"] },
     { name:"Asus ROG Flow Z13 / Ryzen AI Max+ 395", mfr:'asus', os:["linux","windows"], ff:"laptop", unified:true, memGB:128, vramGB:128, bwGBs:256, minPrice:1400, maxPrice:2800, maxModel:70, tg7b:90, tg13b:55, tg70b:6, ramTiers:[{label:'64 GB',tg7b:90,tg70b:null},{label:'128 GB',tg7b:90,tg70b:6}], priority:["capacity","value","portable"] },
     { name:"Minisforum AI MAX+ 395 Mini PC", mfr:'minisforum', os:["linux","windows"], ff:"laptop", unified:true, memGB:128, vramGB:128, bwGBs:256, minPrice:1200, maxPrice:2000, maxModel:70, tg7b:90, tg13b:55, tg70b:6, ramTiers:[{label:'64 GB',tg7b:90,tg70b:null},{label:'128 GB',tg7b:90,tg70b:6}], priority:["capacity","value","portable"] },
@@ -2364,46 +2348,25 @@
   const CMP_DATA = {
     // ── Apple Mac Studio ──────────────────────────────────────
     m3_ultra_base: {
-      name: 'Mac Studio M3 Ultra', sub: '28-core CPU / 60-core GPU / 192 GB',
-      mfr: 'apple', memGB: 192, bwGBs: 800, cpuCores: 28, gpuCores: 60, unified: true,
-      tg7b: 115, tg13b: 68, tg70b: 18, tg120b: 9, price: 8000,
-      framework: 'MLX / llama.cpp Metal', vramGB: 192,
-      notes: 'Baseline M3 Ultra. 60-core GPU. Single-user 70B runs comfortably.'
+      name: 'Mac Studio M3 Ultra', sub: '28-core CPU / 60-core GPU / 128 GB',
+      mfr: 'apple', memGB: 128, bwGBs: 800, cpuCores: 28, gpuCores: 60, unified: true,
+      tg7b: 115, tg13b: 68, tg70b: 16, tg120b: null, price: 3999,
+      framework: 'MLX / llama.cpp Metal', vramGB: 128,
+      notes: 'Entry M3 Ultra. 60-core GPU. 70B Q4 runs with limited context.'
     },
     m3_ultra_high: {
-      name: 'Mac Studio M3 Ultra', sub: '32-core CPU / 80-core GPU / 192 GB',
-      mfr: 'apple', memGB: 192, bwGBs: 800, cpuCores: 32, gpuCores: 80, unified: true,
-      tg7b: 120, tg13b: 72, tg70b: 20, tg120b: 10, price: 8500,
-      framework: 'MLX / llama.cpp Metal', vramGB: 192,
-      notes: '76-core GPU adds ~5% token speed vs 60-core at same bandwidth — GPU core count is secondary to memory bandwidth.'
+      name: 'Mac Studio M3 Ultra', sub: '32-core CPU / 80-core GPU / 256 GB',
+      mfr: 'apple', memGB: 256, bwGBs: 800, cpuCores: 32, gpuCores: 80, unified: true,
+      tg7b: 120, tg13b: 72, tg70b: 18, tg120b: 10, price: 5999,
+      framework: 'MLX / llama.cpp Metal', vramGB: 256,
+      notes: '80-core GPU adds ~5% token speed vs 60-core. 256 GB enables 120B Q4 comfortably.'
     },
     m3_ultra_xl: {
       name: 'Mac Studio M3 Ultra', sub: '32-core CPU / 80-core GPU / 512 GB',
       mfr: 'apple', memGB: 512, bwGBs: 800, cpuCores: 32, gpuCores: 80, unified: true,
       tg7b: 120, tg13b: 72, tg70b: 20, tg120b: 11, price: 10000,
       framework: 'MLX / llama.cpp Metal', vramGB: 512,
-      notes: '512 GB unified. Enables 405B and MoE 671B (quantised). Token speed identical to 192 GB — bandwidth is unchanged; only capacity increases.'
-    },
-    m4_ultra_base: {
-      name: 'Mac Studio M4 Ultra', sub: '28-core CPU / 64-core GPU / 192 GB',
-      mfr: 'apple', memGB: 192, bwGBs: 900, cpuCores: 28, gpuCores: 64, unified: true,
-      tg7b: 130, tg13b: 78, tg70b: 22, tg120b: 11, price: 8500,
-      framework: 'MLX / llama.cpp Metal', vramGB: 192,
-      notes: 'M4 Ultra. ~12% bandwidth increase over M3 Ultra at same memory tier.'
-    },
-    m4_ultra_high: {
-      name: 'Mac Studio M4 Ultra', sub: '32-core CPU / 80-core GPU / 192 GB',
-      mfr: 'apple', memGB: 192, bwGBs: 900, cpuCores: 32, gpuCores: 80, unified: true,
-      tg7b: 135, tg13b: 80, tg70b: 23, tg120b: 12, price: 9000,
-      framework: 'MLX / llama.cpp Metal', vramGB: 192,
-      notes: 'M4 Ultra 76-core GPU. Marginal gain over 60-core at same bandwidth.'
-    },
-    m4_ultra_xl: {
-      name: 'Mac Studio M4 Ultra', sub: '32-core CPU / 80-core GPU / 512 GB',
-      mfr: 'apple', memGB: 512, bwGBs: 900, cpuCores: 32, gpuCores: 80, unified: true,
-      tg7b: 135, tg13b: 80, tg70b: 23, tg120b: 12, price: 11000,
-      framework: 'MLX / llama.cpp Metal', vramGB: 512,
-      notes: 'Maximum capacity M4 Ultra. 405B unquantised possible. Bandwidth, not capacity, sets speed.'
+      notes: '512 GB unified. Enables 405B and MoE 671B (quantised). Token speed identical to 256 GB — bandwidth is unchanged; only capacity increases.'
     },
     // ── Apple MacBook Pro ─────────────────────────────────────
     m4_max_14_32: {
@@ -2419,27 +2382,6 @@
       tg7b: 75, tg13b: 45, tg70b: 7, tg120b: null, price: 4200,
       framework: 'MLX / llama.cpp Metal', vramGB: 128,
       notes: 'Top M4 Max config. 128 GB enables 70B Q4 (~40 GB) with headroom. +25% GPU cores vs 32-core — contributes ~10% extra speed.'
-    },
-    m3_max_14_30: {
-      name: 'MacBook Pro M3 Max', sub: '14-core CPU / 30-core GPU / 64 GB',
-      mfr: 'apple', memGB: 64, bwGBs: 300, cpuCores: 14, gpuCores: 30, unified: true,
-      tg7b: 55, tg13b: 32, tg70b: null, tg120b: null, price: 3000,
-      framework: 'MLX / llama.cpp Metal', vramGB: 64,
-      notes: 'Entry M3 Max. 300 GB/s bandwidth; noticeably slower than M4 Max on the same model.'
-    },
-    m3_max_16_40: {
-      name: 'MacBook Pro M3 Max', sub: '16-core CPU / 40-core GPU / 128 GB',
-      mfr: 'apple', memGB: 128, bwGBs: 300, cpuCores: 16, gpuCores: 40, unified: true,
-      tg7b: 60, tg13b: 36, tg70b: 5, tg120b: null, price: 4000,
-      framework: 'MLX / llama.cpp Metal', vramGB: 128,
-      notes: 'Top M3 Max. 70B narrowly fits. M4 Max is ~25% faster at same memory tier due to bandwidth.'
-    },
-    m3_pro_12_18: {
-      name: 'MacBook Pro M3 Pro', sub: '12-core CPU / 18-core GPU / 36 GB',
-      mfr: 'apple', memGB: 36, bwGBs: 150, cpuCores: 12, gpuCores: 18, unified: true,
-      tg7b: 35, tg13b: 18, tg70b: null, tg120b: null, price: 2200,
-      framework: 'MLX / llama.cpp Metal', vramGB: 36,
-      notes: 'M3 Pro. 36 GB max; 30B Q4 fits. Significantly slower bandwidth (150 GB/s) limits token speed.'
     },
     // ── NVIDIA ────────────────────────────────────────────────
     rtx5090: {

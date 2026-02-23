@@ -1,0 +1,738 @@
+{
+  "metadata": {
+    "lastUpdated": "2026-02-23",
+    "version": "1.0.0",
+    "sources": [
+      { "name": "Apple", "url": "https://www.apple.com", "accessed": "2026-02-23" },
+      { "name": "NVIDIA", "url": "https://www.nvidia.com", "accessed": "2026-02-23" },
+      { "name": "AMD", "url": "https://www.amd.com", "accessed": "2026-02-23" }
+    ],
+    "notes": "All specs and prices verified directly from manufacturer websites"
+  },
+
+  "apple": {
+    "macStudio": {
+      "description": "Apple's most powerful desktop workstation",
+      "formFactor": "compact desktop",
+      "configurations": {
+        "m4_max_base": {
+          "name": "Mac Studio M4 Max (Base)",
+          "chip": "M4 Max",
+          "cpu": "14-core",
+          "gpu": "32-core",
+          "neuralEngine": "16-core",
+          "memory": "36GB",
+          "memoryOptions": ["36GB", "48GB", "64GB", "96GB", "128GB"],
+          "storage": "512GB",
+          "storageOptions": ["512GB", "1TB", "2TB", "4TB", "8TB"],
+          "price": 1999,
+          "priceFormatted": "$1,999",
+          "url": "https://www.apple.com/shop/buy-mac/mac-studio"
+        },
+        "m4_max_mid": {
+          "name": "Mac Studio M4 Max (Mid)",
+          "chip": "M4 Max",
+          "cpu": "16-core",
+          "gpu": "40-core",
+          "neuralEngine": "16-core",
+          "memory": "48GB",
+          "memoryOptions": ["48GB", "64GB", "96GB", "128GB"],
+          "storage": "512GB",
+          "storageOptions": ["512GB", "1TB", "2TB", "4TB", "8TB"],
+          "price": 2499,
+          "priceFormatted": "$2,499",
+          "url": "https://www.apple.com/shop/buy-mac/mac-studio"
+        },
+        "m3_ultra_base": {
+          "name": "Mac Studio M3 Ultra (Base)",
+          "chip": "M3 Ultra",
+          "cpu": "24-core",
+          "gpu": "60-core",
+          "neuralEngine": "32-core",
+          "memory": "128GB",
+          "memoryOptions": ["128GB", "256GB", "512GB"],
+          "storage": "1TB",
+          "storageOptions": ["1TB", "2TB", "4TB", "8TB", "16TB"],
+          "price": 3999,
+          "priceFormatted": "$3,999",
+          "url": "https://www.apple.com/shop/buy-mac/mac-studio"
+        },
+        "m3_ultra_high": {
+          "name": "Mac Studio M3 Ultra (High)",
+          "chip": "M3 Ultra",
+          "cpu": "28-core",
+          "gpu": "76-core",
+          "neuralEngine": "32-core",
+          "memory": "256GB",
+          "memoryOptions": ["256GB", "512GB"],
+          "storage": "2TB",
+          "storageOptions": ["2TB", "4TB", "8TB", "16TB"],
+          "price": 5499,
+          "priceFormatted": "$5,499",
+          "url": "https://www.apple.com/shop/buy-mac/mac-studio"
+        },
+        "m3_ultra_max": {
+          "name": "Mac Studio M3 Ultra (Max)",
+          "chip": "M3 Ultra",
+          "cpu": "28-core",
+          "gpu": "76-core",
+          "neuralEngine": "32-core",
+          "memory": "512GB",
+          "memoryOptions": ["512GB"],
+          "storage": "4TB",
+          "storageOptions": ["4TB", "8TB", "16TB"],
+          "price": 7999,
+          "priceFormatted": "$7,999",
+          "url": "https://www.apple.com/shop/buy-mac/mac-studio"
+        }
+      }
+    },
+
+    "macBookPro": {
+      "description": "Apple's professional laptop lineup",
+      "formFactor": "laptop",
+      "configurations": {
+        "14_m5_base": {
+          "name": "MacBook Pro 14\" M5",
+          "chip": "M5",
+          "cpu": "10-core",
+          "gpu": "10-core",
+          "neuralEngine": "16-core",
+          "memory": "24GB",
+          "memoryOptions": ["24GB", "32GB", "48GB"],
+          "storage": "512GB",
+          "storageOptions": ["512GB", "1TB", "2TB"],
+          "display": "14.2-inch Liquid Retina XDR",
+          "price": 1599,
+          "priceFormatted": "$1,599",
+          "url": "https://www.apple.com/shop/buy-mac/macbook-pro"
+        },
+        "14_m4_pro": {
+          "name": "MacBook Pro 14\" M4 Pro",
+          "chip": "M4 Pro",
+          "cpu": "14-core",
+          "gpu": "20-core",
+          "neuralEngine": "16-core",
+          "memory": "24GB",
+          "memoryOptions": ["24GB", "48GB", "64GB"],
+          "storage": "512GB",
+          "storageOptions": ["512GB", "1TB", "2TB", "4TB"],
+          "display": "14.2-inch Liquid Retina XDR",
+          "price": 1999,
+          "priceFormatted": "$1,999",
+          "url": "https://www.apple.com/shop/buy-mac/macbook-pro"
+        },
+        "14_m4_max": {
+          "name": "MacBook Pro 14\" M4 Max",
+          "chip": "M4 Max",
+          "cpu": "16-core",
+          "gpu": "40-core",
+          "neuralEngine": "16-core",
+          "memory": "48GB",
+          "memoryOptions": ["48GB", "64GB", "128GB"],
+          "storage": "1TB",
+          "storageOptions": ["1TB", "2TB", "4TB", "8TB"],
+          "display": "14.2-inch Liquid Retina XDR",
+          "price": 3199,
+          "priceFormatted": "$3,199",
+          "url": "https://www.apple.com/shop/buy-mac/macbook-pro"
+        },
+        "16_m4_pro": {
+          "name": "MacBook Pro 16\" M4 Pro",
+          "chip": "M4 Pro",
+          "cpu": "14-core",
+          "gpu": "20-core",
+          "neuralEngine": "16-core",
+          "memory": "24GB",
+          "memoryOptions": ["24GB", "48GB", "64GB"],
+          "storage": "512GB",
+          "storageOptions": ["512GB", "1TB", "2TB", "4TB"],
+          "display": "16.2-inch Liquid Retina XDR",
+          "price": 2499,
+          "priceFormatted": "$2,499",
+          "url": "https://www.apple.com/shop/buy-mac/macbook-pro"
+        },
+        "16_m4_max": {
+          "name": "MacBook Pro 16\" M4 Max",
+          "chip": "M4 Max",
+          "cpu": "16-core",
+          "gpu": "40-core",
+          "neuralEngine": "16-core",
+          "memory": "48GB",
+          "memoryOptions": ["48GB", "64GB", "128GB"],
+          "storage": "1TB",
+          "storageOptions": ["1TB", "2TB", "4TB", "8TB"],
+          "display": "16.2-inch Liquid Retina XDR",
+          "price": 3499,
+          "priceFormatted": "$3,499",
+          "url": "https://www.apple.com/shop/buy-mac/macbook-pro"
+        }
+      }
+    },
+
+    "macMini": {
+      "description": "Apple's compact desktop",
+      "formFactor": "mini desktop",
+      "configurations": {
+        "m4_base": {
+          "name": "Mac mini M4",
+          "chip": "M4",
+          "cpu": "10-core",
+          "gpu": "10-core",
+          "neuralEngine": "16-core",
+          "memory": "16GB",
+          "memoryOptions": ["16GB", "24GB", "32GB"],
+          "storage": "256GB",
+          "storageOptions": ["256GB", "512GB", "1TB", "2TB"],
+          "price": 599,
+          "priceFormatted": "$599",
+          "url": "https://www.apple.com/shop/buy-mac/mac-mini"
+        },
+        "m4_mid": {
+          "name": "Mac mini M4 (512GB)",
+          "chip": "M4",
+          "cpu": "10-core",
+          "gpu": "10-core",
+          "neuralEngine": "16-core",
+          "memory": "16GB",
+          "memoryOptions": ["16GB", "24GB", "32GB"],
+          "storage": "512GB",
+          "storageOptions": ["512GB", "1TB", "2TB"],
+          "price": 799,
+          "priceFormatted": "$799",
+          "url": "https://www.apple.com/shop/buy-mac/mac-mini"
+        },
+        "m4_pro_base": {
+          "name": "Mac mini M4 Pro",
+          "chip": "M4 Pro",
+          "cpu": "12-core",
+          "gpu": "16-core",
+          "neuralEngine": "16-core",
+          "memory": "24GB",
+          "memoryOptions": ["24GB", "48GB", "64GB"],
+          "storage": "512GB",
+          "storageOptions": ["512GB", "1TB", "2TB", "4TB", "8TB"],
+          "price": 1399,
+          "priceFormatted": "$1,399",
+          "url": "https://www.apple.com/shop/buy-mac/mac-mini"
+        },
+        "m4_pro_high": {
+          "name": "Mac mini M4 Pro (14-core)",
+          "chip": "M4 Pro",
+          "cpu": "14-core",
+          "gpu": "20-core",
+          "neuralEngine": "16-core",
+          "memory": "24GB",
+          "memoryOptions": ["24GB", "48GB", "64GB"],
+          "storage": "512GB",
+          "storageOptions": ["512GB", "1TB", "2TB", "4TB", "8TB"],
+          "price": 1599,
+          "priceFormatted": "$1,599",
+          "url": "https://www.apple.com/shop/buy-mac/mac-mini"
+        }
+      }
+    }
+  },
+
+  "nvidia": {
+    "consumer": {
+      "50series": {
+        "architecture": "Blackwell",
+        "generation": "5th Gen Tensor Cores, 4th Gen RT Cores",
+        "pcie": "Gen 5",
+        "cards": {
+          "rtx_5090": {
+            "name": "GeForce RTX 5090",
+            "vram": "32GB",
+            "vramType": "GDDR7",
+            "memoryBandwidth": "1792 GB/s",
+            "memoryInterface": "512-bit",
+            "cudaCores": 21760,
+            "tensorCores": "5th Gen",
+            "rtCores": "4th Gen",
+            "aiTops": 3352,
+            "rtTflops": 318,
+            "boostClock": "2.41 GHz",
+            "baseClock": "2.01 GHz",
+            "tdp": 575,
+            "recommendedPSU": 1000,
+            "price": 1999,
+            "priceFormatted": "$1,999",
+            "nvenc": "3x 9th Gen",
+            "nvdec": "2x 6th Gen",
+            "dlss": "DLSS 4.5",
+            "url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5090/"
+          },
+          "rtx_5080": {
+            "name": "GeForce RTX 5080",
+            "vram": "16GB",
+            "vramType": "GDDR7",
+            "memoryBandwidth": "960 GB/s",
+            "memoryInterface": "256-bit",
+            "cudaCores": 10752,
+            "tensorCores": "5th Gen",
+            "rtCores": "4th Gen",
+            "aiTops": 1801,
+            "rtTflops": 171,
+            "boostClock": "2.62 GHz",
+            "baseClock": "2.30 GHz",
+            "tdp": 360,
+            "recommendedPSU": 850,
+            "price": 999,
+            "priceFormatted": "$999",
+            "nvenc": "2x 9th Gen",
+            "nvdec": "2x 6th Gen",
+            "dlss": "DLSS 4.5",
+            "url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/rtx-5080/"
+          },
+          "rtx_5070_ti": {
+            "name": "GeForce RTX 5070 Ti",
+            "vram": "16GB",
+            "vramType": "GDDR7",
+            "memoryBandwidth": "896 GB/s",
+            "memoryInterface": "256-bit",
+            "cudaCores": 8960,
+            "tensorCores": "5th Gen",
+            "rtCores": "4th Gen",
+            "aiTops": 1406,
+            "rtTflops": 133,
+            "boostClock": "2.45 GHz",
+            "baseClock": "2.30 GHz",
+            "tdp": 300,
+            "recommendedPSU": 750,
+            "price": 749,
+            "priceFormatted": "$749",
+            "nvenc": "2x 9th Gen",
+            "nvdec": "1x 6th Gen",
+            "dlss": "DLSS 4.5",
+            "url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/"
+          },
+          "rtx_5070": {
+            "name": "GeForce RTX 5070",
+            "vram": "12GB",
+            "vramType": "GDDR7",
+            "memoryBandwidth": "672 GB/s",
+            "memoryInterface": "192-bit",
+            "cudaCores": 6144,
+            "tensorCores": "5th Gen",
+            "rtCores": "4th Gen",
+            "aiTops": 988,
+            "rtTflops": 94,
+            "boostClock": "2.51 GHz",
+            "baseClock": "2.33 GHz",
+            "tdp": 250,
+            "recommendedPSU": 650,
+            "price": 549,
+            "priceFormatted": "$549",
+            "nvenc": "1x 9th Gen",
+            "nvdec": "1x 6th Gen",
+            "dlss": "DLSS 4.5",
+            "url": "https://www.nvidia.com/en-us/geforce/graphics-cards/50-series/"
+          }
+        }
+      },
+      "40series": {
+        "architecture": "Ada Lovelace",
+        "generation": "4th Gen Tensor Cores, 3rd Gen RT Cores",
+        "pcie": "Gen 4",
+        "cards": {
+          "rtx_4090": {
+            "name": "GeForce RTX 4090",
+            "vram": "24GB",
+            "vramType": "GDDR6X",
+            "memoryBandwidth": "1008 GB/s",
+            "memoryInterface": "384-bit",
+            "cudaCores": 16384,
+            "tensorCores": "4th Gen",
+            "rtCores": "3rd Gen",
+            "aiTops": 1321,
+            "rtTflops": 191,
+            "boostClock": "2.52 GHz",
+            "baseClock": "2.23 GHz",
+            "tdp": 450,
+            "recommendedPSU": 850,
+            "price": 1599,
+            "priceFormatted": "$1,599",
+            "nvenc": "2x 8th Gen",
+            "nvdec": "5th Gen",
+            "dlss": "DLSS 3",
+            "url": "https://www.nvidia.com/en-us/geforce/graphics-cards/40-series/rtx-4090/"
+          },
+          "rtx_4080_super": {
+            "name": "GeForce RTX 4080 SUPER",
+            "vram": "16GB",
+            "vramType": "GDDR6X",
+            "memoryBandwidth": "736 GB/s",
+            "memoryInterface": "256-bit",
+            "cudaCores": 10240,
+            "tensorCores": "4th Gen",
+            "rtCores": "3rd Gen",
+            "aiTops": 836,
+            "rtTflops": 121,
+            "boostClock": "2.55 GHz",
+            "baseClock": "2.29 GHz",
+            "tdp": 320,
+            "recommendedPSU": 750,
+            "price": 999,
+            "priceFormatted": "$999",
+            "nvenc": "2x 8th Gen",
+            "nvdec": "5th Gen",
+            "dlss": "DLSS 3",
+            "url": "https://www.nvidia.com/en-us/geforce/graphics-cards/40-series/"
+          },
+          "rtx_4080": {
+            "name": "GeForce RTX 4080",
+            "vram": "16GB",
+            "vramType": "GDDR6X",
+            "memoryBandwidth": "717 GB/s",
+            "memoryInterface": "256-bit",
+            "cudaCores": 9728,
+            "tensorCores": "4th Gen",
+            "rtCores": "3rd Gen",
+            "aiTops": 780,
+            "rtTflops": 113,
+            "boostClock": "2.51 GHz",
+            "baseClock": "2.21 GHz",
+            "tdp": 320,
+            "recommendedPSU": 750,
+            "price": 1199,
+            "priceFormatted": "$1,199",
+            "nvenc": "2x 8th Gen",
+            "nvdec": "5th Gen",
+            "dlss": "DLSS 3",
+            "url": "https://www.nvidia.com/en-us/geforce/graphics-cards/40-series/"
+          },
+          "rtx_4070_ti_super": {
+            "name": "GeForce RTX 4070 Ti SUPER",
+            "vram": "16GB",
+            "vramType": "GDDR6X",
+            "memoryBandwidth": "672 GB/s",
+            "memoryInterface": "256-bit",
+            "cudaCores": 8448,
+            "tensorCores": "4th Gen",
+            "rtCores": "3rd Gen",
+            "aiTops": 706,
+            "rtTflops": 102,
+            "boostClock": "2.61 GHz",
+            "baseClock": "2.34 GHz",
+            "tdp": 285,
+            "recommendedPSU": 700,
+            "price": 799,
+            "priceFormatted": "$799",
+            "nvenc": "2x 8th Gen",
+            "nvdec": "5th Gen",
+            "dlss": "DLSS 3",
+            "url": "https://www.nvidia.com/en-us/geforce/graphics-cards/40-series/"
+          },
+          "rtx_4070_super": {
+            "name": "GeForce RTX 4070 SUPER",
+            "vram": "12GB",
+            "vramType": "GDDR6X",
+            "memoryBandwidth": "504 GB/s",
+            "memoryInterface": "192-bit",
+            "cudaCores": 7168,
+            "tensorCores": "4th Gen",
+            "rtCores": "3rd Gen",
+            "aiTops": 568,
+            "rtTflops": 82,
+            "boostClock": "2.48 GHz",
+            "baseClock": "1.98 GHz",
+            "tdp": 220,
+            "recommendedPSU": 650,
+            "price": 599,
+            "priceFormatted": "$599",
+            "nvenc": "1x 8th Gen",
+            "nvdec": "5th Gen",
+            "dlss": "DLSS 3",
+            "url": "https://www.nvidia.com/en-us/geforce/graphics-cards/40-series/"
+          }
+        }
+      },
+      "30series": {
+        "architecture": "Ampere",
+        "generation": "3rd Gen Tensor Cores, 2nd Gen RT Cores",
+        "pcie": "Gen 4",
+        "cards": {
+          "rtx_3090_ti": {
+            "name": "GeForce RTX 3090 Ti",
+            "vram": "24GB",
+            "vramType": "GDDR6X",
+            "memoryBandwidth": "1008 GB/s",
+            "memoryInterface": "384-bit",
+            "cudaCores": 10752,
+            "tensorCores": "3rd Gen",
+            "rtCores": "2nd Gen",
+            "boostClock": "1.86 GHz",
+            "baseClock": "1.56 GHz",
+            "tdp": 450,
+            "recommendedPSU": 850,
+            "price": 1999,
+            "priceFormatted": "$1,999 (discontinued)",
+            "nvenc": "7th Gen",
+            "nvdec": "5th Gen",
+            "dlss": "DLSS 2",
+            "discontinued": true,
+            "url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/"
+          },
+          "rtx_3090": {
+            "name": "GeForce RTX 3090",
+            "vram": "24GB",
+            "vramType": "GDDR6X",
+            "memoryBandwidth": "936 GB/s",
+            "memoryInterface": "384-bit",
+            "cudaCores": 10496,
+            "tensorCores": "3rd Gen",
+            "rtCores": "2nd Gen",
+            "boostClock": "1.70 GHz",
+            "baseClock": "1.40 GHz",
+            "tdp": 350,
+            "recommendedPSU": 750,
+            "price": 1499,
+            "priceFormatted": "$1,499 (discontinued)",
+            "nvenc": "7th Gen",
+            "nvdec": "5th Gen",
+            "dlss": "DLSS 2",
+            "discontinued": true,
+            "url": "https://www.nvidia.com/en-us/geforce/graphics-cards/30-series/"
+          }
+        }
+      }
+    },
+    "professional": {
+      "note": "NVIDIA professional/workstation cards (Quadro/RTX A-series) have different pricing and are sold through enterprise channels"
+    }
+  },
+
+  "amd": {
+    "radeon": {
+      "7000series": {
+        "architecture": "RDNA 3",
+        "cards": {
+          "rx_7900_xtx": {
+            "name": "Radeon RX 7900 XTX",
+            "vram": "24GB",
+            "vramType": "GDDR6",
+            "memoryBandwidth": "960 GB/s",
+            "memoryInterface": "384-bit",
+            "streamProcessors": 6144,
+            "computeUnits": 96,
+            "boostClock": "2.50 GHz",
+            "baseClock": "2.27 GHz",
+            "tdp": 355,
+            "price": 999,
+            "priceFormatted": "$999",
+            "url": "https://www.amd.com/en/products/graphics/desktops/radeon/7000-series/amd-radeon-rx-7900xtx.html"
+          },
+          "rx_7900_xt": {
+            "name": "Radeon RX 7900 XT",
+            "vram": "20GB",
+            "vramType": "GDDR6",
+            "memoryBandwidth": "800 GB/s",
+            "memoryInterface": "320-bit",
+            "streamProcessors": 5376,
+            "computeUnits": 84,
+            "boostClock": "2.40 GHz",
+            "baseClock": "2.00 GHz",
+            "tdp": 315,
+            "price": 799,
+            "priceFormatted": "$799",
+            "url": "https://www.amd.com/en/products/graphics/desktops/radeon/7000-series/"
+          },
+          "rx_7800_xt": {
+            "name": "Radeon RX 7800 XT",
+            "vram": "16GB",
+            "vramType": "GDDR6",
+            "memoryBandwidth": "624 GB/s",
+            "memoryInterface": "256-bit",
+            "streamProcessors": 3840,
+            "computeUnits": 60,
+            "boostClock": "2.43 GHz",
+            "baseClock": "2.12 GHz",
+            "tdp": 263,
+            "price": 499,
+            "priceFormatted": "$499",
+            "url": "https://www.amd.com/en/products/graphics/desktops/radeon/7000-series/"
+          }
+        }
+      }
+    },
+    "ryzenAI": {
+      "note": "AMD Ryzen AI Max APUs for mobile workstations",
+      "apus": {
+        "ryzen_ai_max_395": {
+          "name": "Ryzen AI Max+ 395",
+          "cpu": "16-core Zen 5",
+          "gpu": "40 RDNA 3.5 CUs",
+          "npu": "50 TOPS",
+          "memory": "up to 128GB unified",
+          "note": "Found in ASUS ProArt, other mobile workstations"
+        }
+      }
+    }
+  },
+
+  "prebuiltSystems": {
+    "aiWorkstations": {
+      "lambdaLabs": {
+        "tensorbook": {
+          "name": "Lambda Tensorbook",
+          "type": "laptop",
+          "gpu": "RTX 4090 Mobile",
+          "cpu": "Intel Core i9",
+          "ram": "64GB DDR5",
+          "storage": "2TB NVMe",
+          "price": 3499,
+          "priceFormatted": "$3,499",
+          "url": "https://lambdalabs.com/laptops/tensorbook"
+        },
+        "vector": {
+          "name": "Lambda Vector",
+          "type": "desktop",
+          "gpu": "1x-4x RTX 4090",
+          "cpu": "AMD Threadripper PRO",
+          "ram": "up to 512GB DDR5",
+          "storage": "up to 8TB NVMe",
+          "priceRange": "$8,000-$40,000+",
+          "url": "https://lambdalabs.com/products/vector"
+        }
+      },
+      "pugetsystems": {
+        "genesis": {
+          "name": "Puget Systems Genesis",
+          "type": "desktop workstation",
+          "features": "Custom-built AI workstations with professional support",
+          "priceRange": "$5,000-$50,000+",
+          "url": "https://www.pugetsystems.com/"
+        }
+      }
+    }
+  },
+
+  "diyRecommendations": {
+    "budgetBuild": {
+      "name": "Budget AI/ML Build",
+      "targetPrice": 2000,
+      "components": {
+        "gpu": "RTX 4070 SUPER (12GB)",
+        "cpu": "AMD Ryzen 7 7800X3D or Intel i7-14700K",
+        "ram": "64GB DDR5-5600",
+        "storage": "2TB NVMe Gen 4",
+        "psu": "750W 80+ Gold",
+        "notes": "Good for learning, smaller models, inference"
+      }
+    },
+    "midRangeBuild": {
+      "name": "Mid-Range AI/ML Build",
+      "targetPrice": 4000,
+      "components": {
+        "gpu": "RTX 4080 SUPER or RTX 5080",
+        "cpu": "AMD Ryzen 9 7950X or Intel i9-14900K",
+        "ram": "128GB DDR5-5600",
+        "storage": "4TB NVMe Gen 4",
+        "psu": "1000W 80+ Gold",
+        "notes": "Training medium models, comfortable multi-tasking"
+      }
+    },
+    "highEndBuild": {
+      "name": "High-End AI/ML Build",
+      "targetPrice": 8000,
+      "components": {
+        "gpu": "RTX 5090 (32GB) or dual RTX 4090",
+        "cpu": "AMD Threadripper 7970X or Intel Xeon w5-3425",
+        "ram": "256GB DDR5-5600",
+        "storage": "8TB NVMe Gen 5",
+        "psu": "1600W 80+ Titanium",
+        "notes": "Training large models, production workloads"
+      }
+    }
+  },
+
+  "gpuRankings": {
+    "forAI": {
+      "consumer": [
+        { "rank": 1, "name": "RTX 5090", "vram": "32GB", "score": 100, "notes": "Best consumer GPU for AI" },
+        { "rank": 2, "name": "RTX 4090", "vram": "24GB", "score": 85, "notes": "Previous gen flagship, still excellent" },
+        { "rank": 3, "name": "RTX 5080", "vram": "16GB", "score": 75, "notes": "Great value, GDDR7" },
+        { "rank": 4, "name": "RTX 4080 SUPER", "vram": "16GB", "score": 65, "notes": "Solid mid-high option" },
+        { "rank": 5, "name": "RX 7900 XTX", "vram": "24GB", "score": 60, "notes": "Good VRAM, ROCm improving" },
+        { "rank": 6, "name": "RTX 5070 Ti", "vram": "16GB", "score": 55, "notes": "Good entry point" },
+        { "rank": 7, "name": "RTX 4070 Ti SUPER", "vram": "16GB", "score": 50, "notes": "Budget-friendly option" },
+        { "rank": 8, "name": "RTX 5070", "vram": "12GB", "score": 45, "notes": "Entry level, limited by VRAM" }
+      ],
+      "appleSilicon": [
+        { "rank": 1, "name": "M3 Ultra", "memory": "512GB unified", "score": 95, "notes": "Massive unified memory" },
+        { "rank": 2, "name": "M3 Ultra", "memory": "256GB unified", "score": 90, "notes": "Great for large models" },
+        { "rank": 3, "name": "M4 Max", "memory": "128GB unified", "score": 70, "notes": "Excellent power efficiency" },
+        { "rank": 4, "name": "M4 Pro", "memory": "64GB unified", "score": 55, "notes": "Good for medium models" }
+      ]
+    }
+  },
+
+  "useCases": {
+    "localLLM": {
+      "7b_models": {
+        "description": "7B parameter models (Llama 3, Mistral 7B)",
+        "requirements": {
+          "minVram": "8GB",
+          "recommendedVram": "12GB+",
+          "recommendedGpus": ["RTX 4070", "RTX 4060 Ti", "M4 Pro"],
+          "notes": "Can run on 8GB VRAM with quantization"
+        }
+      },
+      "13b_models": {
+        "description": "13B parameter models",
+        "requirements": {
+          "minVram": "16GB",
+          "recommendedVram": "24GB+",
+          "recommendedGpus": ["RTX 4090", "RTX 5080", "RX 7900 XTX", "M4 Max"],
+          "notes": "16GB works with 4-bit quantization"
+        }
+      },
+      "70b_models": {
+        "description": "70B parameter models (Llama 3 70B)",
+        "requirements": {
+          "minVram": "48GB",
+          "recommendedVram": "80GB+",
+          "recommendedGpus": ["Multiple RTX 4090", "M3 Ultra", "A100"],
+          "notes": "Requires multi-GPU or Apple Silicon"
+        }
+      }
+    },
+    "stableDiffusion": {
+      "sdxl": {
+        "description": "Stable Diffusion XL",
+        "requirements": {
+          "minVram": "8GB",
+          "recommendedVram": "12GB+",
+          "notes": "Higher resolution needs more VRAM"
+        }
+      },
+      "flux": {
+        "description": "FLUX models",
+        "requirements": {
+          "minVram": "12GB",
+          "recommendedVram": "16GB+",
+          "notes": "FLUX.1 needs more VRAM than SDXL"
+        }
+      }
+    },
+    "training": {
+      "fineTuning": {
+        "description": "Fine-tuning existing models",
+        "requirements": {
+          "minVram": "16GB",
+          "recommendedVram": "24GB+",
+          "notes": "LoRA reduces VRAM requirements significantly"
+        }
+      },
+      "fullTraining": {
+        "description": "Training models from scratch",
+        "requirements": {
+          "minVram": "24GB",
+          "recommendedVram": "48GB+",
+          "notes": "Consider multi-GPU or cloud for larger models"
+        }
+      }
+    }
+  }
+}

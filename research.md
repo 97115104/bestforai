@@ -1,11 +1,11 @@
 # AI Workstation Research Notes
 *Sourced primarily from r/LocalLLaMA (905K members) — community benchmarks, anecdotes, and real-world feedback. Benchmark tool: llama.cpp (llama-bench) or MLX unless noted. PP = prompt processing (prefill) t/s; TG = token generation t/s.*
 
-**Note:** This document includes M3-era benchmarks as baseline references. The M4 Ultra (released 2025) offers similar memory bandwidth (~800 GB/s) with improved GPU performance. Expect ~10-20% higher token generation speeds on M4 variants compared to M3 benchmarks cited below.
+**Note:** This document includes M3-era benchmarks as baseline references. The M3 Ultra offers ~800 GB/s memory bandwidth. The M4 Max (released 2024) offers improved GPU performance but no M4 Ultra exists yet — only the M3 Ultra is available for Mac Studio.
 
 ---
 
-## 1. Apple Mac Studio (M3 Ultra, 192GB / 512GB)
+## 1. Apple Mac Studio (M3 Ultra, 128GB / 512GB)
 
 **Key Specs:** Up to 192-core GPU, 512GB unified memory, ~800 GB/s memory bandwidth
 
@@ -25,21 +25,21 @@
 - Token generation is slower than consumer NVIDIA for models that fit in VRAM (RTX 5090 = ~1,792 GB/s bandwidth vs M3 Ultra ~800 GB/s)
 - Concurrent request handling degrades more than NVIDIA: "Mac doesn't handle concurrent requests as well as NVIDIA GPU"
 - Fan noise reported as significant under sustained full-load inference
-- Premium pricing: 192GB config ~$4,999; 512GB config ~$9,999
+- Premium pricing: 128GB config ~$3,999; 512GB config ~$9,999
 
 **Memory Bandwidth Context:** M3 Ultra ~800 GB/s > M4 Max ~550 GB/s > Ryzen AI Max+ 395 ~256 GB/s > RTX 4090 ~1,008 GB/s > RTX 5090 ~1,792 GB/s
 
 ---
 
-## 2. MacBook Pro 16" (M3 Max, up to 128GB)
+## 2. MacBook Pro 16" (M4 Max, up to 128GB)
 
-**Key Specs:** Up to 40-core GPU, 128GB unified memory, ~300 GB/s memory bandwidth
+**Key Specs:** Up to 40-core GPU, 128GB unified memory, ~410 GB/s memory bandwidth
 
 **Community Benchmarks & Evidence:**
-- **"MacBook M4 Max isn't great for LLMs"** (r/LocalLLaMA, 1 year ago, **514 upvotes**, 264 comments): "14B distilled Qwen Q4 runs at ~40 t/s for coding, with diffs frequently failing. 32B is pretty unusable via Roo Code and Cline because of low speed." — OP had M1 Max, then upgraded to M4 Max (M3 Max sits between).
-- **Technical breakdown** in the same thread: "M4 Max is about 50% faster than an NVIDIA P40 (both compute and memory bandwidth). About 7x slower than a 3090 in FP16 compute, ~2x slower in memory bandwidth." — u/henfiber (319 upvotes). This places M3 Max performance roughly similar to M4 Max or slightly lower.
+- **"MacBook M4 Max isn't great for LLMs"** (r/LocalLLaMA, 1 year ago, **514 upvotes**, 264 comments): "14B distilled Qwen Q4 runs at ~40 t/s for coding, with diffs frequently failing. 32B is pretty unusable via Roo Code and Cline because of low speed." — OP had M1 Max, then upgraded to M4 Max.
+- **Technical breakdown** in the same thread: "M4 Max is about 50% faster than an NVIDIA P40 (both compute and memory bandwidth). About 7x slower than a 3090 in FP16 compute, ~2x slower in memory bandwidth." — u/henfiber (319 upvotes).
 - **14" M4 Mac user** (same thread): "Getting 35 t/s on Qwen Q4. I never realized this was slow — it gets my job done. My whole dev stack is on my laptop now." Context: M4 Max 16" with 40-core is faster still.
-- **MLX speedup**: "MLX is 20-30% faster than Ollama [for token generation]." Using MLX + speculative decoding with a 0.5B draft model can roughly triple speed on M1/M2 Max, proportionally applicable to M3 Max.
+- **MLX speedup**: "MLX is 20-30% faster than Ollama [for token generation]." Using MLX + speculative decoding with a 0.5B draft model can roughly triple speed.
 
 **Notable Pros:**
 - Truly portable AI workstation: runs inference on battery on a plane, bus, or coffee shop — no NVIDIA rig offers this
@@ -48,10 +48,10 @@
 - Long battery life for non-inference tasks; professional macOS ecosystem
 
 **Gotchas:**
-- Noticeably slower than even a used RTX 3090 for token generation on models that fit in VRAM
+- Noticeably slower than a used RTX 3090 for token generation on models that fit in VRAM
 - "32B is pretty unusable" at the speeds it generates for interactive coding via IDE plugins
 - Fans spin at full speed under sustained inference load
-- Price premium: 128GB M3 Max MBP 16" costs ~$3,999–$4,499; a used RTX 4090 PC setup can match inference speed at similar or lower cost
+- Price premium: 128GB M4 Max MBP 16" costs ~$4,200+; a used RTX 4090 PC setup can match inference speed at similar or lower cost
 - Not suited for multi-user serving; concurrency degrades quickly
 
 ---
@@ -266,7 +266,7 @@
 | System | VRAM / Memory | Bandwidth | Best TG for 7B Q4 | 70B capable? | TDP | Price Range |
 |---|---|---|---|---|---|---|
 | Mac Studio M3 Ultra 512GB | 512GB unified | ~800 GB/s | ~120 t/s | ✅ Yes (slowly) | ~150W | $9,999 |
-| MacBook Pro M3 Max 128GB | 128GB unified | ~300 GB/s | ~60 t/s | ⚠️ Slow | ~60W | $3,999–4,499 |
+| MacBook Pro M4 Max 128GB | 128GB unified | ~410 GB/s | ~75 t/s | ⚠️ Slow | ~60W | $4,200+ |
 | RTX 5090 Desktop | 32GB GDDR7 | 1,792 GB/s | ~250 t/s | ❌ Needs offload | ~575W | $1,999+ (GPU) |
 | RTX 4090 Desktop | 24GB GDDR6X | 1,008 GB/s | ~140 t/s | ❌ Needs offload | ~450W | $1,100–1,400 (used GPU) |
 | Dell Precision + RTX 6000 Ada | 48GB VRAM ECC | ~960 GB/s | ~200 t/s | ⚠️ Q4 | ~300W | $15,000–30,000 |
