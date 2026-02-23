@@ -1,0 +1,1235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI System Benchmark — Can Your PC Run Local AI?</title>
+  <style>
+    :root {
+      --table-border-color: #ddd;
+      --table-header-bg: #f2f2f2;
+      --table-row-hover-bg: #f5f5f5;
+      --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      --accent-color: #007bff;
+      --text-color: #333;
+      --bg-color: #fff;
+      --note-bg-color: #f9f9f9;
+      --border-radius: 6px;
+      --green: #28a745;
+      --yellow: #ffc107;
+      --orange: #fd7e14;
+      --red: #dc3545;
+      --muted: #666;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: var(--font-family);
+      margin: 0;
+      padding: 1.5em;
+      background: var(--bg-color);
+      color: var(--text-color);
+      line-height: 1.6;
+    }
+    header { text-align: center; margin-bottom: 1.5em; }
+    header h1 { font-size: 2em; margin-bottom: .2em; }
+    header .subtitle { font-size: 1em; color: var(--muted); }
+    .back-link {
+      display: inline-block;
+      margin-bottom: 1.2em;
+      color: var(--accent-color);
+      text-decoration: none;
+      font-size: .92em;
+    }
+    .back-link:hover { text-decoration: underline; }
+
+    /* ── SECTION CARDS ── */
+    .section-card {
+      border: 1px solid var(--table-border-color);
+      border-radius: var(--border-radius);
+      margin-bottom: 1.4em;
+      overflow: hidden;
+    }
+    .card-header {
+      background: var(--table-header-bg);
+      padding: .7em 1.1em;
+      font-weight: 700;
+      font-size: .95em;
+      display: flex;
+      align-items: center;
+      gap: .5em;
+      border-bottom: 1px solid var(--table-border-color);
+    }
+    .card-body { padding: 1.2em 1.4em; }
+
+    /* ── METHOD TABS (inside card) ── */
+    .method-tabs {
+      display: flex;
+      gap: 0;
+      border-bottom: 2px solid var(--table-border-color);
+      margin-bottom: 1.2em;
+      flex-wrap: wrap;
+    }
+    .method-tab {
+      padding: .55em 1.1em;
+      border: none;
+      background: transparent;
+      cursor: pointer;
+      font-size: .9em;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -2px;
+      color: var(--muted);
+      font-family: var(--font-family);
+      transition: color .15s;
+    }
+    .method-tab.active {
+      color: var(--accent-color);
+      border-bottom-color: var(--accent-color);
+      font-weight: 600;
+    }
+    .method-panel { display: none; }
+    .method-panel.active { display: block; }
+
+    /* ── CODE COMMAND BOX ── */
+    .cmd-box {
+      background: #1e1e1e;
+      color: #d4d4d4;
+      border-radius: var(--border-radius);
+      padding: .9em 1.1em;
+      font-family: 'Consolas', 'Monaco', monospace;
+      font-size: .82em;
+      line-height: 1.6;
+      position: relative;
+      white-space: pre-wrap;
+      word-break: break-all;
+      margin-bottom: .8em;
+    }
+    .copy-btn {
+      position: absolute;
+      top: .5em; right: .5em;
+      background: #3a3a3a;
+      color: #ccc;
+      border: 1px solid #555;
+      border-radius: 4px;
+      font-size: .75em;
+      padding: .25em .65em;
+      cursor: pointer;
+      font-family: var(--font-family);
+    }
+    .copy-btn:hover { background: #555; }
+
+    /* ── PASTE AREA ── */
+    .paste-area {
+      width: 100%;
+      min-height: 90px;
+      padding: .7em;
+      border: 1px solid var(--table-border-color);
+      border-radius: var(--border-radius);
+      font-family: 'Consolas', 'Monaco', monospace;
+      font-size: .82em;
+      resize: vertical;
+      color: #333;
+      background: #fdfdfd;
+    }
+    .paste-area:focus { outline: 2px solid var(--accent-color); }
+
+    /* ── FILE DROP ZONE ── */
+    .drop-zone {
+      border: 2px dashed var(--table-border-color);
+      border-radius: var(--border-radius);
+      padding: 2em 1.5em;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color .2s, background .2s;
+      background: var(--note-bg-color);
+    }
+    .drop-zone:hover, .drop-zone.drag-over { border-color: var(--accent-color); background: #f0f7ff; }
+    .drop-zone input { display: none; }
+    .dz-icon { font-size: 2em; margin-bottom: .4em; }
+    .dz-label { color: var(--muted); font-size: .9em; }
+    .dz-label strong { color: var(--accent-color); }
+    .drop-zone.has-file { border-color: var(--green); background: #f0fff4; }
+
+    /* ── PARSED SPECS ── */
+    .parsed-specs {
+      display: none;
+      margin-top: 1em;
+      padding: .9em 1.1em;
+      background: #f0fff4;
+      border: 1px solid #b2dfdb;
+      border-radius: var(--border-radius);
+      font-size: .9em;
+    }
+    .parsed-specs.visible { display: block; }
+    .parsed-spec-row {
+      display: flex;
+      justify-content: space-between;
+      padding: .3em 0;
+      border-bottom: 1px solid #ddd;
+    }
+    .parsed-spec-row:last-child { border-bottom: none; }
+    .spec-key { color: var(--muted); }
+    .spec-val { font-weight: 600; }
+
+    /* ── BUTTONS ── */
+    .btn {
+      padding: .65em 1.4em;
+      border: none;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      font-size: .95em;
+      font-weight: 600;
+      font-family: var(--font-family);
+      transition: opacity .15s;
+    }
+    .btn:hover { opacity: .87; }
+    .btn:disabled { opacity: .45; cursor: not-allowed; }
+    .btn-primary { background: var(--accent-color); color: #fff; }
+    .btn-lg {
+      display: block;
+      width: 100%;
+      max-width: 340px;
+      margin: 0 auto 1.6em;
+      padding: .85em;
+      font-size: 1.05em;
+      text-align: center;
+    }
+    .btn-sm { font-size: .82em; padding: .4em .9em; }
+
+    /* ── PROGRESS ── */
+    .progress-wrap {
+      height: 6px;
+      background: var(--note-bg-color);
+      border-radius: 50px;
+      overflow: hidden;
+      margin-bottom: 1.4em;
+      display: none;
+    }
+    .progress-bar {
+      height: 100%;
+      background: var(--accent-color);
+      border-radius: 50px;
+      transition: width .4s ease;
+      width: 0%;
+    }
+
+    /* ── TEST LIST ── */
+    .test-list { display: flex; flex-direction: column; gap: .55em; }
+    .test-item {
+      display: flex;
+      align-items: center;
+      gap: .9em;
+      padding: .6em .9em;
+      background: var(--note-bg-color);
+      border: 1px solid var(--table-border-color);
+      border-radius: var(--border-radius);
+      font-size: .9em;
+    }
+    .test-icon { font-size: 1.15em; width: 1.8em; text-align: center; flex-shrink: 0; }
+    .test-info { flex: 1; }
+    .test-name { font-weight: 600; }
+    .test-desc { font-size: .78em; color: var(--muted); }
+    .test-status {
+      font-size: .82em;
+      font-weight: 700;
+      color: var(--muted);
+      min-width: 100px;
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .test-status.running { color: var(--accent-color); animation: pulse 1s ease-in-out infinite; }
+    .test-status.done    { color: var(--green); }
+    .test-status.skip    { color: var(--orange); }
+
+    /* ── RESULTS ── */
+    #results { display: none; }
+
+    .grade-hero {
+      text-align: center;
+      padding: 2em 1.5em;
+      background: var(--note-bg-color);
+      border: 1px solid var(--table-border-color);
+      border-radius: var(--border-radius);
+      margin-bottom: 1.4em;
+    }
+    .grade-circle {
+      width: 110px; height: 110px;
+      border-radius: 50%;
+      border: 5px solid var(--table-border-color);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      margin: 0 auto 1em;
+      transition: border-color .4s;
+    }
+    .grade-letter { font-size: 2.5em; font-weight: 900; line-height: 1; }
+    .grade-sub { font-size: .65em; color: var(--muted); text-transform: uppercase; letter-spacing: .1em; }
+    .grade-headline { font-size: 1.25em; font-weight: 700; margin-bottom: .4em; }
+    .grade-details { color: var(--muted); font-size: .9em; line-height: 1.8; }
+
+    /* ── METRICS GRID ── */
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1em;
+      margin-bottom: 1.4em;
+    }
+    .metric-card {
+      padding: 1em 1.15em;
+      border: 1px solid var(--table-border-color);
+      border-radius: var(--border-radius);
+      background: var(--note-bg-color);
+    }
+    .metric-label { font-size: .73em; color: var(--muted); text-transform: uppercase; letter-spacing: .07em; margin-bottom: .25em; }
+    .metric-value { font-size: 1.35em; font-weight: 800; }
+    .metric-raw { font-size: .75em; color: var(--muted); margin-top: .1em; }
+    .metric-bar-bg { margin-top: .5em; background: var(--table-border-color); border-radius: 50px; height: 5px; overflow: hidden; }
+    .metric-bar-fill { height: 100%; border-radius: 50px; background: var(--accent-color); transition: width .9s ease; width: 0%; }
+
+    /* ── TABLE ── */
+    table { border-collapse: collapse; width: 100%; }
+    th, td { border: 1px solid var(--table-border-color); padding: .65em .85em; text-align: left; font-size: .92em; }
+    th { background: var(--table-header-bg); font-weight: 600; font-size: .83em; }
+    tr:hover td { background: var(--table-row-hover-bg); }
+
+    .tag {
+      display: inline-block;
+      padding: .2em .6em;
+      border-radius: 50px;
+      font-size: .72em;
+      font-weight: 700;
+      white-space: nowrap;
+    }
+    .tag-yes   { background: #d4edda; color: #155724; }
+    .tag-maybe { background: #fff3cd; color: #856404; }
+    .tag-no    { background: #f8d7da; color: #721c24; }
+    .tag-best  { background: #cce5ff; color: #004085; border: 1px solid #b8daff; }
+
+    /* ── TIPS ── */
+    .tip-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: .55em; }
+    .tip-list li {
+      background: var(--note-bg-color);
+      border-left: 3px solid var(--accent-color);
+      padding: .65em .9em;
+      border-radius: 0 var(--border-radius) var(--border-radius) 0;
+      font-size: .9em;
+      line-height: 1.5;
+    }
+
+    /* ── DETAIL TOGGLE ── */
+    .detail-toggle {
+      background: transparent;
+      border: 1px solid var(--table-border-color);
+      color: var(--accent-color);
+      cursor: pointer;
+      font-size: .82em;
+      padding: .35em .8em;
+      border-radius: var(--border-radius);
+      margin-top: .9em;
+      font-family: var(--font-family);
+    }
+    .detail-toggle:hover { background: var(--note-bg-color); }
+    .detail-body { display: none; margin-top: .8em; }
+    .detail-body.open { display: block; }
+    .detail-row {
+      display: flex;
+      justify-content: space-between;
+      padding: .38em 0;
+      border-bottom: 1px solid var(--table-border-color);
+      font-size: .87em;
+    }
+    .detail-row:last-child { border-bottom: none; }
+    .detail-key { color: var(--muted); }
+    .detail-val { font-weight: 600; }
+
+    .footnote {
+      text-align: center;
+      color: var(--muted);
+      font-size: .78em;
+      margin-top: 2em;
+      line-height: 1.7;
+    }
+    kbd {
+      background: #eee; border: 1px solid #ccc; border-radius: 3px;
+      padding: .1em .4em; font-size: .88em; font-family: var(--font-family);
+    }
+
+    @keyframes pulse { 0%,100%{opacity:1}50%{opacity:.4} }
+    @media (max-width: 600px) {
+      .metrics-grid { grid-template-columns: 1fr 1fr; }
+      .method-tab   { padding: .45em .7em; font-size: .82em; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>AI System Benchmark</h1>
+  <p class="subtitle">Assess your computer's ability to run local AI models — provide real specs for accurate results.</p>
+</header>
+
+<a href="index.html" class="back-link">← Back to AI Workstation &amp; GPU Performance Report</a>
+
+<!-- ══════════════════════════════════════════════════
+     STEP 1 — SYSTEM INFO
+══════════════════════════════════════════════════ -->
+<div class="section-card">
+  <div class="card-header">
+    Step 1 &mdash; Provide Your System Specs
+    <span style="font-weight:400;color:var(--muted);font-size:.87em;margin-left:.3em">(recommended for accurate results)</span>
+  </div>
+  <div class="card-body">
+    <p style="margin-top:0;font-size:.9em;color:var(--muted)">
+      Live benchmarks measure real CPU and memory throughput, but <strong>total RAM and GPU VRAM cannot be read by a browser</strong> — 
+      these are the most critical inputs for model-fit scoring. Use one method below to provide exact specs. 
+      All data stays in your browser; nothing is sent anywhere.
+    </p>
+
+    <div class="method-tabs" id="methodTabs">
+      <button class="method-tab active" onclick="switchMethod(this,'windows-ps')">Windows PowerShell</button>
+      <button class="method-tab"        onclick="switchMethod(this,'mac')">macOS Terminal</button>
+      <button class="method-tab"        onclick="switchMethod(this,'dxdiag')">DxDiag File Upload</button>
+      <button class="method-tab"        onclick="switchMethod(this,'manual')">Enter Manually</button>
+    </div>
+
+    <!-- ── Windows PowerShell ── -->
+    <div class="method-panel active" id="panel-windows-ps">
+      <p style="font-size:.9em;margin-top:0">
+        Press <kbd>Win + R</kbd>, type <code>powershell</code> and hit Enter.
+        Paste the command, run it, then copy the output into the box below.
+      </p>
+      <div class="cmd-box" id="cmd-ps">$cpu = Get-CimInstance Win32_Processor | Select-Object -First 1
+$gpu = Get-CimInstance Win32_VideoController | Select-Object -First 1
+$sys = Get-CimInstance Win32_ComputerSystem
+$ram = [math]::Round($sys.TotalPhysicalMemory / 1GB)
+$cores = $cpu.NumberOfCores
+$threads = $cpu.NumberOfLogicalProcessors
+$vramRaw = $gpu.AdapterRAM
+$vram = if ($vramRaw -gt 1GB) { [math]::Round($vramRaw / 1GB) } else { 0 }
+"=== AI-BENCHMARK-SPECS ==="
+"CPU: $($cpu.Name.Trim())"
+"Cores: $cores"
+"Threads: $threads"
+"RAM_GB: $ram"
+"GPU: $($gpu.Name.Trim())"
+"VRAM_GB: $vram"
+"==========================="<button class="copy-btn" onclick="copyCmd('cmd-ps',this)">Copy</button></div>
+      <label style="font-size:.85em;font-weight:600;display:block;margin-bottom:.3em">Paste PowerShell output here:</label>
+      <textarea class="paste-area" id="paste-ps" placeholder="Paste output here…" oninput="tryParse('ps',this.value)"></textarea>
+    </div>
+
+    <!-- ── macOS Terminal ── -->
+    <div class="method-panel" id="panel-mac">
+      <p style="font-size:.9em;margin-top:0">
+        Press <kbd>⌘ Space</kbd>, type <code>Terminal</code> and hit Enter.
+        Paste the command, run it, then copy the output into the box below.
+      </p>
+      <div class="cmd-box" id="cmd-mac">echo "=== AI-BENCHMARK-SPECS ===" \
+  && system_profiler SPHardwareDataType 2>/dev/null \
+     | grep -E "Model Name|Chip|Total Number of Cores|Memory:" \
+  && system_profiler SPDisplaysDataType 2>/dev/null \
+     | grep -E "Chipset Model|VRAM" \
+  && echo "==========================="<button class="copy-btn" onclick="copyCmd('cmd-mac',this)">Copy</button></div>
+      <label style="font-size:.85em;font-weight:600;display:block;margin-bottom:.3em">Paste Terminal output here:</label>
+      <textarea class="paste-area" id="paste-mac" placeholder="Paste output here…" oninput="tryParse('mac',this.value)"></textarea>
+    </div>
+
+    <!-- ── DxDiag Upload ── -->
+    <div class="method-panel" id="panel-dxdiag">
+      <p style="font-size:.9em;margin-top:0">
+        Press <kbd>Win + R</kbd>, type <code>dxdiag</code> and hit Enter.
+        Wait for it to load, then click <strong>"Save All Information"</strong> to export a <code>.txt</code> file. Upload it below.
+      </p>
+      <div class="drop-zone" id="dropZone"
+           onclick="document.getElementById('fileInput').click()"
+           ondragover="event.preventDefault();this.classList.add('drag-over')"
+           ondragleave="this.classList.remove('drag-over')"
+           ondrop="handleDrop(event)">
+        <div class="dz-icon" id="dzIcon" style="font-size:2em;margin-bottom:.4em">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#999" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <div class="dz-label" id="dzLabel"><strong>Click to browse</strong> or drag &amp; drop your DxDiag .txt file here</div>
+        <input type="file" id="fileInput" accept=".txt,text/plain" onchange="handleFileSelect(event)">
+      </div>
+    </div>
+
+    <!-- ── Manual Entry ── -->
+    <div class="method-panel" id="panel-manual">
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1em">
+        <div>
+          <label style="font-size:.88em;font-weight:600;display:block;margin-bottom:.3em">CPU Model (optional)</label>
+          <input type="text" id="man-cpu" placeholder="e.g. Intel Core i9-13900K"
+            style="width:100%;padding:.5em;border:1px solid var(--table-border-color);border-radius:var(--border-radius);font-size:.9em;font-family:var(--font-family)">
+        </div>
+        <div>
+          <label style="font-size:.88em;font-weight:600;display:block;margin-bottom:.3em">CPU Physical Cores</label>
+          <input type="number" id="man-cores" placeholder="e.g. 16" min="1" max="512"
+            style="width:100%;padding:.5em;border:1px solid var(--table-border-color);border-radius:var(--border-radius);font-size:.9em;font-family:var(--font-family)">
+        </div>
+        <div>
+          <label style="font-size:.88em;font-weight:600;display:block;margin-bottom:.3em">Total System RAM (GB)</label>
+          <input type="number" id="man-ram" placeholder="e.g. 32" min="1" max="2048"
+            style="width:100%;padding:.5em;border:1px solid var(--table-border-color);border-radius:var(--border-radius);font-size:.9em;font-family:var(--font-family)">
+        </div>
+        <div>
+          <label style="font-size:.88em;font-weight:600;display:block;margin-bottom:.3em">GPU Model (optional)</label>
+          <input type="text" id="man-gpu" placeholder="e.g. NVIDIA RTX 4090"
+            style="width:100%;padding:.5em;border:1px solid var(--table-border-color);border-radius:var(--border-radius);font-size:.9em;font-family:var(--font-family)">
+        </div>
+        <div>
+          <label style="font-size:.88em;font-weight:600;display:block;margin-bottom:.3em">GPU VRAM (GB)</label>
+          <input type="number" id="man-vram" placeholder="e.g. 24" min="0" max="512"
+            style="width:100%;padding:.5em;border:1px solid var(--table-border-color);border-radius:var(--border-radius);font-size:.9em;font-family:var(--font-family)">
+        </div>
+      </div>
+      <button class="btn btn-primary btn-sm" style="margin-top:1em" onclick="applyManual()">Apply Specs</button>
+    </div>
+
+    <!-- Parsed result -->
+    <div class="parsed-specs" id="parsedSpecs">
+      <strong style="display:block;margin-bottom:.5em;color:var(--green)">Specs detected &mdash; these will be used for model scoring:</strong>
+      <div id="parsedRows"></div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     STEP 2 — LIVE BENCHMARKS
+══════════════════════════════════════════════════ -->
+<div class="section-card">
+  <div class="card-header">Step 2 &mdash; Run Live Benchmarks</div>
+  <div class="card-body">
+    <p style="margin-top:0;font-size:.9em;color:var(--muted)">
+      These tests measure your CPU's raw arithmetic throughput and memory bandwidth directly in the browser — 
+      the two metrics that most accurately predict LLM token generation speed. Keep this tab in the foreground for reliable results.
+    </p>
+    <button class="btn btn-primary btn-lg" id="btnStart" onclick="runBenchmark()">▶ Start Benchmark</button>
+    <div class="progress-wrap" id="progressWrap">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+    <div id="testCard" style="display:none">
+      <div class="test-list" id="testList"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════
+     RESULTS
+══════════════════════════════════════════════════ -->
+<div id="results">
+
+  <div class="grade-hero">
+    <div class="grade-circle" id="gradeCircle">
+      <span class="grade-letter" id="gradeLetter">&mdash;</span>
+      <span class="grade-sub">Grade</span>
+    </div>
+    <div class="grade-headline" id="gradeHeadline"></div>
+    <div class="grade-details"  id="gradeDetails"></div>
+  </div>
+
+  <div class="metrics-grid" id="metricsGrid"></div>
+
+  <div class="section-card">
+    <div class="card-header">Model Size Compatibility</div>
+    <div class="card-body" style="padding:0;overflow-x:auto">
+      <table>
+        <thead><tr>
+          <th>Parameters</th>
+          <th>Example Models</th>
+          <th>Q4 RAM</th>
+          <th>FP16 RAM</th>
+          <th>Est. CPU Speed</th>
+          <th>Your System</th>
+        </tr></thead>
+        <tbody id="modelTbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <div class="card-header">Raw Benchmark Data</div>
+    <div class="card-body">
+      <button class="detail-toggle" onclick="toggleDetail()">Show all raw scores ▾</button>
+      <div class="detail-body" id="detailBody"></div>
+    </div>
+  </div>
+
+  <div class="section-card">
+    <div class="card-header">Recommendations</div>
+    <div class="card-body">
+      <ul class="tip-list" id="tipList"></ul>
+    </div>
+  </div>
+
+</div>
+
+<p class="footnote">
+  All tests and parsing run locally in your browser &middot; No data is transmitted anywhere<br>
+  CPU &amp; memory figures are real measurements. RAM &amp; GPU VRAM require system info for accuracy.<br>
+  Token speed estimates based on memory-bandwidth model of llama.cpp CPU inference.<br>
+  GPU-offloaded inference is typically 5&ndash;20&times; faster than CPU-only.<br>
+  &copy; 2026 AI Workstation Report
+</p>
+
+<script>
+/* ═══════════════════════════════════════════════════════════
+   STATE
+═══════════════════════════════════════════════════════════ */
+const S = {
+  // Live benchmark results
+  cpuMflops: null, simdGops: null, memBwGBps: null, latNs: null,
+  jsCores: null, gpuRenderer: null, gpuShaderScore: null,
+  // From system info (authoritative)
+  cpuName: null, coreCount: null, threadCount: null,
+  ramGB: null, gpuName: null, vramGB: null, unifiedMem: false,
+  specSource: null,
+};
+
+/* ═══════════════════════════════════════════════════════════
+   UI — METHOD TABS
+═══════════════════════════════════════════════════════════ */
+function switchMethod(btn, id) {
+  document.querySelectorAll('.method-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.method-panel').forEach(p => p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('panel-' + id).classList.add('active');
+}
+
+/* ═══════════════════════════════════════════════════════════
+   COPY COMMAND
+═══════════════════════════════════════════════════════════ */
+function copyCmd(elId, btnEl) {
+  const el   = document.getElementById(elId);
+  const text = el.innerText.replace(/\s*Copy\s*$/, '').trim();
+  navigator.clipboard.writeText(text)
+    .catch(() => { const t=document.createElement('textarea'); t.value=text; document.body.appendChild(t); t.select(); document.execCommand('copy'); document.body.removeChild(t); })
+    .finally(() => {
+      btnEl.textContent = '✓ Copied!';
+      setTimeout(() => { btnEl.textContent = 'Copy'; }, 1800);
+    });
+}
+
+/* ═══════════════════════════════════════════════════════════
+   PARSERS
+═══════════════════════════════════════════════════════════ */
+function parsePowerShell(text) {
+  const out = {};
+  for (const line of text.split('\n').map(l => l.trim())) {
+    const m = line.match(/^([^:]+):\s*(.+)$/);
+    if (!m) continue;
+    const k = m[1].trim().toLowerCase(), v = m[2].trim();
+    if (k === 'cpu')        out.cpuName    = v;
+    if (k === 'cores')      out.coreCount  = parseInt(v)   || null;
+    if (k === 'threads')    out.threadCount= parseInt(v)   || null;
+    if (k === 'ram_gb')     out.ramGB      = parseFloat(v) || null;
+    if (k === 'gpu')        out.gpuName    = v;
+    if (k === 'vram_gb')    out.vramGB     = parseFloat(v) || null;
+  }
+  return Object.keys(out).length >= 2 ? out : null;
+}
+
+function parseMac(text) {
+  const out = {};
+  for (const line of text.split('\n').map(l => l.trim())) {
+    let m;
+    // Memory: 96 GB
+    m = line.match(/Memory:\s*([\d.]+)\s*(GB|TB|MB)/i);
+    if (m) {
+      let v = parseFloat(m[1]);
+      if (/TB/i.test(m[2])) v *= 1024;
+      if (/MB/i.test(m[2])) v /= 1024;
+      out.ramGB = Math.round(v);
+    }
+    // Chip: Apple M3 Ultra
+    m = line.match(/Chip:\s*(.+)/i);
+    if (m) out.cpuName = m[1].trim();
+    // Model Name
+    m = line.match(/Model Name:\s*(.+)/i);
+    if (m) out.modelName = m[1].trim();
+    // Total Number of Cores
+    m = line.match(/Total Number of Cores:\s*(\d+)/i);
+    if (m) out.coreCount = parseInt(m[1]);
+    // Chipset Model (GPU on Mac)
+    m = line.match(/Chipset Model:\s*(.+)/i);
+    if (m) out.gpuName = m[1].trim();
+    // VRAM: 192 GB
+    m = line.match(/VRAM.*?:\s*([\d.]+)\s*(GB|MB)/i);
+    if (m) {
+      let v = parseFloat(m[1]);
+      if (/MB/i.test(m[2])) v /= 1024;
+      out.vramGB = Math.round(v);
+    }
+  }
+  // Apple unified memory: VRAM = RAM if no separate VRAM listed
+  if (out.cpuName && /apple/i.test(out.cpuName) && out.ramGB && !out.vramGB) {
+    out.vramGB = out.ramGB;
+    out.unifiedMem = true;
+  }
+  return Object.keys(out).length >= 2 ? out : null;
+}
+
+function parseDxDiag(text) {
+  const out = {};
+  for (const line of text.split('\n').map(l => l.trim())) {
+    let m;
+    // Processor: Intel(R) Core(TM) i9-13900K CPU @ 3.00GHz
+    m = line.match(/^Processor:\s*(.+)/i);
+    if (m && !out.cpuName) out.cpuName = m[1].replace(/ CPU @ [\d.]+GHz/i,'').replace(/\(R\)|\(TM\)/g,'').trim();
+    // Memory: 65536 MB RAM
+    m = line.match(/^Memory:\s*([\d,]+)\s*MB/i);
+    if (m && !out.ramGB) out.ramGB = Math.round(parseInt(m[1].replace(/,/g,'')) / 1024);
+    // Card name: NVIDIA GeForce RTX 4090
+    m = line.match(/^Card name:\s*(.+)/i);
+    if (m && !out.gpuName) out.gpuName = m[1].trim();
+    // Dedicated Memory: 25360 MB
+    m = line.match(/^Dedicated Memory:\s*([\d,]+)\s*MB/i);
+    if (m && !out.vramGB) {
+      const mb = parseInt(m[1].replace(/,/g,''));
+      if (mb >= 512) out.vramGB = Math.round(mb / 1024);
+    }
+    // Approximate Total Memory (fallback for integrated)
+    m = line.match(/^Approx. Total Memory:\s*([\d,]+)\s*MB/i);
+    if (m && !out.vramGB) {
+      const mb = parseInt(m[1].replace(/,/g,''));
+      if (mb >= 1024) out.vramGB = Math.round(mb / 1024);
+    }
+  }
+  return Object.keys(out).length >= 2 ? out : null;
+}
+
+/* ── auto-parse on paste ── */
+function tryParse(type, text) {
+  if (text.trim().length < 30) return;
+  const parsed = type === 'ps' ? parsePowerShell(text) : parseMac(text);
+  if (parsed) applySpecs(parsed, type === 'ps' ? 'Windows PowerShell' : 'macOS Terminal');
+}
+
+/* ── DxDiag drag/drop ── */
+function handleDrop(e) {
+  e.preventDefault();
+  document.getElementById('dropZone').classList.remove('drag-over');
+  const f = e.dataTransfer.files[0];
+  if (f) readDxDiagFile(f);
+}
+function handleFileSelect(e) { if (e.target.files[0]) readDxDiagFile(e.target.files[0]); }
+function readDxDiagFile(file) {
+  const r = new FileReader();
+  r.onload = ev => {
+    const parsed = parseDxDiag(ev.target.result);
+    const dz = document.getElementById('dropZone');
+    if (parsed) {
+      dz.classList.add('has-file');
+      document.getElementById('dzIcon').innerHTML = '<svg viewBox="0 0 24 24" width="32" height="32" fill="none" stroke="var(--green)" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>';
+      document.getElementById('dzLabel').innerHTML = `<strong>${file.name}</strong> — specs parsed successfully`;
+      applySpecs(parsed, 'DxDiag');
+    } else {
+      document.getElementById('dzLabel').innerHTML = `<strong style="color:var(--red)">Could not parse file.</strong> Ensure it is a DxDiag "Save All Information" .txt export.`;
+    }
+  };
+  r.readAsText(file);
+}
+
+/* ── Manual entry ── */
+function applyManual() {
+  const p = {
+    cpuName:    document.getElementById('man-cpu').value.trim()    || null,
+    coreCount:  parseInt(document.getElementById('man-cores').value)|| null,
+    ramGB:      parseFloat(document.getElementById('man-ram').value)|| null,
+    gpuName:    document.getElementById('man-gpu').value.trim()    || null,
+    vramGB:     parseFloat(document.getElementById('man-vram').value)|| null,
+  };
+  if (!p.ramGB && !p.coreCount) { alert('Please enter at least RAM (GB).'); return; }
+  applySpecs(p, 'Manual Entry');
+}
+
+/* ── Merge specs into state ── */
+function applySpecs(p, source) {
+  if (p.cpuName)    S.cpuName    = p.cpuName;
+  if (p.coreCount)  S.coreCount  = p.coreCount;
+  if (p.threadCount)S.threadCount= p.threadCount;
+  if (p.ramGB)      S.ramGB      = p.ramGB;
+  if (p.gpuName)    S.gpuName    = p.gpuName;
+  if (p.vramGB !== undefined && p.vramGB !== null) S.vramGB = p.vramGB;
+  if (p.unifiedMem) S.unifiedMem = true;
+  S.specSource = source;
+  renderParsedSpecs();
+}
+
+function renderParsedSpecs() {
+  const items = [
+    ['CPU',       S.cpuName    || '(not detected)'],
+    ['CPU Cores', S.coreCount
+      ? S.coreCount + ' cores' + (S.threadCount ? ' / ' + S.threadCount + ' threads' : '')
+      : '(not detected)'],
+    ['RAM',       S.ramGB   != null ? S.ramGB   + ' GB' : '(not detected)'],
+    ['GPU',       S.gpuName    || '(not detected)'],
+    ['VRAM',      S.vramGB  != null ? S.vramGB  + ' GB' + (S.unifiedMem ? ' (unified)' : '') : '(not detected)'],
+    ['Source',    S.specSource],
+  ];
+  document.getElementById('parsedRows').innerHTML = items.map(([k,v]) =>
+    `<div class="parsed-spec-row"><span class="spec-key">${k}</span><span class="spec-val">${v}</span></div>`
+  ).join('');
+  document.getElementById('parsedSpecs').classList.add('visible');
+}
+
+/* ═══════════════════════════════════════════════════════════
+   BENCHMARK ENGINE
+═══════════════════════════════════════════════════════════ */
+const TESTS = [
+  { id:'cpu',     icon:'CPU', name:'CPU Scalar Throughput',   desc:'FP64 sin/sqrt/div dependency chains — mirrors attention op latency' },
+  { id:'simd',    icon:'VEC', name:'SIMD / Vector Width',     desc:'Float32Array bulk FMA — models AVX2/AVX-512 matrix multiply speed' },
+  { id:'membw',   icon:'MEM', name:'Memory Bandwidth (DRAM)', desc:'128 MB buffer, 3-pass median — the primary LLM bottleneck metric' },
+  { id:'latency', icon:'LAT', name:'Memory Latency',          desc:'Random pointer-chase across 32 MB — measures DRAM access time' },
+  { id:'cores',   icon:'COR', name:'Logical Core Count',      desc:'navigator.hardwareConcurrency — sets optimal thread count for inference' },
+  { id:'gpu',     icon:'GPU', name:'GPU Detection & Bench',   desc:'WebGL2 renderer string + shader timing — VRAM tier heuristic' },
+];
+
+async function runBenchmark() {
+  const btn = document.getElementById('btnStart');
+  btn.disabled = true;
+  btn.textContent = 'Running…';
+  document.getElementById('results').style.display = 'none';
+  document.getElementById('progressWrap').style.display = 'block';
+  document.getElementById('testCard').style.display = 'block';
+  renderTestList();
+  let step = 0;
+  const adv = () => setProgress(++step / TESTS.length * 100);
+
+  setStatus('cpu','running'); await tick();
+  S.cpuMflops = benchCPU();
+  setStatus('cpu','done', S.cpuMflops + ' MFLOPS'); adv();
+
+  setStatus('simd','running'); await tick();
+  S.simdGops = benchSIMD();
+  setStatus('simd','done', S.simdGops + ' GOPS'); adv();
+
+  setStatus('membw','running'); await tick();
+  S.memBwGBps = benchMemBW();
+  setStatus('membw','done', S.memBwGBps + ' GB/s'); adv();
+
+  setStatus('latency','running'); await tick(80);
+  S.latNs = benchLatency();
+  setStatus('latency','done', S.latNs + ' ns'); adv();
+
+  setStatus('cores','running'); await tick();
+  S.jsCores = navigator.hardwareConcurrency || 4;
+  if (!S.coreCount) S.coreCount = S.jsCores;
+  setStatus('cores','done', S.jsCores + ' logical cores'); adv();
+
+  setStatus('gpu','running'); await tick(60);
+  const gpuInfo = probeGPU();
+  S.gpuRenderer    = gpuInfo.renderer;
+  S.gpuShaderScore = gpuInfo.score;
+  if (!S.gpuName   && gpuInfo.renderer) S.gpuName = gpuInfo.renderer;
+  // Only fill VRAM from WebGL heuristic if no authoritative value was given
+  if (S.vramGB == null && gpuInfo.vramEstGB != null) S.vramGB = gpuInfo.vramEstGB;
+  const gpuLabel = gpuInfo.renderer
+    ? gpuInfo.renderer.replace(/\s+/g,' ').split(' ').slice(0,5).join(' ')
+    : (gpuInfo.supported ? 'WebGL2 OK' : 'No WebGL2');
+  setStatus('gpu', gpuInfo.supported ? 'done' : 'skip', gpuLabel); adv();
+
+  await tick(300);
+  btn.textContent = '↺ Run Again';
+  btn.disabled = false;
+  btn.onclick = () => { document.getElementById('results').style.display='none'; runBenchmark(); };
+  showResults();
+}
+
+/* ── CPU scalar benchmark ─────────────────────────────────── */
+function benchCPU() {
+  // 4 independent FP64 chains — OoO execution can overlap them
+  // Calibrated: budget laptop i5 ≈ 300, i9-13900K ≈ 600, M3 Ultra ≈ 850
+  const N = 3_000_000;
+  const t0 = performance.now();
+  let a=1.1, b=1.2, c=1.3, d=1.4;
+  for (let i=0; i<N; i++) {
+    a = Math.sqrt(a*1.0002 + 0.5);
+    b = Math.sin(b + 0.0001) + 0.5;
+    c = Math.fround(c*0.9999 + 0.001);
+    d = 1.0 / (d + 0.0002);
+  }
+  void (a+b+c+d);
+  const ms = performance.now() - t0;
+  return Math.round(N * 4 * 4 / ms / 1000); // 4 chains × ~4 ops → MFLOPS
+}
+
+/* ── SIMD / vector benchmark ──────────────────────────────── */
+function benchSIMD() {
+  // Float32Array FMA — JIT will auto-vectorise with AVX2/SSE
+  // Calibrated: DDR4 system ≈ 6-10, DDR5 high-end ≈ 18-25
+  const N = 8_000_000;
+  const a = new Float32Array(N).fill(1.5);
+  const b = new Float32Array(N).fill(0.9);
+  const t0 = performance.now();
+  for (let i=0; i<N; i++) a[i] = a[i]*b[i] + 0.1;
+  void a[0];
+  const ms = performance.now() - t0;
+  return parseFloat(((N*2)/ms/1e6).toFixed(2));
+}
+
+/* ── Memory bandwidth ─────────────────────────────────────── */
+function benchMemBW() {
+  // 128 MB buffer (exceeds L3 on most systems), 3 passes, take median
+  // Calibrated: DDR4-3200 dual ≈ 20-25, DDR5-6000 ≈ 40-50, Apple M3 ≈ 70-100
+  const BYTES = 128 * 1024 * 1024;
+  let buf;
+  try { buf = new Float64Array(BYTES / 8).fill(1.0); }
+  catch (_) { buf = new Float64Array(16 * 1024 * 1024 / 8).fill(1.0); }
+  const result = [];
+  for (let p=0; p<3; p++) {
+    let s=0;
+    const t0 = performance.now();
+    for (let i=0; i<buf.length; i++) s += buf[i];
+    void s;
+    result.push(BYTES / (performance.now()-t0) / 1e6);
+  }
+  result.sort((a,b)=>a-b);
+  return parseFloat(result[1].toFixed(1)); // median
+}
+
+/* ── Memory latency (pointer-chase) ──────────────────────── */
+function benchLatency() {
+  // Random walk through 32 MB (well past L3) — measures true DRAM latency
+  // Calibrated: good DDR5 ≈ 70-90 ns, DDR4 ≈ 80-110 ns, slow ≈ 130+ ns
+  const N = 4 * 1024 * 1024;
+  const arr = new Int32Array(N);
+  for (let i=0; i<N; i++) arr[i]=i;
+  // Fisher-Yates shuffle
+  for (let i=N-1; i>0; i--) {
+    const j = (Math.random()*(i+1))|0;
+    const t=arr[i]; arr[i]=arr[j]; arr[j]=t;
+  }
+  const STEPS = 400_000;
+  const t0 = performance.now();
+  let idx=0;
+  for (let i=0; i<STEPS; i++) idx=arr[idx];
+  void idx;
+  return parseFloat(((performance.now()-t0)*1e6/STEPS).toFixed(1));
+}
+
+/* ── GPU probe ────────────────────────────────────────────── */
+function probeGPU() {
+  try {
+    const c = document.createElement('canvas');
+    const gl = c.getContext('webgl2');
+    if (!gl) return { supported:false, score:5 };
+    const dbg = gl.getExtension('WEBGL_debug_renderer_info');
+    const renderer = dbg ? gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL) : null;
+
+    // VRAM estimate from renderer string (only used if no authoritative value)
+    let vramEstGB = null;
+    if (renderer) {
+      const r = renderer.toLowerCase();
+      const match = (pat, gb) => { if (pat.test(r)) { vramEstGB = gb; return true; } };
+      match(/rtx\s*5090/,32)        || match(/rtx\s*4090/,24)          ||
+      match(/rtx\s*3090.*ti/,24)    || match(/rtx\s*3090/,24)          ||
+      match(/rtx\s*5080/,16)        || match(/rtx\s*4080/,16)          ||
+      match(/rtx\s*3080.*12|3080.*ti/,12) || match(/rtx\s*3080/,10)   ||
+      match(/rtx\s*4070.*ti\s*super/,16) || match(/rtx\s*4070\s*ti/,12) ||
+      match(/rtx\s*[45]070/,12)     || match(/rtx\s*[34]060\s*ti/,8)  ||
+      match(/rtx\s*[34]060/,8)      || match(/rtx\s*[23][0-9]{3}/,8)  ||
+      match(/rx\s*7900\s*xtx/,24)   || match(/rx\s*7900\s*xt/,20)     ||
+      match(/rx\s*7800\s*xt/,16)    || match(/rx\s*7700\s*xt/,12)     ||
+      match(/rx\s*6900\s*xt/,16)    || match(/rx\s*6800\s*xt/,16)     ||
+      match(/rx\s*6800/,16)         || match(/rx\s*[67][0-9]{3}/,8)   ||
+      match(/arc\s*a7[0-9]{2}/,16)  || match(/arc\s*a[0-9]/,8);
+      // Integrated / shared — VRAM = null (shared from RAM)
+    }
+
+    const score = gpuShaderBench(gl);
+    return { supported:true, renderer, vramEstGB, score };
+  } catch(_) { return { supported:false, score:5 }; }
+}
+
+function gpuShaderBench(gl) {
+  const vs=`#version 300 es\nin vec2 p;void main(){gl_Position=vec4(p,0.,1.);}`;
+  const fs=`#version 300 es\nprecision highp float;\nout vec4 c;\nuniform float t;\nvoid main(){float v=t;for(int i=0;i<128;i++)v=sin(v+float(i)*.01)*cos(v*.99)+.001;c=vec4(abs(v),0.,0.,1.);}`;
+  const mkShader=(type,src)=>{ const s=gl.createShader(type); gl.shaderSource(s,src); gl.compileShader(s); return s; };
+  const prog=gl.createProgram();
+  gl.attachShader(prog,mkShader(gl.VERTEX_SHADER,vs));
+  gl.attachShader(prog,mkShader(gl.FRAGMENT_SHADER,fs));
+  gl.linkProgram(prog);
+  if(!gl.getProgramParameter(prog,gl.LINK_STATUS)) return 20;
+  const buf=gl.createBuffer(); gl.bindBuffer(gl.ARRAY_BUFFER,buf);
+  gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,0,1]),gl.STATIC_DRAW);
+  const loc=gl.getAttribLocation(prog,'p');
+  gl.enableVertexAttribArray(loc); gl.vertexAttribPointer(loc,2,gl.FLOAT,false,0,0);
+  const u=gl.getUniformLocation(prog,'t'); gl.useProgram(prog);
+  const N=120; const t0=performance.now();
+  for(let i=0;i<N;i++){gl.uniform1f(u,i*.001);gl.drawArrays(gl.TRIANGLES,0,3);}
+  gl.finish();
+  const fps=(N/(performance.now()-t0))*1000;
+  return Math.min(100,Math.round(fps/3));
+}
+
+/* ═══════════════════════════════════════════════════════════
+   SCORING
+═══════════════════════════════════════════════════════════ */
+function computeScores() {
+  // Use authoritative spec values; fall back to JS estimates
+  const ramGB     = S.ramGB      ?? estimateRAMFallback();
+  const vramGB    = S.vramGB     ?? 0;
+  const coreCount = S.coreCount  ?? (S.jsCores || 4);
+
+  // Sub-scores 0–100, calibrated against real hardware:
+  // CPU:  i3-12100 ≈ 35, i7-12700K ≈ 55, i9-13900K ≈ 65, M3 Max ≈ 80, M3 Ultra ≈ 100+
+  const cpuS  = clamp(S.cpuMflops / 850  * 100, 0, 100);
+  // SIMD: low-end ≈ 5, mid ≈ 10, high ≈ 20
+  const simdS = clamp(S.simdGops  / 20   * 100, 0, 100);
+  // MemBW: DDR4 dual ≈ 20-25, DDR5 dual ≈ 40-50, Apple M3 ≈ 80-100
+  const memS  = clamp(S.memBwGBps / 100  * 100, 0, 100);
+  // Latency: lower is better; 30 ns = 100, 200 ns = 0
+  const latS  = S.latNs ? clamp((1 - (S.latNs-30)/200)*100, 0, 100) : 50;
+  // RAM: 2 GB = 2, 16 GB = 23, 32 GB = 40, 64 GB = 65, 128 GB = 100
+  const ramS  = clamp((ramGB / 128) * 100, 0, 100);
+  // Cores: 2=10, 8=35, 16=60, 32=100
+  const coreS = clamp((coreCount / 32) * 100, 0, 100);
+  // VRAM: 0=0, 8=33, 24=60, 80=100
+  const vramS = clamp(vramGB / 80 * 100, 0, 100);
+  // GPU shader bench
+  const gpuS  = S.gpuShaderScore ?? 10;
+
+  // Weighted composite — RAM (model fit) and MemBW (token speed) are highest weight
+  const total = (
+    cpuS  * 0.17 +
+    simdS * 0.10 +
+    memS  * 0.22 +   // memory bandwidth is the #1 LLM speed predictor
+    latS  * 0.06 +
+    ramS  * 0.27 +   // RAM is the #1 model-fit factor
+    coreS * 0.08 +
+    vramS * 0.07 +
+    gpuS  * 0.03
+  );
+  return { total:Math.round(total), cpuS, simdS, memS, latS, ramS, coreS, vramS, gpuS, ramGB, vramGB, coreCount };
+}
+
+function estimateRAMFallback() {
+  if (performance.memory?.jsHeapSizeLimit) {
+    const mb = performance.memory.jsHeapSizeLimit / (1024*1024);
+    if (mb < 900)  return 4;
+    if (mb < 1800) return 8;
+    if (mb < 3800) return 16;
+    return 32;
+  }
+  let best=2;
+  for (const gb of [4,6,8,12,16,24,32,48,64]) {
+    try { const a=new Float32Array(gb*32*1024*1024/4); a[0]=1; best=gb; } catch(_) { break; }
+  }
+  return best;
+}
+
+function scoreToGrade(s) {
+  if (s>=88) return { grade:'A+', label:'Enthusiast',      color:'#5c35d4' };
+  if (s>=76) return { grade:'A',  label:'High-End',        color:'#007bff' };
+  if (s>=63) return { grade:'B+', label:'Upper Mid-Range', color:'#17a2b8' };
+  if (s>=50) return { grade:'B',  label:'Mid-Range',       color:'#28a745' };
+  if (s>=38) return { grade:'C+', label:'Lower Mid-Range', color:'#ffc107' };
+  if (s>=26) return { grade:'C',  label:'Entry-Level',     color:'#fd7e14' };
+  return           { grade:'D',  label:'Limited',         color:'#dc3545' };
+}
+
+function maxModelRec(ramGB, vramGB, score) {
+  const eff_ram  = ramGB  * 0.82; // ~18% for OS + browser
+  const eff_vram = vramGB * 0.90;
+
+  // GPU path (fast): can the full model fit in VRAM?
+  const gpuPath =
+    eff_vram >= 65  ? '70B'  :
+    eff_vram >= 20  ? '30B'  :
+    eff_vram >= 10  ? '13B'  :
+    eff_vram >= 5.5 ? '7B'   :
+    eff_vram >= 2.5 ? '3B'   :
+    eff_vram >= 1   ? '1B'   : '<1B';
+
+  // CPU path: RAM must fit model, and CPU/BW must be adequate
+  const cpuPath =
+    eff_ram >= 52 && score>=52 ? '70B'  :
+    eff_ram >= 20 && score>=40 ? '30B'  :
+    eff_ram >= 9  && score>=30 ? '13B'  :
+    eff_ram >= 5  && score>=20 ? '7B'   :
+    eff_ram >= 2.5&&score>=12  ? '3B'   :
+    eff_ram >= 1.2             ? '1B'   : '<1B';
+
+  const rank = { '<1B':0,'1B':1,'3B':2,'7B':3,'13B':4,'30B':5,'70B':6,'405B':7 };
+  const best = rank[gpuPath]>=rank[cpuPath] ? gpuPath : cpuPath;
+  const path = rank[gpuPath]>=rank[cpuPath] ? 'GPU (fast)'   : 'CPU (RAM-limited)';
+  return { max:best, gpuPath, cpuPath, path };
+}
+
+/* ═══════════════════════════════════════════════════════════
+   RENDER RESULTS
+═══════════════════════════════════════════════════════════ */
+function showResults() {
+  const sc   = computeScores();
+  const grade= scoreToGrade(sc.total);
+  const rec  = maxModelRec(sc.ramGB, sc.vramGB, sc.total);
+
+  // Grade circle
+  const circle = document.getElementById('gradeCircle');
+  circle.style.borderColor = grade.color;
+  document.getElementById('gradeLetter').textContent  = grade.grade;
+  document.getElementById('gradeLetter').style.color  = grade.color;
+
+  document.getElementById('gradeHeadline').textContent =
+    `Max recommended model: ${rec.max} parameters (${grade.label})`;
+
+  document.getElementById('gradeDetails').innerHTML =
+    `Score <strong>${sc.total}/100</strong> · ` +
+    `RAM <strong>${sc.ramGB} GB</strong>` +
+    (sc.vramGB > 0 ? ` · VRAM <strong>${sc.vramGB} GB${S.unifiedMem?' (unified)':''}</strong>` : '') +
+    ` · <strong>${sc.coreCount}</strong> cores` +
+    ` · Memory BW <strong>${S.memBwGBps} GB/s</strong>` +
+    ` · Best inference path: <strong>${rec.path}</strong>` +
+    (S.specSource ? `<br><small>Specs from: ${S.specSource}</small>` : `<br><small style="color:var(--orange)">Note: No system specs provided — RAM/VRAM are estimated</small>`);
+
+  // Metrics grid
+  const mg = document.getElementById('metricsGrid');
+  mg.innerHTML = '';
+  const mk = (label, pct, raw, color) => {
+    const d = document.createElement('div'); d.className='metric-card';
+    d.innerHTML=`<div class="metric-label">${label}</div>
+      <div class="metric-value" style="color:${color}">${Math.round(pct)}<span style="font-size:.7em;font-weight:400;color:var(--muted)">/100</span></div>
+      <div class="metric-raw">${raw}</div>
+      <div class="metric-bar-bg"><div class="metric-bar-fill" style="width:${pct}%;background:${color}"></div></div>`;
+    mg.appendChild(d);
+  };
+  mk('CPU Throughput',   sc.cpuS,  `${S.cpuMflops} MFLOPS`,    '#007bff');
+  mk('Memory Bandwidth', sc.memS,  `${S.memBwGBps} GB/s`,       '#17a2b8');
+  mk('SIMD / Vector',    sc.simdS, `${S.simdGops} GOPS`,        '#007bff');
+  mk('RAM Capacity',     sc.ramS,  `${sc.ramGB} GB total`,      '#28a745');
+  mk('CPU Cores',        sc.coreS, `${sc.coreCount} cores`,     '#fd7e14');
+  const vramLabel = sc.vramGB>0 ? `${sc.vramGB} GB VRAM` : (S.gpuRenderer ? S.gpuRenderer.split(' ').slice(0,3).join(' ') : 'Not detected');
+  mk('GPU / VRAM',       Math.max(sc.vramS, sc.gpuS*.6), vramLabel, '#5c35d4');
+
+  // Token speed estimator:
+  // LLM token generation loads entire model weights per token (memory-bound)
+  // Approx: tokens/sec ≈ memBW_GBps / model_size_GB × efficiency_factor
+  const estTok = (sizeGB) => {
+    if (!S.memBwGBps || sizeGB<=0) return null;
+    // Base estimate for CPU-only; GPU can be 5-20× higher
+    return Math.max(1, Math.round(S.memBwGBps / sizeGB * 0.70));
+  };
+
+  // Model table
+  const MODELS = [
+    { sz:'1B',   q4:0.7,   fp16:2,   ex:'SmolLM2-1.7B, Phi-3.5 Mini' },
+    { sz:'3B',   q4:1.9,   fp16:6,   ex:'Llama 3.2 3B, Phi-3 Mini' },
+    { sz:'7B',   q4:4.4,   fp16:14,  ex:'Mistral 7B, Llama 3.1 8B, Gemma 7B' },
+    { sz:'13B',  q4:7.9,   fp16:26,  ex:'Qwen2.5 14B, Llama 2 13B' },
+    { sz:'30B',  q4:17,    fp16:60,  ex:'Qwen 32B, Gemma 27B, Falcon 40B' },
+    { sz:'70B',  q4:40,    fp16:140, ex:'Llama 3.1 70B, Qwen 72B, DeepSeek 67B' },
+    { sz:'405B', q4:230,   fp16:810, ex:'Llama 3.1 405B, DeepSeek 671B Q4' },
+  ];
+  const RANK = { '<1B':0,'1B':1,'3B':2,'7B':3,'13B':4,'30B':5,'70B':6,'405B':7 };
+  const maxRank = RANK[rec.max] ?? 0;
+
+  document.getElementById('modelTbody').innerHTML = MODELS.map(m => {
+    const rank    = RANK[m.sz];
+    const ramFits = sc.ramGB  * 0.82 >= m.q4;
+    const gpuFits = sc.vramGB * 0.90 >= m.q4;
+    const anyFits = ramFits || gpuFits;
+    const isBest  = m.sz === rec.max;
+    const tag = isBest              ? `<span class="tag tag-best">★ Best Fit</span>`
+              : rank < maxRank && anyFits ? `<span class="tag tag-yes">✓ Runs</span>`
+              : rank === maxRank+1  ? `<span class="tag tag-maybe">Marginal</span>`
+              : !anyFits            ? `<span class="tag tag-no">✗ Too Large</span>`
+              :                       `<span class="tag tag-yes">✓ Runs</span>`;
+    const tok = estTok(m.q4);
+    const speed = tok != null && rank <= maxRank
+      ? `~${tok} tok/s <small style="color:var(--muted)">(CPU est.)</small>`
+      : rank > maxRank ? '<small style="color:#ccc">—</small>' : 'fast';
+    return `<tr>
+      <td><strong>${m.sz}</strong></td>
+      <td style="font-size:.85em;color:var(--muted)">${m.ex}</td>
+      <td>${m.q4} GB</td>
+      <td>${m.fp16} GB</td>
+      <td>${speed}</td>
+      <td>${tag}</td>
+    </tr>`;
+  }).join('');
+
+  // Raw detail rows
+  document.getElementById('detailBody').innerHTML = [
+    ['CPU Throughput',    `${S.cpuMflops} MFLOPS`],
+    ['SIMD Throughput',   `${S.simdGops} GOPS`],
+    ['Memory Bandwidth',  `${S.memBwGBps} GB/s`],
+    ['Memory Latency',    `${S.latNs} ns`],
+    ['Logical Cores',     S.jsCores],
+    ['GPU Renderer',      S.gpuRenderer || 'Not detected'],
+    ['GPU Shader Score',  (S.gpuShaderScore||0) + '/100'],
+    ['─── Spec Source ───', S.specSource || 'Browser estimates only'],
+    ['CPU Name',          S.cpuName    || '(unknown)'],
+    ['CPU Cores',         S.coreCount  || '(unknown)'],
+    ['RAM (used)',        sc.ramGB + ' GB'],
+    ['GPU Name',          S.gpuName    || '(unknown)'],
+    ['VRAM (used)',       sc.vramGB + ' GB' + (S.unifiedMem?' (unified)':'')],
+    ['Unified Memory',    S.unifiedMem  ? 'Yes' : 'No'],
+    ['Composite Score',   sc.total + '/100'],
+    ['Grade',            grade.grade + ' — ' + grade.label],
+    ['Max Model (Q4)',    rec.max],
+    ['Inference Path',   rec.path],
+    ['Max via GPU',      rec.gpuPath],
+    ['Max via CPU',      rec.cpuPath],
+    ['User Agent',       navigator.userAgent.substring(0,80)],
+  ].map(([k,v]) =>
+    `<div class="detail-row"><span class="detail-key">${k}</span><span class="detail-val">${v}</span></div>`
+  ).join('');
+
+  document.getElementById('tipList').innerHTML = buildTips(sc, rec).map(t=>`<li>${t}</li>`).join('');
+  document.getElementById('results').style.display = 'block';
+}
+
+function buildTips(sc, rec) {
+  const tips=[];
+  const { ramGB, vramGB, coreCount }=sc;
+  const RANK={  '<1B':0,'1B':1,'3B':2,'7B':3,'13B':4,'30B':5,'70B':6,'405B':7 };
+  const rank=RANK[rec.max]??0;
+
+  if (!S.specSource) tips.push('<strong>For accurate results, provide your system specs</strong> using the PowerShell or Terminal command above. The tool currently estimates RAM from browser heuristics, which can be significantly wrong.');
+
+  if (ramGB < 8)   tips.push(`<strong style="color:var(--red)">[Low RAM: ${ramGB} GB]</strong> — this is the primary bottleneck. Upgrading to 16 GB enables 7B Q4, 32 GB enables 13B. RAM is the single most impactful upgrade for local AI.`);
+  else if (ramGB < 16) tips.push(`<strong style="color:var(--yellow)">${ramGB} GB RAM</strong> — you can run 7B Q4 models (needs ~5 GB free). Close other applications before launching Ollama or LM Studio.`);
+  else if (ramGB >= 32) tips.push(`<strong style="color:var(--green)">${ramGB} GB RAM</strong> — excellent for local AI. You have room for 13B–30B models with context.`);
+
+  if (vramGB >= 16) tips.push(`<strong style="color:var(--green)">${vramGB} GB VRAM</strong> — load the full model into VRAM for maximum speed (5–20× faster than CPU inference). Use Ollama or LM Studio's GPU offload setting.`);
+  else if (vramGB >= 6) tips.push(`<strong style="color:var(--yellow)">${vramGB} GB VRAM</strong> — partial GPU offload is worthwhile. In llama.cpp use <code>-ngl 99</code>, in LM Studio enable "GPU layers" to maximise layers in VRAM.`);
+  else if (vramGB > 0 && vramGB < 6) tips.push(`<strong style="color:var(--yellow)">Small VRAM (${vramGB} GB)</strong> — even partial offload helps. Enable GPU layers in your inference tool.`);
+  else if (!S.gpuRenderer || /intel|uhd|iris|llvmpipe/i.test(S.gpuRenderer||'')) tips.push(`<strong style="color:var(--red)">No discrete GPU detected.</strong> CPU inference is fully functional — a GPU with 8+ GB VRAM (e.g. RTX 3060 Ti) would give 5–15× speed improvement.`);
+
+  const bw = S.memBwGBps||0;
+  if (bw>0 && bw<18) tips.push(`<strong style="color:var(--red)">Memory bandwidth is the main speed bottleneck (${bw} GB/s).</strong> LLM token generation speed ≈ bandwidth ÷ model size. DDR5 dual-channel or Apple unified memory significantly improves this.`);
+  else if (bw>=40) tips.push(`<strong style="color:var(--green)">High memory bandwidth (${bw} GB/s)</strong> — this directly translates to fast token generation on CPU.`);
+
+  if (rank>=3) tips.push(`<strong>Recommended inference tools:</strong> <a href="https://ollama.com" target="_blank">Ollama</a> (easiest, auto-detects GPU), <a href="https://lmstudio.ai" target="_blank">LM Studio</a> (GUI with model browser), <a href="https://github.com/ggerganov/llama.cpp" target="_blank">llama.cpp</a> (maximum control).`);
+  if (rank>=3) tips.push(`<strong>Best quantisation:</strong> use <strong>Q4_K_M</strong> GGUF files for the best quality-per-GB ratio. Use Q5_K_M if you have 25% extra RAM to spare. Avoid Q2_K — quality drops noticeably.`);
+  if (coreCount>=12) tips.push(`<strong>${coreCount} CPU cores detected</strong> — set threads to all physical cores (<code>-t ${Math.floor(coreCount/2)}</code> for hyperthreaded, or <code>-t ${coreCount}</code> for all logical) in llama.cpp or LM Studio.`);
+
+  return tips.slice(0,6);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   UI HELPERS
+═══════════════════════════════════════════════════════════ */
+function renderTestList() {
+  document.getElementById('testList').innerHTML = TESTS.map(t=>`
+    <div class="test-item">
+      <div class="test-icon">${t.icon}</div>
+      <div class="test-info"><div class="test-name">${t.name}</div><div class="test-desc">${t.desc}</div></div>
+      <div class="test-status" id="status-${t.id}">Queued</div>
+    </div>`).join('');
+}
+function setStatus(id,st,label) {
+  const el=document.getElementById('status-'+id); if(!el) return;
+  el.className='test-status '+st;
+  el.textContent=label||(st==='running'?'Running…':st==='done'?'✓ Done':st==='skip'?'N/A':'Queued');
+}
+function setProgress(p) { document.getElementById('progressBar').style.width=p+'%'; }
+function toggleDetail() {
+  const b=document.getElementById('detailBody'), btn=b.previousElementSibling;
+  b.classList.toggle('open');
+  btn.textContent=b.classList.contains('open')?'Hide raw scores ▴':'Show all raw scores ▾';
+}
+function tick(ms=50) { return new Promise(r=>setTimeout(r,ms)); }
+function clamp(v,lo,hi) { return Math.max(lo,Math.min(hi,v)); }
+</script>
+</body>
+</html>

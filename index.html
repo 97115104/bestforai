@@ -105,7 +105,7 @@
       font-weight: bold;
     }
     .highlight-best td:first-child::before {
-      content: '🏆 ';
+      content: '';
     }
     #diy-comparison {
       padding: 1em;
@@ -215,6 +215,79 @@
     .alt-card .alt-reason { font-size: 0.85em; color: #666; margin-top: 0.2em; }
     .alt-card .alt-price { font-weight: 700; white-space: nowrap; color: #333; }
     .no-result { padding: 1.5em; background: #fff8e1; border: 1px solid #ffe082; border-radius: var(--border-radius); }
+
+    /* ── Compare Systems tab ──────────────────────────────────── */
+    #compare { padding: 0; }
+    .compare-layout { display: grid; grid-template-columns: 280px 1fr; gap: 2em; align-items: start; }
+    @media (max-width: 860px) { .compare-layout { grid-template-columns: 1fr; } }
+    .compare-sidebar { position: sticky; top: 1em; background: var(--note-bg-color); border: 1px solid var(--table-border-color); border-radius: var(--border-radius); padding: 1.4em; }
+    .compare-sidebar h3 { margin-top: 0; font-size: 1em; }
+    .cmp-group { margin-bottom: 1.1em; }
+    .cmp-group label { display: block; font-weight: 600; font-size: 0.86em; margin-bottom: 0.3em; color: #555; text-transform: uppercase; letter-spacing: 0.05em; }
+    .cmp-group select { width: 100%; padding: 0.5em 0.65em; border: 1px solid #ccc; border-radius: var(--border-radius); font-size: 0.92em; box-sizing: border-box; }
+    .cmp-run-btn { width: 100%; padding: 0.7em; background: var(--accent-color); color: #fff; border: none; border-radius: var(--border-radius); font-size: 0.97em; font-weight: 700; cursor: pointer; margin-top: 0.5em; }
+    .cmp-run-btn:hover { opacity: 0.88; }
+    .compare-main { min-height: 300px; }
+    .cmp-placeholder { color: #999; font-style: italic; padding: 1em 0; }
+    .cmp-systems-bar { display: grid; gap: 1em; margin-bottom: 1.4em; }
+    .cmp-sys-header { padding: 1em 1.3em; border-radius: var(--border-radius); border-top: 4px solid var(--accent-color); background: #f0f7ff; }
+    .cmp-sys-header.sys-nvidia  { border-top-color: #76b900; background: #f1fbe8; }
+    .cmp-sys-header.sys-amd     { border-top-color: #ed1c24; background: #fff0f0; }
+    .cmp-sys-header.sys-apple   { border-top-color: #555;    background: #f4f4f4; }
+    .cmp-sys-header .sys-name   { font-size: 1.1em; font-weight: 700; margin-bottom: 0.2em; }
+    .cmp-sys-header .sys-sub    { font-size: 0.82em; color: #666; }
+    .cmp-section { margin-bottom: 1.6em; border: 1px solid var(--table-border-color); border-radius: var(--border-radius); overflow: hidden; }
+    .cmp-section-title { background: var(--table-header-bg); padding: 0.6em 1em; font-weight: 700; font-size: 0.88em; border-bottom: 1px solid var(--table-border-color); }
+    .cmp-table { width: 100%; border-collapse: collapse; font-size: 0.9em; }
+    .cmp-table td, .cmp-table th { padding: 0.6em 0.9em; border-bottom: 1px solid var(--table-border-color); vertical-align: middle; }
+    .cmp-table th { background: var(--table-header-bg); font-weight: 600; font-size: 0.82em; white-space: nowrap; }
+    .cmp-table tr:last-child td, .cmp-table tr:last-child th { border-bottom: none; }
+    .cmp-table .row-label { color: #555; font-size: 0.85em; width: 160px; font-weight: 600; }
+    .cmp-val { font-weight: 600; }
+    .cmp-bar-wrap { display: flex; align-items: center; gap: 0.5em; }
+    .cmp-bar { height: 8px; border-radius: 4px; background: var(--accent-color); min-width: 2px; display: inline-block; }
+    .cmp-bar.bar-nvidia { background: #76b900; }
+    .cmp-bar.bar-amd    { background: #ed1c24; }
+    .cmp-bar.bar-apple  { background: #888; }
+    .cmp-delta { display: inline-block; padding: 0.12em 0.55em; border-radius: 3px; font-size: 0.78em; font-weight: 700; margin-left: 0.4em; }
+    .cmp-delta.faster  { background: #d4edda; color: #155724; }
+    .cmp-delta.slower  { background: #f8d7da; color: #721c24; }
+    .cmp-delta.same    { background: #e2e3e5; color: #383d41; }
+    .cmp-winner-badge  { display: inline-block; background: var(--accent-color); color: #fff; font-size: 0.72em; padding: 0.15em 0.55em; border-radius: 3px; margin-left: 0.4em; vertical-align: middle; font-weight: 700; }
+    .model-fit-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 0.6em; padding: 0.9em; }
+    .mf-cell { border: 1px solid var(--table-border-color); border-radius: 4px; padding: 0.55em 0.7em; text-align: center; font-size: 0.82em; }
+    .mf-cell .mf-size { font-weight: 700; font-size: 1em; }
+    .mf-cell .mf-label { font-size: 0.72em; color: #666; margin-top: 0.1em; }
+    .mf-cell.fit-yes     { background: #d4edda; border-color: #a3d4ae; }
+    .mf-cell.fit-partial { background: #fff3cd; border-color: #e5c44a; }
+    .mf-cell.fit-no      { background: #f8d7da; border-color: #e4a0a6; }
+    .impact-positive { color: #28a745; font-weight: 600; }
+    .impact-negative { color: #dc3545; font-weight: 600; }
+    .factor-key { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 0.3em; vertical-align: middle; }
+
+    /* ── Optimization Guide tab ───────────────────────────────── */
+    #optimization { padding: 0; }
+    .opt-intro { font-size: 0.93em; color: #555; margin-bottom: 1.5em; line-height: 1.7; }
+    .opt-section { margin-bottom: 2em; }
+    .opt-section > h3 { margin-bottom: 0.6em; font-size: 1.05em; padding-bottom: 0.4em; border-bottom: 2px solid var(--table-border-color); }
+    .opt-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 1.2em; }
+    .opt-card { border: 1px solid var(--table-border-color); border-radius: var(--border-radius); overflow: hidden; }
+    .opt-card-header { padding: 0.75em 1.1em; font-weight: 700; font-size: 0.92em; display: flex; align-items: center; gap: 0.6em; border-bottom: 1px solid var(--table-border-color); }
+    .opt-card-header.opt-nvidia { background: #f1fbe8; border-left: 4px solid #76b900; }
+    .opt-card-header.opt-amd    { background: #fff0f0; border-left: 4px solid #ed1c24; }
+    .opt-card-header.opt-apple  { background: #f4f4f4; border-left: 4px solid #555; }
+    .opt-card-header.opt-general{ background: #f0f7ff; border-left: 4px solid var(--accent-color); }
+    .opt-card-body { padding: 1em 1.1em; font-size: 0.9em; }
+    .opt-card-body ul { margin: 0; padding-left: 1.2em; }
+    .opt-card-body li { margin-bottom: 0.6em; line-height: 1.5; }
+    .opt-table { width: 100%; border-collapse: collapse; margin-top: 0.8em; font-size: 0.88em; }
+    .opt-table th, .opt-table td { padding: 0.55em 0.75em; border: 1px solid var(--table-border-color); text-align: left; }
+    .opt-table th { background: var(--table-header-bg); font-weight: 600; }
+    .speedup-tag { display: inline-block; padding: 0.15em 0.55em; border-radius: 3px; font-size: 0.82em; font-weight: 700; }
+    .speedup-high   { background: #d4edda; color: #155724; }
+    .speedup-medium { background: #fff3cd; color: #856404; }
+    .speedup-low    { background: #f8d7da; color: #721c24; }
+    .speedup-neutral{ background: #e2e3e5; color: #383d41; }
   </style>
 </head>
 <body>
@@ -228,6 +301,9 @@
   <button class="tab-button" onclick="openTab(event, 'diy')">DIY vs. Pre-built</button>
   <button class="tab-button" onclick="openTab(event, 'gpus'); initGpuTab()">GPU Rankings</button>
   <button class="tab-button" onclick="openTab(event, 'bestmatch')">Best Match Finder</button>
+  <button class="tab-button" onclick="openTab(event, 'compare')">Compare Systems</button>
+  <button class="tab-button" onclick="openTab(event, 'optimization')">Optimization Guide</button>
+  <a href="benchmark.html" class="tab-button" style="text-decoration:none;margin-left:auto">Benchmark My System</a>
 </div>
 
 <div id="prebuilt" class="tab-content active">
@@ -502,7 +578,7 @@
     <h3>Manufacturer Tradeoffs</h3>
     <div class="mfr-cards">
       <div class="mfr-card nvidia">
-        <h4>🟢 NVIDIA</h4>
+        <h4>NVIDIA</h4>
         <ul>
           <li><strong>Speed king:</strong> Highest tokens/sec for models that fit in VRAM — RTX 5090 at 1,792 GB/s is unmatched on the consumer market.</li>
           <li><strong>CUDA ecosystem:</strong> Every AI framework (PyTorch, vLLM, TensorRT, llama.cpp) works out of the box. Zero configuration headaches.</li>
@@ -511,10 +587,10 @@
           <li><strong>Power draw:</strong> RTX 5090 ≈ 575W — a space heater. Dedicated airflow/cooling needed.</li>
           <li><strong>P2P blocked:</strong> Consumer multi-GPU peer-to-peer is disabled by default in drivers (workaround requires patched kernel modules).</li>
         </ul>
-        <div class="verdict">✅ <strong>Choose NVIDIA if:</strong> you run models ≤30B and want maximum speed, or need fine-tuning &amp; training.</div>
+        <div class="verdict"><strong>Choose NVIDIA if:</strong> you run models &le;30B and want maximum speed, or need fine-tuning &amp; training.</div>
       </div>
       <div class="mfr-card amd">
-        <h4>🔴 AMD</h4>
+        <h4>AMD</h4>
         <ul>
           <li><strong>Ryzen AI Max+ 395:</strong> The standout — 128GB unified memory at ~$1,500–2,500 is the cheapest way to run 70B models on x86.</li>
           <li><strong>Bandwidth:</strong> Radeon RX 7900 XTX has 960 GB/s — competitive with NVIDIA RTX 4090 (1,008 GB/s), at a lower price.</li>
@@ -523,10 +599,10 @@
           <li><strong>Discrete VRAM limit:</strong> RX 7900 XTX tops at 24GB — same ceiling as RTX 4090.</li>
           <li><strong>BIOS gotcha:</strong> Ryzen AI Max laptops default to 32GB GPU allocation; must manually set to 96–128GB for proper performance.</li>
         </ul>
-        <div class="verdict">✅ <strong>Choose AMD if:</strong> you need 70B+ on a budget (Ryzen AI Max+ 395), or want competitive discrete GPU performance at lower cost than NVIDIA.</div>
+        <div class="verdict"><strong>Choose AMD if:</strong> you need 70B+ on a budget (Ryzen AI Max+ 395), or want competitive discrete GPU performance at lower cost than NVIDIA.</div>
       </div>
       <div class="mfr-card apple">
-        <h4>⚫ Apple Silicon</h4>
+        <h4>Apple Silicon</h4>
         <ul>
           <li><strong>Unified memory:</strong> M3 Ultra at 192–512GB is the only consumer path to running 200B+ models locally without a multi-GPU rig.</li>
           <li><strong>MLX framework:</strong> Apple-optimized; 20–30% faster than Ollama for inference. Speculative decoding can roughly double token generation.</li>
@@ -536,7 +612,7 @@
           <li><strong>No GPU-only option:</strong> Apple Silicon is integrated — you buy the whole computer, not a card.</li>
           <li><strong>macOS only:</strong> No Linux, no CUDA. Only MLX, llama.cpp, and Ollama with Metal.</li>
         </ul>
-        <div class="verdict">✅ <strong>Choose Apple if:</strong> you need to run very large models (70B+) in a quiet, efficient package, or you're already in the Apple ecosystem.</div>
+        <div class="verdict"><strong>Choose Apple if:</strong> you need to run very large models (70B+) in a quiet, efficient package, or you're already in the Apple ecosystem.</div>
       </div>
     </div>
   </div>
@@ -603,8 +679,397 @@
     </div>
 
     <div class="result-area" id="finderResults">
-      <p class="result-placeholder">← Set your requirements and click "Find Best Match"</p>
+      <p class="result-placeholder">&#8592; Set your requirements and click "Find Best Match"</p>
     </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ COMPARE SYSTEMS TAB -->
+<div id="compare" class="tab-content">
+  <h3 style="margin-top:0">Compare Hardware for Local AI</h3>
+  <p style="margin-top:-0.4em;color:#555;font-size:0.94em;margin-bottom:1.4em">
+    Select up to three systems or chips. Every metric shows the absolute value plus a percentage difference relative to the first system you choose.
+    RAM and VRAM capacity directly determine which model sizes fit; memory bandwidth is the primary driver of token generation speed.
+  </p>
+  <div class="compare-layout">
+    <div class="compare-sidebar">
+      <h3>Select Systems</h3>
+      <div class="cmp-group">
+        <label>System A (baseline)</label>
+        <select id="cmpA">
+          <optgroup label="Apple Silicon — Mac Studio">
+            <option value="m4_ultra_base">Mac Studio M4 Ultra 24-core CPU / 60-core GPU / 192 GB</option>
+            <option value="m4_ultra_high">Mac Studio M4 Ultra 24-core CPU / 76-core GPU / 192 GB</option>
+            <option value="m4_ultra_xl">Mac Studio M4 Ultra 24-core CPU / 76-core GPU / 512 GB</option>
+            <option value="m3_ultra_base" selected>Mac Studio M3 Ultra 24-core CPU / 60-core GPU / 192 GB</option>
+            <option value="m3_ultra_high">Mac Studio M3 Ultra 24-core CPU / 76-core GPU / 192 GB</option>
+            <option value="m3_ultra_xl">Mac Studio M3 Ultra 24-core CPU / 76-core GPU / 512 GB</option>
+          </optgroup>
+          <optgroup label="Apple Silicon — MacBook Pro">
+            <option value="m4_max_14_32">MacBook Pro M4 Max 14-core CPU / 32-core GPU / 64 GB</option>
+            <option value="m4_max_16_40">MacBook Pro M4 Max 16-core CPU / 40-core GPU / 128 GB</option>
+            <option value="m3_max_14_30">MacBook Pro M3 Max 14-core CPU / 30-core GPU / 64 GB</option>
+            <option value="m3_max_16_40">MacBook Pro M3 Max 16-core CPU / 40-core GPU / 128 GB</option>
+            <option value="m3_pro_12_18">MacBook Pro M3 Pro 12-core CPU / 18-core GPU / 36 GB</option>
+          </optgroup>
+          <optgroup label="NVIDIA GPUs (discrete)">
+            <option value="rtx5090">NVIDIA RTX 5090 (32 GB VRAM)</option>
+            <option value="rtx4090">NVIDIA RTX 4090 (24 GB VRAM)</option>
+            <option value="rtx3090">NVIDIA RTX 3090 (24 GB VRAM)</option>
+            <option value="rtxa6000">NVIDIA RTX A6000 (48 GB VRAM)</option>
+            <option value="a100_80">NVIDIA A100 80 GB</option>
+          </optgroup>
+          <optgroup label="AMD">
+            <option value="rx7900xtx">AMD RX 7900 XTX (24 GB VRAM)</option>
+            <option value="ryzen_ai_max">AMD Ryzen AI Max+ 395 (128 GB unified)</option>
+          </optgroup>
+        </select>
+      </div>
+      <div class="cmp-group">
+        <label>System B</label>
+        <select id="cmpB">
+          <option value="none">— none —</option>
+          <optgroup label="Apple Silicon — Mac Studio">
+            <option value="m4_ultra_base">Mac Studio M4 Ultra 24-core CPU / 60-core GPU / 192 GB</option>
+            <option value="m4_ultra_high">Mac Studio M4 Ultra 24-core CPU / 76-core GPU / 192 GB</option>
+            <option value="m4_ultra_xl">Mac Studio M4 Ultra 24-core CPU / 76-core GPU / 512 GB</option>
+            <option value="m3_ultra_base">Mac Studio M3 Ultra 24-core CPU / 60-core GPU / 192 GB</option>
+            <option value="m3_ultra_high">Mac Studio M3 Ultra 24-core CPU / 76-core GPU / 192 GB</option>
+            <option value="m3_ultra_xl">Mac Studio M3 Ultra 24-core CPU / 76-core GPU / 512 GB</option>
+          </optgroup>
+          <optgroup label="Apple Silicon — MacBook Pro">
+            <option value="m4_max_14_32" selected>MacBook Pro M4 Max 16-core CPU / 40-core GPU / 128 GB</option>
+            <option value="m4_max_16_40">MacBook Pro M4 Max 16-core CPU / 40-core GPU / 128 GB</option>
+            <option value="m3_max_14_30">MacBook Pro M3 Max 14-core CPU / 30-core GPU / 64 GB</option>
+            <option value="m3_max_16_40">MacBook Pro M3 Max 16-core CPU / 40-core GPU / 128 GB</option>
+            <option value="m3_pro_12_18">MacBook Pro M3 Pro 12-core CPU / 18-core GPU / 36 GB</option>
+          </optgroup>
+          <optgroup label="NVIDIA GPUs (discrete)">
+            <option value="rtx5090">NVIDIA RTX 5090 (32 GB VRAM)</option>
+            <option value="rtx4090">NVIDIA RTX 4090 (24 GB VRAM)</option>
+            <option value="rtx3090">NVIDIA RTX 3090 (24 GB VRAM)</option>
+            <option value="rtxa6000">NVIDIA RTX A6000 (48 GB VRAM)</option>
+            <option value="a100_80">NVIDIA A100 80 GB</option>
+          </optgroup>
+          <optgroup label="AMD">
+            <option value="rx7900xtx">AMD RX 7900 XTX (24 GB VRAM)</option>
+            <option value="ryzen_ai_max">AMD Ryzen AI Max+ 395 (128 GB unified)</option>
+          </optgroup>
+        </select>
+      </div>
+      <div class="cmp-group">
+        <label>System C (optional)</label>
+        <select id="cmpC">
+          <option value="none" selected>— none —</option>
+          <optgroup label="Apple Silicon — Mac Studio">
+            <option value="m4_ultra_base">Mac Studio M4 Ultra 24-core CPU / 60-core GPU / 192 GB</option>
+            <option value="m4_ultra_high">Mac Studio M4 Ultra 24-core CPU / 76-core GPU / 192 GB</option>
+            <option value="m4_ultra_xl">Mac Studio M4 Ultra 24-core CPU / 76-core GPU / 512 GB</option>
+            <option value="m3_ultra_base">Mac Studio M3 Ultra 24-core CPU / 60-core GPU / 192 GB</option>
+            <option value="m3_ultra_high">Mac Studio M3 Ultra 24-core CPU / 76-core GPU / 192 GB</option>
+            <option value="m3_ultra_xl">Mac Studio M3 Ultra 24-core CPU / 76-core GPU / 512 GB</option>
+          </optgroup>
+          <optgroup label="Apple Silicon — MacBook Pro">
+            <option value="m4_max_14_32">MacBook Pro M4 Max 16-core CPU / 40-core GPU / 128 GB</option>
+            <option value="m4_max_16_40">MacBook Pro M4 Max 16-core CPU / 40-core GPU / 128 GB</option>
+            <option value="m3_max_14_30">MacBook Pro M3 Max 14-core CPU / 30-core GPU / 64 GB</option>
+            <option value="m3_max_16_40">MacBook Pro M3 Max 16-core CPU / 40-core GPU / 128 GB</option>
+            <option value="m3_pro_12_18">MacBook Pro M3 Pro 12-core CPU / 18-core GPU / 36 GB</option>
+          </optgroup>
+          <optgroup label="NVIDIA GPUs (discrete)">
+            <option value="rtx5090">NVIDIA RTX 5090 (32 GB VRAM)</option>
+            <option value="rtx4090">NVIDIA RTX 4090 (24 GB VRAM)</option>
+            <option value="rtx3090">NVIDIA RTX 3090 (24 GB VRAM)</option>
+            <option value="rtxa6000">NVIDIA RTX A6000 (48 GB VRAM)</option>
+            <option value="a100_80">NVIDIA A100 80 GB</option>
+          </optgroup>
+          <optgroup label="AMD">
+            <option value="rx7900xtx">AMD RX 7900 XTX (24 GB VRAM)</option>
+            <option value="ryzen_ai_max">AMD Ryzen AI Max+ 395 (128 GB unified)</option>
+          </optgroup>
+        </select>
+      </div>
+      <button class="cmp-run-btn" onclick="runCompare()">Compare &rarr;</button>
+      <p style="font-size:0.78em;color:#888;margin-top:0.8em;line-height:1.5">
+        Token speed figures are real-world medians from llama.cpp benchmarks. RAM impact on model size follows Q4 quantisation rules (~1.1 GB per 1B params).
+      </p>
+    </div>
+
+    <div class="compare-main" id="compareMain">
+      <p class="cmp-placeholder">Select systems on the left and click Compare.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════ OPTIMIZATION GUIDE TAB -->
+<div id="optimization" class="tab-content">
+  <h3 style="margin-top:0">Optimization Guide — Getting Maximum Performance from Local LLMs</h3>
+  <p class="opt-intro">
+    Inference speed for locally self-hosted LLMs is almost entirely <strong>memory-bandwidth-bound</strong>, not compute-bound.
+    Each token generated requires reading the full model weights from memory once. The faster your memory bus, the faster your tokens.
+    GPU VRAM bandwidth (&gt;1,000 GB/s) dwarfs CPU DRAM bandwidth (30–100 GB/s), which is why a GPU can be 10–30&times; faster than CPU-only.
+    Knowing which bottleneck you have lets you choose the right optimization.
+  </p>
+
+  <div class="opt-section">
+    <h3>What Actually Limits Performance — by Hardware Path</h3>
+    <table class="opt-table">
+      <thead><tr>
+        <th>Hardware Path</th><th>Primary Bottleneck</th><th>Secondary Bottleneck</th>
+        <th>Max RAM Available</th><th>Typical 7B t/s</th><th>Typical 70B t/s</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>NVIDIA GPU (e.g. RTX 5090)</strong></td>
+          <td>VRAM capacity (32 GB ceiling on consumer cards)</td>
+          <td>VRAM bandwidth when model fits</td>
+          <td>32 GB VRAM + system RAM for overflow</td>
+          <td>~250</td><td>N/A (model too large for VRAM)</td>
+        </tr>
+        <tr>
+          <td><strong>NVIDIA Pro GPU (e.g. A100 80GB)</strong></td>
+          <td>VRAM bandwidth (2,000 GB/s)</td>
+          <td>PCIe bandwidth for multi-GPU</td>
+          <td>80 GB per card</td>
+          <td>~260</td><td>~22 (full VRAM)</td>
+        </tr>
+        <tr>
+          <td><strong>Apple Silicon (e.g. M3 Ultra)</strong></td>
+          <td>Unified memory bandwidth (~800 GB/s)</td>
+          <td>Metal compute shader efficiency</td>
+          <td>192–512 GB (model &amp; OS share same pool)</td>
+          <td>~120</td><td>~18–20</td>
+        </tr>
+        <tr>
+          <td><strong>AMD RX 7900 XTX</strong></td>
+          <td>VRAM capacity (24 GB ceiling)</td>
+          <td>ROCm/HIP software overhead</td>
+          <td>24 GB VRAM</td>
+          <td>~135</td><td>N/A</td>
+        </tr>
+        <tr>
+          <td><strong>AMD Ryzen AI Max+ 395</strong></td>
+          <td>Unified memory bandwidth (~256 GB/s)</td>
+          <td>ROCm vs. Vulkan backend selection</td>
+          <td>128 GB unified</td>
+          <td>~90</td><td>~6</td>
+        </tr>
+        <tr>
+          <td><strong>CPU-only (e.g. i9-13900K, DDR5)</strong></td>
+          <td>System RAM bandwidth (40–80 GB/s)</td>
+          <td>Thread count, NUMA topology</td>
+          <td>Addressable system RAM</td>
+          <td>~15–25</td><td>~2–4</td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="font-size:0.82em;color:#666;margin-top:0.5em">Token speeds are batch-size-1 (single-user) generation using Q4_K_M quantisation. Multi-user batch inference favours higher-compute GPUs more.</p>
+  </div>
+
+  <div class="opt-section">
+    <h3>Quantisation — The Most Impactful Software Setting</h3>
+    <p style="font-size:0.9em;margin-top:0;color:#555">Quantisation reduces model precision to fit more into memory and speed up loads. Choosing the right level is the single biggest lever available regardless of hardware.</p>
+    <table class="opt-table">
+      <thead><tr>
+        <th>Format</th><th>Bits/Weight</th><th>RAM vs FP16</th><th>Quality vs FP16</th><th>Best Use</th><th>Speedup vs FP16</th>
+      </tr></thead>
+      <tbody>
+        <tr>
+          <td><strong>FP32</strong></td><td>32</td><td>2&times; more</td><td>Identical</td><td>Training only</td>
+          <td><span class="speedup-tag speedup-low">0.5&times;</span></td>
+        </tr>
+        <tr>
+          <td><strong>FP16 / BF16</strong></td><td>16</td><td>1&times; (baseline)</td><td>Near-lossless</td><td>High-VRAM GPU inference, fine-tuning</td>
+          <td><span class="speedup-tag speedup-neutral">1&times;</span></td>
+        </tr>
+        <tr>
+          <td><strong>Q8_0</strong></td><td>8</td><td>~0.5&times;</td><td>Effectively lossless (&lt;0.1% perplexity)</td><td>When you have VRAM to spare</td>
+          <td><span class="speedup-tag speedup-medium">1.8&times;</span></td>
+        </tr>
+        <tr>
+          <td><strong>Q6_K</strong></td><td>6</td><td>~0.37&times;</td><td>Minimal quality loss</td><td>Large models on capacity-limited systems</td>
+          <td><span class="speedup-tag speedup-medium">2.2&times;</span></td>
+        </tr>
+        <tr>
+          <td><strong>Q5_K_M</strong></td><td>5</td><td>~0.31&times;</td><td>Slight loss, noticeable only on coding</td><td>Best quality when RAM is just enough</td>
+          <td><span class="speedup-tag speedup-high">2.8&times;</span></td>
+        </tr>
+        <tr style="background:#fffdf0;">
+          <td><strong>Q4_K_M</strong></td><td>4</td><td>~0.26&times;</td><td>Good — recommended default</td><td>
+            <strong>Default recommendation for all hardware</strong></td>
+          <td><span class="speedup-tag speedup-high">3.2&times;</span></td>
+        </tr>
+        <tr>
+          <td><strong>Q3_K_M</strong></td><td>3</td><td>~0.19&times;</td><td>Noticeable degradation</td><td>Only if Q4 doesn't fit in RAM</td>
+          <td><span class="speedup-tag speedup-high">3.8&times;</span></td>
+        </tr>
+        <tr>
+          <td><strong>Q2_K</strong></td><td>2</td><td>~0.13&times;</td><td>Significant quality loss — avoid</td><td>Emergency fallback</td>
+          <td><span class="speedup-tag speedup-high">4.5&times;</span></td>
+        </tr>
+        <tr>
+          <td><strong>IQ4_XS (imatrix)</strong></td><td>~4.25</td><td>~0.27&times;</td><td>Better than Q4_K_M at same size</td><td>Best Q4-tier quality</td>
+          <td><span class="speedup-tag speedup-high">3.0&times;</span></td>
+        </tr>
+      </tbody>
+    </table>
+    <p style="font-size:0.82em;color:#666;margin-top:0.5em">
+      <strong>Rule of thumb:</strong> Q4_K_M uses approximately 1.1 GB per 1B parameters.
+      A 70B model &#8776; 40 GB Q4; a 13B model &#8776; 8 GB Q4; a 7B model &#8776; 4.4 GB Q4.
+      Importance-matrix (imatrix) quants (IQ series) give better quality at the same bit depth.
+    </p>
+  </div>
+
+  <div class="opt-section">
+    <h3>Platform-Specific Optimization Paths</h3>
+    <div class="opt-cards">
+
+      <div class="opt-card">
+        <div class="opt-card-header opt-nvidia">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect width="16" height="16" rx="3" fill="#76b900"/><text x="3" y="12" font-size="10" fill="white" font-family="sans-serif" font-weight="bold">N</text></svg>
+          NVIDIA — CUDA Ecosystem
+        </div>
+        <div class="opt-card-body">
+          <ul>
+            <li><strong>CUDA + cuBLAS (default):</strong> All major frameworks use this. Best throughput for models that fully fit in VRAM. Zero additional configuration in Ollama or LM Studio.</li>
+            <li><strong>TensorRT-LLM:</strong> NVIDIA's production inference engine. Requires model compilation; delivers up to 2&times; the throughput of vanilla llama.cpp for continuous batching workloads.</li>
+            <li><strong>FlashAttention-2:</strong> Reduces attention memory complexity from O(n&sup2;) to O(n). Enabled by default in vLLM and llama.cpp — provides 1.5–2&times; speedup on long contexts.</li>
+            <li><strong>Multi-GPU NVLink:</strong> Pro cards (A100, H100, RTX 6000 Ada) support NVLink for full bandwidth pooling. Consumer cards do not — PCIE bandwidth becomes the bottleneck with 2&times; GPUs.</li>
+            <li><strong>GPU offload layers (<code>-ngl</code>):</strong> In llama.cpp, set <code>-ngl 99</code> to send all transformer layers to GPU. If VRAM is too small, reduce layers incrementally; each layer in VRAM improves speed.</li>
+            <li><strong>FP8 quantisation (Hopper GPUs):</strong> H100/H200 support FP8 native precision — 2&times; throughput over BF16 with &lt;1% quality loss. Not available on consumer RTX cards.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="opt-card">
+        <div class="opt-card-header opt-apple">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect width="16" height="16" rx="3" fill="#555"/><text x="3" y="12" font-size="10" fill="white" font-family="sans-serif" font-weight="bold">A</text></svg>
+          Apple Silicon — Metal / MLX
+        </div>
+        <div class="opt-card-body">
+          <ul>
+            <li><strong>MLX framework (Apple-native):</strong> 20–30% faster than llama.cpp with Ollama for inference on Apple Silicon. Install via <code>pip install mlx-lm</code>. Best choice for Apple hardware in 2025.</li>
+            <li><strong>Metal Performance Shaders (MPS):</strong> Used by PyTorch on Apple Silicon. Not as optimised as MLX for LLM inference but works for fine-tuning and training experiments.</li>
+            <li><strong>Speculative decoding (MLX):</strong> Use a small draft model (e.g. 1B) to propose tokens, verified by the main model. Can nearly double tokens/sec on large models with no quality change.</li>
+            <li><strong>llama.cpp Metal backend:</strong> Used by Ollama. Slower than native MLX but has broader model format support. Set <code>LLAMA_METAL=1</code> at compile time.</li>
+            <li><strong>Unified memory — use it all:</strong> Unlike a GPU, macOS can dynamically share RAM between GPU and CPU. Run models that are 70–80% of total RAM; leave ~20% for macOS and applications.</li>
+            <li><strong>Context length and memory:</strong> Increasing context window (e.g. 8K → 128K) consumes significant KV-cache RAM. At 128K context a 70B model can use &gt;60 GB extra RAM. Set <code>--ctx-size</code> conservatively.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="opt-card">
+        <div class="opt-card-header opt-amd">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect width="16" height="16" rx="3" fill="#ed1c24"/><text x="4" y="12" font-size="9" fill="white" font-family="sans-serif" font-weight="bold">AMD</text></svg>
+          AMD — ROCm / Vulkan / HIP
+        </div>
+        <div class="opt-card-body">
+          <ul>
+            <li><strong>ROCm (HIP):</strong> AMD's CUDA-equivalent. Now supported in llama.cpp, vLLM, and PyTorch. Requires ROCm 6.0+ on compatible RX 6000/7000 series GPUs. Performance is within ~10% of CUDA on inference.</li>
+            <li><strong>Vulkan backend (llama.cpp):</strong> Cross-platform GPU acceleration using Vulkan compute shaders. Often 10–20% faster than ROCm on discrete GPUs for pure inference. Use <code>-DGGML_VULKAN=ON</code> at build time.</li>
+            <li><strong>Ryzen AI Max+ 395 — BIOS RAM allocation:</strong> By default, the NPU/GPU shares 32 GB. Open BIOS, set iGPU VRAM allocation to 96 or 128 GB for full performance. Without this, large models page to slow system RAM.</li>
+            <li><strong>hipBLAS (ROCm BLAS):</strong> Replaces cuBLAS for AMD systems. Install via ROCm SDK and set <code>HIP_VISIBLE_DEVICES=0</code>. Used automatically by torch and llama.cpp ROCm builds.</li>
+            <li><strong>AMDGPU target:</strong> Set <code>HSA_OVERRIDE_GFX_VERSION=11.0.0</code> for RDNA3 cards (RX 7000 series) if ROCm doesn't detect the GPU correctly — common issue on consumer ARC/RDNA setups.</li>
+            <li><strong>Concurrent requests:</strong> AMD's ROCm handles batching less efficiently than CUDA for high concurrency. For single-user inference, the gap is small (&lt;10%). For serving multiple users, NVIDIA holds a clear advantage.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="opt-card">
+        <div class="opt-card-header opt-general">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect width="16" height="16" rx="3" fill="#007bff"/><text x="3" y="12" font-size="10" fill="white" font-family="sans-serif" font-weight="bold">+</text></svg>
+          CPU-Only Inference (x86 / ARM)
+        </div>
+        <div class="opt-card-body">
+          <ul>
+            <li><strong>AVX-512 (Intel Icelake+, AMD Zen4):</strong> llama.cpp auto-detects and uses AVX-512 VNNI instructions for 4-bit matrix multiply. ~1.4&times; faster than AVX2. Use a compiled binary or set <code>CMAKE_CXX_FLAGS=-march=native</code>.</li>
+            <li><strong>Thread count:</strong> Set threads to equal physical cores (not hyperthreads). Hyperthreading adds latency on memory-bound tasks. E.g. for a 16P + 8E core i9-13900K, use <code>-t 16</code> (P-cores only).</li>
+            <li><strong>NUMA pinning:</strong> On multi-socket systems, pin to one NUMA domain. Cross-socket memory access halves effective bandwidth. Use <code>numactl --cpunodebind=0 --membind=0</code>.</li>
+            <li><strong>Dual-channel / quad-channel RAM:</strong> Each additional memory channel doubles bandwidth. DDR5-6000 quad-channel gives ~190 GB/s vs ~48 GB/s for DDR4 single-channel — a 4&times; inference speedup.</li>
+            <li><strong>mmap and mlock:</strong> llama.cpp by default mmaps model files. Use <code>--mlock</code> to pin the model in RAM and prevent page faults during inference. Requires sufficient free RAM and root/CAP_IPC_LOCK.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="opt-card">
+        <div class="opt-card-header opt-general">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect width="16" height="16" rx="3" fill="#007bff"/><text x="4" y="12" font-size="9" fill="white" font-family="sans-serif" font-weight="bold">SW</text></svg>
+          Inference Framework Selection
+        </div>
+        <div class="opt-card-body">
+          <ul>
+            <li><strong>Ollama:</strong> Easiest setup; wraps llama.cpp with automatic hardware detection (CUDA, Metal, ROCm). Good for development and single-user. Not optimised for high-throughput multi-user serving.</li>
+            <li><strong>LM Studio:</strong> GUI-based; good for non-technical users. Uses llama.cpp backend. GPU offload via "GPU Layers" slider. Match layers to VRAM — rule of thumb: each 7B layer ~= 100 MB VRAM.</li>
+            <li><strong>llama.cpp (direct):</strong> Maximum control. Supports every acceleration path. Use <code>-ngl 99 -t 8 --ctx-size 4096 --mlock</code> as a good starting configuration.</li>
+            <li><strong>vLLM:</strong> Best for production multi-user serving on NVIDIA. PagedAttention enables efficient KV-cache sharing. Not supported on Apple Silicon. Requires CUDA 11.8+.</li>
+            <li><strong>ExLlamaV2:</strong> Fastest CUDA inference for quantised models. Uses EXL2 format (superior to GGUF on NVIDIA). Can exceed TensorRT-LLM speed for chat workloads at Q4–Q5.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="opt-card">
+        <div class="opt-card-header opt-general">
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><rect width="16" height="16" rx="3" fill="#007bff"/><text x="4" y="12" font-size="9" fill="white" font-family="sans-serif" font-weight="bold">KV</text></svg>
+          Context Length and KV-Cache
+        </div>
+        <div class="opt-card-body">
+          <ul>
+            <li><strong>KV-cache size scales quadratically:</strong> A 7B model at 4K context uses ~500 MB KV-cache; at 128K context it uses ~16 GB. Reduce <code>--ctx-size</code> to free memory for the model itself.</li>
+            <li><strong>KV quantisation (<code>--cache-type-k q8_0</code>):</strong> Quantising the KV cache from FP16 to Q8 or Q4 halves its memory footprint with minor quality impact. Supported in llama.cpp ≥ b2300.</li>
+            <li><strong>Grouped-query attention (GQA) models:</strong> Llama 3, Mistral, and Qwen2+ use GQA — their KV cache is inherently smaller than older models. Prefer GQA models when context length matters.</li>
+            <li><strong>Flash Attention 2:</strong> Required for efficient long-context inference. Enabled automatically in vLLM and supported in llama.cpp with <code>--flash-attn</code>.</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="opt-section">
+    <h3>RAM / VRAM Impact on Model Access — Reference Table</h3>
+    <p style="font-size:0.9em;color:#555;margin-top:0">
+      This table shows what changes when you increase or reduce available RAM/VRAM. The key insight: 
+      <strong>more memory expands which models fit; more bandwidth increases how fast they run.</strong>
+      Adding RAM without adding bandwidth does not improve token speed — it only enables larger models.
+    </p>
+    <table class="opt-table">
+      <thead><tr>
+        <th>Available RAM / VRAM</th>
+        <th>Largest model (Q4_K_M)</th>
+        <th>Token speed change vs. prior tier</th>
+        <th>70B Q4 accessible?</th>
+        <th>Notes</th>
+      </tr></thead>
+      <tbody>
+        <tr><td>4 GB</td><td>~3B Q4</td><td>—</td><td class="impact-negative">No</td><td>OS overhead leaves ~2.5 GB usable. 3B models run well.</td></tr>
+        <tr><td>8 GB</td><td>~7B Q4</td><td class="impact-positive">+0% speed (same BW), +model tier</td><td class="impact-negative">No</td><td>Most popular tier. 7B Q4 = ~4.4 GB. Small context headroom.</td></tr>
+        <tr><td>16 GB</td><td>~13B Q4</td><td class="impact-positive">+0% speed, +model tier</td><td class="impact-negative">No</td><td>13B Q4 ≈ 7.9 GB. 8K context adds ~1 GB. Comfortable headroom.</td></tr>
+        <tr><td>24 GB</td><td>~20B Q4</td><td class="impact-positive">+0% speed, +model tier</td><td class="impact-negative">No</td><td>Maximum for consumer discrete GPUs (NVIDIA RTX 4090, AMD RX 7900 XTX). 20B Q4 ≈ 12 GB.</td></tr>
+        <tr><td>32 GB</td><td>~26B Q4, 70B Q2</td><td class="impact-positive">+0% speed, marginal 70B Q2</td><td style="color:#856404;font-weight:600">Marginal (Q2 only)</td><td>RTX 5090 ceiling. Q2 70B runs but quality suffers. Strong for 13–26B models.</td></tr>
+        <tr><td>48 GB</td><td>~40B Q4, 70B Q3</td><td class="impact-positive">+0% speed, +model tier</td><td style="color:#856404;font-weight:600">Q3 only (~3.8 t/s)</td><td>RTX A6000. 70B Q3 just fits; expect lower quality than Q4.</td></tr>
+        <tr style="background:#fffdf0;"><td><strong>64 GB+</strong></td><td><strong>70B Q4 (full)</strong></td><td class="impact-positive"><strong>+0% speed, full 70B access</strong></td><td class="impact-positive"><strong>Yes — Q4_K_M</strong></td><td>First tier enabling 70B Q4 fully. Apple M-series, Ryzen AI Max. 70B Q4 ≈ 40 GB; leaves 20+ GB for context.</td></tr>
+        <tr><td>96 GB</td><td>~80B Q4, 120B Q3</td><td class="impact-positive">+0% speed, 120B tier</td><td class="impact-positive">Yes — with headroom</td><td>Dual 3090/A6000, M2 Ultra 96 GB. Llama 3.1 405B in Q2 just fits.</td></tr>
+        <tr><td>128 GB</td><td>~105B Q4, 120B Q3</td><td class="impact-positive">+0% speed (CPU BW limited)</td><td class="impact-positive">Yes — comfortably</td><td>Ryzen AI Max+ 395, M-series 128 GB. 70B + 32K context fits easily.</td></tr>
+        <tr><td>192 GB</td><td>~160B Q4, 200B+ Q3</td><td class="impact-positive">+0% speed, 200B tier (Apple BW)</td><td class="impact-positive">Yes — fast (~18 t/s)</td><td>M3 Ultra 192 GB. Llama 3.1 405B Q2 ≈ 202 GB — just barely fits.</td></tr>
+        <tr><td>512 GB</td><td>405B Q4 full</td><td class="impact-positive">+0% speed, 400B tier</td><td class="impact-positive">Yes</td><td>M3 Ultra 512 GB. 405B Q4 ≈ 230 GB. Full unquantised 70B fits.</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="opt-section">
+    <h3>Key Takeaways by Use Case</h3>
+    <table class="opt-table">
+      <thead><tr><th>Goal</th><th>Recommended Path</th><th>Key Setting</th></tr></thead>
+      <tbody>
+        <tr><td>Fastest possible 7B inference</td><td>NVIDIA RTX 5090 + ExLlamaV2</td><td>EXL2 Q4 format, enable Flash Attention</td></tr>
+        <tr><td>Run 70B on a budget</td><td>AMD Ryzen AI Max+ 395 mini PC (~$1,500)</td><td>Set BIOS iGPU VRAM to 128 GB, use Vulkan backend</td></tr>
+        <tr><td>Quiet, large-model desktop</td><td>Apple Mac Studio M3 Ultra 192 GB + MLX</td><td>Use <code>mlx_lm.generate</code>, enable speculative decoding</td></tr>
+        <tr><td>Multi-user production serving</td><td>NVIDIA A100/H100 + vLLM</td><td>Enable PagedAttention, continuous batching, tensor parallelism</td></tr>
+        <tr><td>Maximum context length (&gt;64K tokens)</td><td>Apple M3 Ultra 192 GB or 512 GB</td><td>Set <code>--ctx-size 65536</code>, quantise KV cache to Q8</td></tr>
+        <tr><td>Fine-tuning / LoRA training</td><td>NVIDIA GPU with 24+ GB VRAM</td><td>Use QLoRA (4-bit base + FP16 adapters), gradient checkpointing</td></tr>
+        <tr><td>Best CPU-only on x86</td><td>Dual-channel DDR5 + Zen4/Raptor Lake</td><td>Compile llama.cpp with <code>-march=native</code>, use <code>-t &lt;physical cores&gt;</code></td></tr>
+      </tbody>
+    </table>
   </div>
 </div>
 
@@ -963,13 +1428,13 @@
 
     resultsEl.innerHTML = `
       <div class="result-card">
-        <div class="result-rank">🏆 Best match for ${osLabel} · ${modelLabel} target · ${priorityLabel}</div>
+        <div class="result-rank">Best match for ${osLabel} &middot; ${modelLabel} target &middot; ${priorityLabel}</div>
         <div class="result-name">${best.name}</div>
         <div class="result-meta">
-          <span class="result-meta-chip">💰 From $${best.minPrice.toLocaleString()}</span>
-          <span class="result-meta-chip">⚡ ~${best.tg7b} t/s (7B Q4)</span>
-          <span class="result-meta-chip">📦 Up to ${best.maxModel >= 200 ? '200B+' : best.maxModel + 'B'} models</span>
-          <span class="result-meta-chip">${best.ff === 'laptop' ? '💼 Portable' : '🖥️ Desktop'}</span>
+          <span class="result-meta-chip">From $${best.minPrice.toLocaleString()}</span>
+          <span class="result-meta-chip">~${best.tg7b} t/s (7B Q4)</span>
+          <span class="result-meta-chip">Up to ${best.maxModel >= 200 ? '200B+' : best.maxModel + 'B'} models</span>
+          <span class="result-meta-chip">${best.ff === 'laptop' ? 'Portable' : 'Desktop'}</span>
           <span class="result-meta-chip">${best.os.join(' / ')}</span>
         </div>
         <div class="result-why">
@@ -991,6 +1456,413 @@
           </div>`).join('')}
       </div>` : ''}
     `;
+  }
+
+  /* ══════════════════════════════════════════════════════════════
+     COMPARE SYSTEMS DATA + LOGIC
+  ══════════════════════════════════════════════════════════════ */
+
+  // Each entry: id, name, mfr, type (unified/discrete/cpu), 
+  // memGB (usable memory for models), bwGBs (memory bandwidth GB/s),
+  // cpuCores, gpuCores, tg7b, tg13b, tg70b (null = can't fit),
+  // price, notes
+  const CMP_DATA = {
+    // ── Apple Mac Studio ──────────────────────────────────────
+    m3_ultra_base: {
+      name: 'Mac Studio M3 Ultra', sub: '24-core CPU / 60-core GPU / 192 GB',
+      mfr: 'apple', memGB: 192, bwGBs: 800, cpuCores: 24, gpuCores: 60, unified: true,
+      tg7b: 115, tg13b: 68, tg70b: 18, tg120b: 9, price: 8000,
+      framework: 'MLX / llama.cpp Metal', vramGB: 192,
+      notes: 'Baseline M3 Ultra. 60-core GPU. Single-user 70B runs comfortably.'
+    },
+    m3_ultra_high: {
+      name: 'Mac Studio M3 Ultra', sub: '24-core CPU / 76-core GPU / 192 GB',
+      mfr: 'apple', memGB: 192, bwGBs: 800, cpuCores: 24, gpuCores: 76, unified: true,
+      tg7b: 120, tg13b: 72, tg70b: 20, tg120b: 10, price: 8500,
+      framework: 'MLX / llama.cpp Metal', vramGB: 192,
+      notes: '76-core GPU adds ~5% token speed vs 60-core at same bandwidth — GPU core count is secondary to memory bandwidth.'
+    },
+    m3_ultra_xl: {
+      name: 'Mac Studio M3 Ultra', sub: '24-core CPU / 76-core GPU / 512 GB',
+      mfr: 'apple', memGB: 512, bwGBs: 800, cpuCores: 24, gpuCores: 76, unified: true,
+      tg7b: 120, tg13b: 72, tg70b: 20, tg120b: 11, price: 10000,
+      framework: 'MLX / llama.cpp Metal', vramGB: 512,
+      notes: '512 GB unified. Enables 405B and MoE 671B (quantised). Token speed identical to 192 GB — bandwidth is unchanged; only capacity increases.'
+    },
+    m4_ultra_base: {
+      name: 'Mac Studio M4 Ultra', sub: '24-core CPU / 60-core GPU / 192 GB',
+      mfr: 'apple', memGB: 192, bwGBs: 900, cpuCores: 24, gpuCores: 60, unified: true,
+      tg7b: 130, tg13b: 78, tg70b: 22, tg120b: 11, price: 8500,
+      framework: 'MLX / llama.cpp Metal', vramGB: 192,
+      notes: 'M4 Ultra. ~12% bandwidth increase over M3 Ultra at same memory tier.'
+    },
+    m4_ultra_high: {
+      name: 'Mac Studio M4 Ultra', sub: '24-core CPU / 76-core GPU / 192 GB',
+      mfr: 'apple', memGB: 192, bwGBs: 900, cpuCores: 24, gpuCores: 76, unified: true,
+      tg7b: 135, tg13b: 80, tg70b: 23, tg120b: 12, price: 9000,
+      framework: 'MLX / llama.cpp Metal', vramGB: 192,
+      notes: 'M4 Ultra 76-core GPU. Marginal gain over 60-core at same bandwidth.'
+    },
+    m4_ultra_xl: {
+      name: 'Mac Studio M4 Ultra', sub: '24-core CPU / 76-core GPU / 512 GB',
+      mfr: 'apple', memGB: 512, bwGBs: 900, cpuCores: 24, gpuCores: 76, unified: true,
+      tg7b: 135, tg13b: 80, tg70b: 23, tg120b: 12, price: 11000,
+      framework: 'MLX / llama.cpp Metal', vramGB: 512,
+      notes: 'Maximum capacity M4 Ultra. 405B unquantised possible. Bandwidth, not capacity, sets speed.'
+    },
+    // ── Apple MacBook Pro ─────────────────────────────────────
+    m4_max_14_32: {
+      name: 'MacBook Pro M4 Max', sub: '14-core CPU / 32-core GPU / 64 GB',
+      mfr: 'apple', memGB: 64, bwGBs: 410, cpuCores: 14, gpuCores: 32, unified: true,
+      tg7b: 65, tg13b: 38, tg70b: null, tg120b: null, price: 3200,
+      framework: 'MLX / llama.cpp Metal', vramGB: 64,
+      notes: 'Entry M4 Max. 64 GB allows 30B Q4 comfortably; 70B Q4 requires ~40 GB so just fits with limited context.'
+    },
+    m4_max_16_40: {
+      name: 'MacBook Pro M4 Max', sub: '16-core CPU / 40-core GPU / 128 GB',
+      mfr: 'apple', memGB: 128, bwGBs: 410, cpuCores: 16, gpuCores: 40, unified: true,
+      tg7b: 75, tg13b: 45, tg70b: 7, tg120b: null, price: 4200,
+      framework: 'MLX / llama.cpp Metal', vramGB: 128,
+      notes: 'Top M4 Max config. 128 GB enables 70B Q4 (~40 GB) with headroom. +25% GPU cores vs 32-core — contributes ~10% extra speed.'
+    },
+    m3_max_14_30: {
+      name: 'MacBook Pro M3 Max', sub: '14-core CPU / 30-core GPU / 64 GB',
+      mfr: 'apple', memGB: 64, bwGBs: 300, cpuCores: 14, gpuCores: 30, unified: true,
+      tg7b: 55, tg13b: 32, tg70b: null, tg120b: null, price: 3000,
+      framework: 'MLX / llama.cpp Metal', vramGB: 64,
+      notes: 'Entry M3 Max. 300 GB/s bandwidth; noticeably slower than M4 Max on the same model.'
+    },
+    m3_max_16_40: {
+      name: 'MacBook Pro M3 Max', sub: '16-core CPU / 40-core GPU / 128 GB',
+      mfr: 'apple', memGB: 128, bwGBs: 300, cpuCores: 16, gpuCores: 40, unified: true,
+      tg7b: 60, tg13b: 36, tg70b: 5, tg120b: null, price: 4000,
+      framework: 'MLX / llama.cpp Metal', vramGB: 128,
+      notes: 'Top M3 Max. 70B narrowly fits. M4 Max is ~25% faster at same memory tier due to bandwidth.'
+    },
+    m3_pro_12_18: {
+      name: 'MacBook Pro M3 Pro', sub: '12-core CPU / 18-core GPU / 36 GB',
+      mfr: 'apple', memGB: 36, bwGBs: 150, cpuCores: 12, gpuCores: 18, unified: true,
+      tg7b: 35, tg13b: 18, tg70b: null, tg120b: null, price: 2200,
+      framework: 'MLX / llama.cpp Metal', vramGB: 36,
+      notes: 'M3 Pro. 36 GB max; 30B Q4 fits. Significantly slower bandwidth (150 GB/s) limits token speed.'
+    },
+    // ── NVIDIA ────────────────────────────────────────────────
+    rtx5090: {
+      name: 'NVIDIA RTX 5090', sub: '32 GB GDDR7 — 1,792 GB/s',
+      mfr: 'nvidia', memGB: 32, bwGBs: 1792, cpuCores: null, gpuCores: null, unified: false,
+      tg7b: 250, tg13b: 170, tg70b: null, tg120b: null, price: 1999,
+      framework: 'CUDA / llama.cpp / ExLlamaV2', vramGB: 32,
+      notes: 'Fastest consumer GPU. 32 GB caps at ~26B Q4 models. Needs 64+ GB system RAM for larger models via CPU offload (slow).'
+    },
+    rtx4090: {
+      name: 'NVIDIA RTX 4090', sub: '24 GB GDDR6X — 1,008 GB/s',
+      mfr: 'nvidia', memGB: 24, bwGBs: 1008, cpuCores: null, gpuCores: null, unified: false,
+      tg7b: 140, tg13b: 95, tg70b: null, tg120b: null, price: 1200,
+      framework: 'CUDA / llama.cpp / ExLlamaV2', vramGB: 24,
+      notes: 'Previous gen consumer flagship. 24 GB supports up to ~20B Q4. Best value NVIDIA for 7–13B workloads.'
+    },
+    rtx3090: {
+      name: 'NVIDIA RTX 3090', sub: '24 GB GDDR6X — 936 GB/s',
+      mfr: 'nvidia', memGB: 24, bwGBs: 936, cpuCores: null, gpuCores: null, unified: false,
+      tg7b: 130, tg13b: 85, tg70b: null, tg120b: null, price: 600,
+      framework: 'CUDA / llama.cpp / ExLlamaV2', vramGB: 24,
+      notes: 'Used market bargain. Nearly identical VRAM and bandwidth to RTX 4090. Poor at fine-tuning vs newer cards (3x slower).'
+    },
+    rtxa6000: {
+      name: 'NVIDIA RTX A6000', sub: '48 GB GDDR6 — 768 GB/s',
+      mfr: 'nvidia', memGB: 48, bwGBs: 768, cpuCores: null, gpuCores: null, unified: false,
+      tg7b: 180, tg13b: 120, tg70b: 3, tg120b: null, price: 3000,
+      framework: 'CUDA / llama.cpp / vLLM', vramGB: 48,
+      notes: '48 GB VRAM. 70B just fits in Q3 but is slow (~3 t/s) due to lower bandwidth vs RTX 5090. Excellent for concurrent multi-user via vLLM.'
+    },
+    a100_80: {
+      name: 'NVIDIA A100 80 GB', sub: '80 GB HBM2e — 1,935 GB/s',
+      mfr: 'nvidia', memGB: 80, bwGBs: 1935, cpuCores: null, gpuCores: null, unified: false,
+      tg7b: 220, tg13b: 155, tg70b: 18, tg120b: null, price: 5000,
+      framework: 'CUDA / vLLM / TensorRT-LLM', vramGB: 80,
+      notes: 'Data-center card. 80 GB HBM2e. Fastest bandwidth-per-dollar for 70B models. Requires PCIe x16 slot and external PSU connector.'
+    },
+    // ── AMD ───────────────────────────────────────────────────
+    rx7900xtx: {
+      name: 'AMD RX 7900 XTX', sub: '24 GB GDDR6 — 960 GB/s',
+      mfr: 'amd', memGB: 24, bwGBs: 960, cpuCores: null, gpuCores: null, unified: false,
+      tg7b: 135, tg13b: 88, tg70b: null, tg120b: null, price: 800,
+      framework: 'ROCm / Vulkan / llama.cpp', vramGB: 24,
+      notes: 'Best AMD discrete. Near-RTX 4090 performance at lower price. ROCm has occasional compatibility issues; Vulkan backend recommended for pure inference.'
+    },
+    ryzen_ai_max: {
+      name: 'AMD Ryzen AI Max+ 395', sub: 'x86 + RDNA3.5 iGPU — 128 GB unified',
+      mfr: 'amd', memGB: 128, bwGBs: 256, cpuCores: 16, gpuCores: 40, unified: true,
+      tg7b: 90, tg13b: 52, tg70b: 6, tg120b: null, price: 1800,
+      framework: 'Vulkan / ROCm / llama.cpp', vramGB: 128,
+      notes: 'Cheapest 70B-capable x86 system. 256 GB/s bandwidth is the bottleneck — 3x slower than M3 Ultra on 70B. BIOS must set VRAM to 128 GB.'
+    },
+  };
+
+  // Model Q4 sizes in GB, used for fit calculations
+  const MODEL_SIZES = [
+    { label:'1B Q4',   gb:0.8,  desc:'SmolLM2 1.7B'},
+    { label:'3B Q4',   gb:2.0,  desc:'Llama 3.2 3B'},
+    { label:'7B Q4',   gb:4.4,  desc:'Llama 3.1 8B, Mistral 7B'},
+    { label:'13B Q4',  gb:8.0,  desc:'Qwen2.5 14B'},
+    { label:'20B Q4',  gb:12.0, desc:'Phi-4 20B, DeepSeek-R1 20B'},
+    { label:'30B Q4',  gb:17.0, desc:'Qwen 32B, Gemma 27B'},
+    { label:'70B Q4',  gb:40.0, desc:'Llama 3.1 70B, Qwen 72B'},
+    { label:'70B Q8',  gb:75.0, desc:'Llama 3.1 70B full quality'},
+    { label:'120B Q4', gb:70.0, desc:'Llama 3.1 405B Q2 / MoE models'},
+    { label:'405B Q4', gb:230.0,desc:'Llama 3.1 405B'},
+  ];
+
+  function getBarClass(mfr) {
+    return mfr === 'nvidia' ? 'bar-nvidia' : mfr === 'amd' ? 'bar-amd' : 'bar-apple';
+  }
+  function getSysClass(mfr) {
+    return mfr === 'nvidia' ? 'sys-nvidia' : mfr === 'amd' ? 'sys-amd' : 'sys-apple';
+  }
+
+  function pctDiff(base, val) {
+    if (!base || !val) return null;
+    return Math.round((val - base) / base * 100);
+  }
+  function deltaTag(pct) {
+    if (pct === null) return '';
+    if (Math.abs(pct) < 2) return `<span class="cmp-delta same">same</span>`;
+    if (pct > 0) return `<span class="cmp-delta faster">+${pct}%</span>`;
+    return `<span class="cmp-delta slower">${pct}%</span>`;
+  }
+  function barHtml(val, maxVal, mfr) {
+    const w = Math.round(Math.min(val / maxVal, 1) * 140);
+    return `<div class="cmp-bar-wrap"><div class="cmp-bar ${getBarClass(mfr)}" style="width:${w}px"></div><span style="font-size:0.85em;font-weight:600">${val.toLocaleString()}</span></div>`;
+  }
+
+  function runCompare() {
+    const ids = ['cmpA','cmpB','cmpC'].map(id => document.getElementById(id).value).filter(v => v !== 'none');
+    if (ids.length < 2) { alert('Please select at least two systems to compare.'); return; }
+
+    const systems = ids.map(id => CMP_DATA[id]).filter(Boolean);
+    const base = systems[0];
+
+    const maxBw  = Math.max(...systems.map(s => s.bwGBs));
+    const maxMem = Math.max(...systems.map(s => s.memGB));
+    const maxTg7b = Math.max(...systems.map(s => s.tg7b));
+    const maxTg70b = Math.max(...systems.filter(s => s.tg70b).map(s => s.tg70b), 1);
+
+    // ── Header cards ──
+    const colCount = systems.length;
+    const headerHtml = `
+      <div class="cmp-systems-bar" style="grid-template-columns: repeat(${colCount}, 1fr)">
+        ${systems.map(s => `
+          <div class="cmp-sys-header ${getSysClass(s.mfr)}">
+            <div class="sys-name">${s.name}</div>
+            <div class="sys-sub">${s.sub}</div>
+            <div style="font-size:0.78em;color:#666;margin-top:0.3em">$${s.price.toLocaleString()} &middot; ${s.framework}</div>
+          </div>`).join('')}
+      </div>`;
+
+    // ── Core specs table ──
+    const makeRow = (label, vals, unit, maxVal, isLowerBetter) => {
+      const cells = vals.map((v, i) => {
+        if (v == null) return `<td>&mdash;</td>`;
+        const pct = i === 0 ? null : pctDiff(vals[0], v);
+        const adjustedPct = isLowerBetter && pct !== null ? -pct : pct;
+        return `<td>
+          ${barHtml(v, maxVal, systems[i].mfr)}
+          ${unit ? `<div style="font-size:0.78em;color:#666">${unit}</div>` : ''}
+          ${i > 0 ? deltaTag(adjustedPct) : '<span style="font-size:0.75em;color:#888">baseline</span>'}
+        </td>`;
+      });
+      return `<tr><th class="row-label">${label}</th>${cells.join('')}</tr>`;
+    };
+
+    const specsHtml = `
+      <div class="cmp-section">
+        <div class="cmp-section-title">Core Hardware Specs</div>
+        <table class="cmp-table">
+          <thead><tr>
+            <th class="row-label">Spec</th>
+            ${systems.map(s => `<th>${s.name.split(' ').slice(-2).join(' ')}</th>`).join('')}
+          </tr></thead>
+          <tbody>
+            ${makeRow('Memory / VRAM', systems.map(s=>s.memGB), 'GB', maxMem, false)}
+            ${makeRow('Memory Bandwidth', systems.map(s=>s.bwGBs), 'GB/s', maxBw, false)}
+            ${makeRow('Price', systems.map(s=>s.price), 'USD', Math.max(...systems.map(s=>s.price)), true)}
+            <tr>
+              <th class="row-label">Memory Type</th>
+              ${systems.map(s => `<td>${s.unified ? 'Unified (CPU+GPU share)' : 'Discrete VRAM'}</td>`).join('')}
+            </tr>
+            <tr>
+              <th class="row-label">CPU Cores</th>
+              ${systems.map(s => `<td>${s.cpuCores ? s.cpuCores + ' cores' : 'N/A (add-in card)'}</td>`).join('')}
+            </tr>
+            <tr>
+              <th class="row-label">GPU Cores</th>
+              ${systems.map(s => `<td>${s.gpuCores ? s.gpuCores + ' cores' : 'CUDA/CU — varies'}</td>`).join('')}
+            </tr>
+            <tr>
+              <th class="row-label">Notes</th>
+              ${systems.map(s => `<td style="font-size:0.82em;color:#555">${s.notes}</td>`).join('')}
+            </tr>
+          </tbody>
+        </table>
+      </div>`;
+
+    // ── Token speed table ──
+    const tgVals = [
+      {label:'7B Q4 (t/s)',   field:'tg7b',  maxV: maxTg7b},
+      {label:'13B Q4 (t/s)',  field:'tg13b', maxV: Math.max(...systems.filter(s=>s.tg13b).map(s=>s.tg13b),1)},
+      {label:'70B Q4 (t/s)',  field:'tg70b', maxV: maxTg70b},
+      {label:'120B Q4 (t/s)', field:'tg120b',maxV: Math.max(...systems.filter(s=>s.tg120b).map(s=>s.tg120b),1)},
+    ];
+
+    const tokHtml = `
+      <div class="cmp-section">
+        <div class="cmp-section-title">Token Generation Speed (single-user, batch size 1, Q4_K_M)</div>
+        <table class="cmp-table">
+          <thead><tr>
+            <th class="row-label">Model Size</th>
+            ${systems.map(s => `<th>${s.name.split(' ').slice(-2).join(' ')}</th>`).join('')}
+          </tr></thead>
+          <tbody>
+            ${tgVals.map(tv => {
+              const vals = systems.map(s => s[tv.field]);
+              const cells = vals.map((v, i) => {
+                if (v == null) return `<td style="color:#bbb">Does not fit</td>`;
+                const pct = i === 0 ? null : pctDiff(vals[0], v);
+                return `<td>
+                  ${barHtml(v, tv.maxV, systems[i].mfr)}
+                  <div style="font-size:0.75em;color:#666">tokens/sec</div>
+                  ${i > 0 ? deltaTag(pct) : '<span style="font-size:0.75em;color:#888">baseline</span>'}
+                </td>`;
+              });
+              return `<tr><th class="row-label">${tv.label}</th>${cells.join('')}</tr>`;
+            }).join('')}
+          </tbody>
+        </table>
+        <p style="font-size:0.78em;color:#888;padding:0.5em 0.9em;margin:0">
+          "Does not fit" = Q4 model exceeds 90% of available memory. Speed scales with bandwidth; capacity determines fit. 
+          GPU cores affect speed by ~5–10% within the same chip family — bandwidth is the primary driver.
+        </p>
+      </div>`;
+
+    // ── Model fit grid ──
+    const fitHtml = `
+      <div class="cmp-section">
+        <div class="cmp-section-title">Model Size Compatibility (Green = fits fully in Q4, Yellow = fits in Q3/Q2 only, Red = too large)</div>
+        ${systems.map(s => {
+          const cells = MODEL_SIZES.map(m => {
+            const usable = s.memGB * 0.88;
+            const cls = m.gb <= usable ? 'fit-yes' : m.gb <= usable * 1.25 ? 'fit-partial' : 'fit-no';
+            return `<div class="mf-cell ${cls}">
+              <div class="mf-size">${m.label}</div>
+              <div class="mf-label">${m.desc}</div>
+              <div class="mf-label" style="margin-top:0.2em">${m.gb} GB Q4</div>
+            </div>`;
+          });
+          return `<div style="padding:0 0 0 0.9em;margin-bottom:0.4em"><strong style="font-size:0.88em">${s.name} — ${s.sub}</strong></div>
+          <div class="model-fit-grid">${cells.join('')}</div>`;
+        }).join('<hr style="margin:0.5em 0;border:none;border-top:1px solid #eee">')}
+      </div>`;
+
+    // ── RAM impact explanation ──
+    const ramImpactHtml = `
+      <div class="cmp-section">
+        <div class="cmp-section-title">What More RAM / VRAM Changes for Each System</div>
+        <table class="cmp-table">
+          <thead><tr>
+            <th class="row-label">System</th>
+            <th>Current Memory</th>
+            <th>Effect of more RAM on speed</th>
+            <th>Effect of more RAM on model access</th>
+            <th>Upgrade path</th>
+          </tr></thead>
+          <tbody>
+            ${systems.map(s => {
+              const speedEffect = s.unified
+                ? 'None — bandwidth is fixed by chip die. More RAM adds capacity only, not speed.'
+                : 'None — VRAM bandwidth is fixed. More VRAM (next-tier card) could improve speed only if bandwidth also increases.';
+              const capacityEffect = s.memGB >= 192
+                ? `Already at 70B+ tier. Adding RAM enables 200B+ and 405B models.`
+                : s.memGB >= 64
+                  ? `+64 GB would unlock 70B Q4 (needs ~40 GB). +128 GB allows 120B Q3.`
+                  : s.memGB >= 32
+                    ? `+32 GB reaches 70B Q4 threshold (~40 GB needed). Significant step up.`
+                    : `Need 3× more RAM to reach 70B Q4 tier.`;
+              const upgrade = s.unified && s.mfr === 'apple'
+                ? 'Apple RAM is soldered at purchase — choose higher config at ordering time.'
+                : s.mfr === 'nvidia'
+                  ? 'Upgrade to next VRAM tier (e.g. RTX 4090→A6000→A100) or add a second GPU (use vLLM with tensor parallel).'
+                  : s.mfr === 'amd' && s.unified
+                    ? 'RAM is soldered in Ryzen AI Max laptops. Select 128 GB at purchase and set BIOS iGPU VRAM allocation to 96–128 GB.'
+                    : 'Consult system spec sheet.';
+              return `<tr>
+                <td style="font-weight:600;font-size:0.88em">${s.name}<br><span style="font-weight:400;color:#666">${s.sub}</span></td>
+                <td>${s.memGB} GB ${s.unified ? 'unified' : 'VRAM'}</td>
+                <td class="impact-neutral">${speedEffect}</td>
+                <td>${capacityEffect}</td>
+                <td style="font-size:0.84em;color:#555">${upgrade}</td>
+              </tr>`;
+            }).join('')}
+          </tbody>
+        </table>
+      </div>`;
+
+    // ── Factor weighting explanation ──
+    const factorIntro = `
+      <div class="cmp-section">
+        <div class="cmp-section-title">What Each Factor Contributes to AI Inference Performance</div>
+        <table class="cmp-table">
+          <thead><tr>
+            <th>Factor</th><th>Impact on Speed</th><th>Impact on Model Access</th><th>Notes</th>
+          </tr></thead>
+          <tbody>
+            <tr>
+              <td><strong>Memory Bandwidth</strong></td>
+              <td><span class="speedup-tag speedup-high">Primary driver</span></td>
+              <td>None</td>
+              <td>Token generation speed scales linearly with bandwidth. Doubling bandwidth doubles t/s.</td>
+            </tr>
+            <tr>
+              <td><strong>RAM / VRAM Capacity</strong></td>
+              <td><span class="speedup-tag speedup-neutral">No effect</span></td>
+              <td><span class="speedup-tag speedup-high">Primary driver</span></td>
+              <td>More capacity lets larger models fit. Does not speed up inference of models that already fit.</td>
+            </tr>
+            <tr>
+              <td><strong>GPU Compute (CUDA/GPU cores)</strong></td>
+              <td><span class="speedup-tag speedup-low">Secondary</span></td>
+              <td>None</td>
+              <td>For inference at batch-size 1, compute is rarely the bottleneck. Matters more for batched/parallel requests and training.</td>
+            </tr>
+            <tr>
+              <td><strong>CPU Core Count</strong></td>
+              <td><span class="speedup-tag speedup-medium">Moderate (CPU-only)</span></td>
+              <td>None</td>
+              <td>On CPU-only inference, more physical cores allow parallel matrix rows. Limited by memory bandwidth ceiling.</td>
+            </tr>
+            <tr>
+              <td><strong>Quantisation Level</strong></td>
+              <td><span class="speedup-tag speedup-high">Major (software)</span></td>
+              <td><span class="speedup-tag speedup-high">Major (software)</span></td>
+              <td>Reduces bytes per weight — directly cuts bandwidth demand and memory footprint. Q4 is ~3× faster than FP16 for same bandwidth.</td>
+            </tr>
+            <tr>
+              <td><strong>Storage Speed (NVMe)</strong></td>
+              <td><span class="speedup-tag speedup-neutral">No effect at runtime</span></td>
+              <td>None</td>
+              <td>Only affects initial model load time. A 7 GB model with a 3 GB/s NVMe loads in ~2s vs ~10s on SATA. No effect on tokens/sec.</td>
+            </tr>
+            <tr>
+              <td><strong>CPU Architecture (AVX-512, AMX)</strong></td>
+              <td><span class="speedup-tag speedup-medium">Moderate (CPU-only)</span></td>
+              <td>None</td>
+              <td>AVX-512 VNNI (Icelake+) can give 1.4× CPU inference vs AVX2. Intel AMX (Sapphire Rapids) provides further acceleration for INT8.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>`;
+
+    document.getElementById('compareMain').innerHTML =
+      headerHtml + factorIntro + specsHtml + tokHtml + fitHtml + ramImpactHtml;
   }
 </script>
 </body>
