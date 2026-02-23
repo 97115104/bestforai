@@ -306,6 +306,56 @@
     .sw-all      { background: #e9e9e9; color: #333; }
     .sw-tool-name { font-size: 1em; font-weight: 700; margin-bottom: 0.2em; }
     .sw-tool-desc { font-size: 0.88em; color: #555; margin-bottom: 0.5em; }
+    /* ── Featured recommendations ── */
+    .feat-section { margin-bottom: 1.8em; }
+    .feat-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1em; }
+    .feat-col { border: 1px solid var(--table-border-color); border-radius: var(--border-radius); overflow: hidden; }
+    .feat-header { padding: 0.55em 1em; font-weight: 700; font-size: 0.88em; text-transform: uppercase; letter-spacing: 0.05em; }
+    .feat-macos   { background: #f4f4f4; border-bottom: 1px solid #ddd; color: #333; }
+    .feat-windows { background: #e8f4fd; border-bottom: 1px solid #ddd; color: #004a8c; }
+    .feat-linux   { background: #fff8f0; border-bottom: 1px solid #ddd; color: #7a3700; }
+    .feat-card { padding: 0.7em 1em; border-bottom: 1px solid #f0f0f0; }
+    .feat-card:last-child { border-bottom: none; }
+    .feat-tier { font-size: 0.7em; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 0.2em; }
+    .feat-name { font-weight: 600; font-size: 0.9em; margin-bottom: 0.15em; }
+    .feat-price { font-size: 0.82em; color: #555; }
+    .feat-detail { font-size: 0.78em; color: #888; margin-top: 0.15em; }
+    /* ── DIY builds ── */
+    .diy-controls { display: flex; gap: 0.8em; flex-wrap: wrap; margin-bottom: 1.2em; align-items: center; }
+    .diy-controls select { padding: 0.5em 0.7em; border: 1px solid #ccc; border-radius: var(--border-radius); font-size: 0.9em; }
+    .diy-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 1em; }
+    .diy-card { border: 1px solid var(--table-border-color); border-radius: var(--border-radius); padding: 1em 1.1em; font-size: 0.89em; position: relative; }
+    .diy-card-title { font-weight: 700; font-size: 1em; margin-bottom: 0.25em; }
+    .diy-card-sub { font-size: 0.78em; color: #888; margin-bottom: 0.6em; }
+    .diy-spec-row { display: flex; justify-content: space-between; padding: 0.22em 0; border-bottom: 1px solid #f4f4f4; font-size: 0.84em; }
+    .diy-badge { display: inline-block; padding: 0.1em 0.5em; border-radius: 3px; font-size: 0.74em; font-weight: 700; margin-right: 0.3em; margin-top: 0.5em; }
+    .diy-badge-budget { background: #d4edda; color: #155724; }
+    .diy-badge-mid    { background: #fff3cd; color: #856404; }
+    .diy-badge-high   { background: #cce5ff; color: #004085; }
+    .diy-badge-pro    { background: #f8d7da; color: #721c24; }
+    .diy-hidden { display: none !important; }
+    /* ── System detail modal ── */
+    .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.52); z-index:1000; overflow-y:auto; }
+    .modal-overlay.open { display:flex; align-items:flex-start; justify-content:center; padding:2em 1em; }
+    .modal-box { background:#fff; border-radius:8px; max-width:880px; width:100%; box-shadow:0 8px 32px rgba(0,0,0,0.2); }
+    .modal-header { padding:1.1em 1.4em; border-bottom:1px solid #eee; display:flex; justify-content:space-between; align-items:center; }
+    .modal-header h3 { margin:0; font-size:1.1em; }
+    .modal-close { cursor:pointer; font-size:1.5em; color:#888; background:none; border:none; line-height:1; padding:0 0.2em; }
+    .modal-close:hover { color:#333; }
+    .modal-body { padding:1.2em 1.4em; }
+    .modal-sec-title { font-weight:700; font-size:0.82em; text-transform:uppercase; letter-spacing:0.07em; color:#888; margin:1.2em 0 0.5em; border-top:1px solid #eee; padding-top:0.8em; }
+    .modal-sec-title:first-child { margin-top:0; border-top:none; padding-top:0; }
+    .modal-stats { display:flex; gap:0.8em; flex-wrap:wrap; }
+    .modal-stat { background:#f9f9f9; border:1px solid #eee; border-radius:4px; padding:0.45em 0.9em; font-size:0.85em; min-width:90px; }
+    .modal-stat strong { display:block; font-size:0.72em; color:#888; text-transform:uppercase; font-weight:700; margin-bottom:0.1em; }
+    .modal-fit-grid { display:flex; flex-wrap:wrap; gap:0.35em; margin-top:0.5em; }
+    .modal-fit-cell { padding:0.35em 0.7em; border-radius:4px; font-size:0.75em; line-height:1.4; min-width:78px; text-align:center; }
+    .mfc-yes     { background:#d4edda; color:#155724; }
+    .mfc-partial { background:#fff3cd; color:#856404; }
+    .mfc-no      { background:#f8d7da; color:#721c24; }
+    .modal-ram-row { display:flex; gap:0.7em; align-items:center; flex-wrap:wrap; margin-bottom:0.4em; }
+    .modal-ram-row label { font-size:0.88em; font-weight:600; }
+    .modal-ram-row select { padding:0.3em 0.6em; border:1px solid #ccc; border-radius:4px; font-size:0.88em; }
   </style>
 </head>
 <body>
@@ -327,6 +377,93 @@
 </div>
 
 <div id="prebuilt" class="tab-content active">
+  <div class="feat-section">
+    <h3>Featured Recommendations by OS &amp; Budget</h3>
+    <div class="feat-cols">
+      <div class="feat-col">
+        <div class="feat-header feat-macos">macOS</div>
+        <div class="feat-card">
+          <div class="feat-tier">Top Performance</div>
+          <div class="feat-name">Mac Studio M4 Ultra &mdash; 512 GB</div>
+          <div class="feat-price">~$11,000</div>
+          <div class="feat-detail">405B Q4 capable &middot; ~135 t/s on 7B &middot; max context ~800K tokens (7B Q4)</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-tier">High End</div>
+          <div class="feat-name">Mac Studio M4 Ultra &mdash; 192 GB</div>
+          <div class="feat-price">~$8,500</div>
+          <div class="feat-detail">120B Q4 capable &middot; ~130 t/s on 7B &middot; max context ~400K tokens (7B Q4)</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-tier">Mid Range</div>
+          <div class="feat-name">MacBook Pro M4 Max &mdash; 128 GB</div>
+          <div class="feat-price">~$4,200</div>
+          <div class="feat-detail">70B Q4 capable &middot; ~75 t/s on 7B &middot; max context ~200K tokens (7B Q4)</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-tier">Budget</div>
+          <div class="feat-name">Mac mini M4 Pro &mdash; 24 GB</div>
+          <div class="feat-price">~$1,400</div>
+          <div class="feat-detail">13B Q4 capable &middot; ~50 t/s on 7B &middot; max context ~14K tokens (7B Q4)</div>
+        </div>
+      </div>
+      <div class="feat-col">
+        <div class="feat-header feat-windows">Windows</div>
+        <div class="feat-card">
+          <div class="feat-tier">Top Performance</div>
+          <div class="feat-name">HP Z8 G4 &mdash; Quad NVIDIA A100 40 GB</div>
+          <div class="feat-price">~$30,000</div>
+          <div class="feat-detail">70B unquantized &middot; ~540 t/s on 7B &middot; max context ~128K tokens (70B FP16)</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-tier">High End</div>
+          <div class="feat-name">Lenovo ThinkStation P620 &mdash; 2&times; RTX A6000</div>
+          <div class="feat-price">~$15,000</div>
+          <div class="feat-detail">70B Q4 capable (96 GB VRAM) &middot; ~300 t/s on 7B &middot; max context ~72K tokens (70B Q4)</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-tier">Mid Range</div>
+          <div class="feat-name">HP OMEN 45L &mdash; NVIDIA RTX 5090</div>
+          <div class="feat-price">~$4,500</div>
+          <div class="feat-detail">26B Q4 in VRAM &middot; ~250 t/s on 7B &middot; max context ~24K tokens (7B Q4)</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-tier">Budget</div>
+          <div class="feat-name">DIY Build &mdash; RTX 4070 Ti Super 16 GB</div>
+          <div class="feat-price">~$1,200</div>
+          <div class="feat-detail">13B Q4 capable &middot; ~90 t/s on 7B &middot; max context ~9K tokens (7B Q4)</div>
+        </div>
+      </div>
+      <div class="feat-col">
+        <div class="feat-header feat-linux">Linux</div>
+        <div class="feat-card">
+          <div class="feat-tier">Top Performance</div>
+          <div class="feat-name">Dell Precision 7960 &mdash; Quad RTX 5000 Ada</div>
+          <div class="feat-price">~$20,000</div>
+          <div class="feat-detail">120B+ Q4 capable &middot; ~450 t/s on 7B &middot; max context ~200K tokens (70B Q4)</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-tier">High End</div>
+          <div class="feat-name">DIY &mdash; NVIDIA A100 80 GB PCIe</div>
+          <div class="feat-price">~$6,000</div>
+          <div class="feat-detail">70B Q4 (80 GB HBM2e) &middot; ~220 t/s on 7B &middot; max context ~80K tokens (70B Q4)</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-tier">Mid Range</div>
+          <div class="feat-name">DIY &mdash; RTX 5090 + Ryzen 9 9950X</div>
+          <div class="feat-price">~$3,500</div>
+          <div class="feat-detail">26B Q4 in VRAM &middot; ~250 t/s on 7B &middot; max context ~24K tokens (7B Q4)</div>
+        </div>
+        <div class="feat-card">
+          <div class="feat-tier">Budget</div>
+          <div class="feat-name">DIY &mdash; AMD RX 7900 XTX 24 GB</div>
+          <div class="feat-price">~$1,400</div>
+          <div class="feat-detail">20B Q4 via ROCm/Vulkan &middot; ~135 t/s on 7B &middot; max context ~14K tokens (7B Q4)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div id="controls">
     <input type="text" id="searchInput" onkeyup="filterTable()" placeholder="Search by model, GPU, brand...">
     <select id="modelFilter" onchange="filterTable()">
@@ -343,9 +480,9 @@
     </select>
     <select id="osFilter" onchange="filterTable()">
       <option value="">Filter by OS...</option>
-      <option>Windows</option>
-      <option>macOS</option>
-      <option>Linux</option>
+      <option value="windows">Windows</option>
+      <option value="macos">macOS</option>
+      <option value="linux">Linux</option>
     </select>
   </div>
   <p>Table columns are sortable. All systems are evaluated for AI/ML workloads. TG = Tokens/sec Generation (batch size 1).</p>
@@ -360,11 +497,11 @@
         <th onclick="sortTable(5)">Best Model (Size)</th>
         <th onclick="sortTable(6)">Tokens/sec (TG)</th>
         <th onclick="sortTable(7)">Price</th>
-        <th onclick="sortTable(8)">Notes & Evidence</th>
+        <th onclick="sortTable(8)">Notes &amp; Evidence</th>
       </tr>
     </thead>
     <tbody>
-      <tr class="highlight-best">
+      <tr class="highlight-best" data-os="windows linux">
         <td>1</td>
         <td>HP Z8 G4 (Custom)</td>
         <td>Desktop</td>
@@ -380,7 +517,7 @@
           <li><strong>Power/Cooling:</strong> Requires significant power and cooling infrastructure not suitable for a typical office.</li>
         </ul></td>
       </tr>
-      <tr>
+      <tr data-os="windows linux">
         <td>2</td>
         <td>Dell Precision 7960 Tower</td>
         <td>Desktop</td>
@@ -395,7 +532,7 @@
           <li><strong>NVLink Bridge:</strong> Essential for combining GPU memory pools effectively.</li>
         </ul></td>
       </tr>
-      <tr>
+      <tr data-os="macos">
         <td>3</td>
         <td>Apple Mac Studio (M3 Ultra)</td>
         <td>Desktop</td>
@@ -407,11 +544,11 @@
         <td class="notes-cell"><ul>
           <li><strong>Memory Bandwidth King:</strong> Unmatched unified memory is ideal for huge model inference.</li>
           <li><strong>Underwhelming TG?:</strong> Some users report tokens/sec (TG) is lower than expected vs. high-end NVIDIA cards (e.g., 97 t/s vs 136 t/s on an RTX 3090 for some models).</li>
-          <li><strong>Silent & Efficient:</strong> Consumes far less power and is virtually silent compared to NVIDIA workstations.</li>
+          <li><strong>Silent &amp; Efficient:</strong> Consumes far less power and is virtually silent compared to NVIDIA workstations.</li>
           <li><strong>MLX Framework:</strong> Apple's MLX framework can be 20-30% faster than other libraries like Ollama on Apple Silicon.</li>
         </ul></td>
       </tr>
-      <tr>
+      <tr data-os="windows">
         <td>4</td>
         <td>HP OMEN 45L (2025)</td>
         <td>Desktop</td>
@@ -426,7 +563,7 @@
           <li><strong>"Space Heater":</strong> Early reports suggest very high power draw and thermal output, requiring excellent case airflow.</li>
         </ul></td>
       </tr>
-       <tr>
+      <tr data-os="windows">
         <td>5</td>
         <td>Alienware Aurora R16</td>
         <td>Desktop</td>
@@ -438,10 +575,10 @@
         <td class="notes-cell"><ul>
           <li><strong>Community Favorite:</strong> Widely regarded as the best value for running 7B to 30B models locally.</li>
           <li><strong>30% Slower than 5090:</strong> A significant performance gap, but at a much lower price point.</li>
-          <li><strong>Stable & Supported:</strong> Mature drivers and extensive community support for AI/ML workloads.</li>
+          <li><strong>Stable &amp; Supported:</strong> Mature drivers and extensive community support for AI/ML workloads.</li>
         </ul></td>
       </tr>
-      <tr>
+      <tr data-os="windows linux">
         <td>6</td>
         <td>Lenovo ThinkStation P620</td>
         <td>Desktop</td>
@@ -456,7 +593,7 @@
             <li><strong>Dual A6000 Recommended:</strong> Community advice points to using two RTX A6000s as a potent, albeit expensive, combination.</li>
         </ul></td>
       </tr>
-      <tr>
+      <tr data-os="windows">
         <td>7</td>
         <td>Asus ROG Strix Scar 18</td>
         <td>Laptop</td>
@@ -471,37 +608,37 @@
             <li><strong>VRAM is 24GB:</strong> Note: Leaked specs showing 32GB were incorrect for the laptop version.</li>
         </ul></td>
       </tr>
-      <tr>
+      <tr data-os="macos">
         <td>8</td>
         <td>Apple MacBook Pro 16 (M3 Max)</td>
         <td>Laptop</td>
-        <td>Apple 30-core GPU</td>
-        <td>64 GB (Unified)</td>
+        <td>Apple 40-core GPU</td>
+        <td>128 GB (Unified)</td>
         <td>30B-70B</td>
-        <td>~40</td>
-        <td>$3,000</td>
+        <td>~60</td>
+        <td>$4,000</td>
         <td class="notes-cell"><ul>
             <li><strong>Popular with ML Engineers:</strong> Excellent for development and testing on the go due to its large unified memory.</li>
             <li><strong>"Not for Heavy Training":</strong> Community consensus is that it's an inference machine, not for training large models from scratch.</li>
-            <li><strong>Performance:</strong> Can achieve 35-40 t/s on 14B parameter models (Q4 quantized).</li>
+            <li><strong>Performance:</strong> Can achieve 55-65 t/s on 7B models (Q4 quantized) via MLX; 70B Q4 fits at ~5 t/s.</li>
         </ul></td>
       </tr>
-      <tr>
+      <tr data-os="windows linux">
         <td>9</td>
         <td>Asus ROG Flow Z13 (2025)</td>
         <td>Laptop</td>
-        <td>AMD Radeon 780M (iGPU)</td>
-        <td>32 GB (Shared)</td>
+        <td>AMD Ryzen AI Max+ 395 (iGPU)</td>
+        <td>128 GB (Unified)</td>
         <td>7B-30B</td>
-        <td>~25</td>
+        <td>~90</td>
         <td>$2,100</td>
         <td class="notes-cell"><ul>
-            <li><strong>The "Unicorn" APU:</strong> The Ryzen AI 300 series is highly praised for its powerful integrated GPU.</li>
-            <li><strong>ROCm vs. Vulkan:</strong> Performance depends heavily on the backend used; vLLM support is a major plus.</li>
-            <li><strong>BIOS Gotcha:</strong> Users report needing to manually allocate 32GB of system RAM to the iGPU in BIOS for best performance.</li>
+            <li><strong>The "Unicorn" APU:</strong> The Ryzen AI Max+ 395 supports up to 128 GB unified memory — the cheapest x86 path to 70B.</li>
+            <li><strong>ROCm vs. Vulkan:</strong> Performance depends heavily on the backend used; Vulkan in llama.cpp often outperforms ROCm for pure inference.</li>
+            <li><strong>BIOS Gotcha:</strong> Users report needing to manually allocate 96–128 GB of system RAM to the iGPU in BIOS for best performance.</li>
         </ul></td>
       </tr>
-      <tr>
+      <tr data-os="windows">
         <td>10</td>
         <td>ASUS Zenbook A14 (2025)</td>
         <td>Laptop</td>
@@ -521,32 +658,217 @@
 </div>
 
 <div id="diy" class="tab-content">
-  <div id="diy-comparison">
-    <h3>DIY Cost Savings & Performance Analysis</h3>
-    <p>Building your own PC can offer significant savings and tailored performance. Here’s a comparison against popular pre-built options.</p>
+  <h3 style="margin-top:0">DIY Build Guides by Model Target &amp; Budget</h3>
+  <p style="margin-top:-0.4em;color:#555;font-size:0.94em;margin-bottom:1em">Use the filters to narrow builds by what model size you want to run and your budget range. Prices are estimates as of early 2026; GPU prices shift frequently.</p>
+  <div class="diy-controls">
+    <label style="font-size:0.9em;font-weight:600">Target model:</label>
+    <select id="diyTargetFilter" onchange="filterDiy()">
+      <option value="">Any model size</option>
+      <option value="7b">7B+</option>
+      <option value="20b">20B+</option>
+      <option value="70b">70B+</option>
+      <option value="120b">120B+</option>
+    </select>
+    <label style="font-size:0.9em;font-weight:600">Budget:</label>
+    <select id="diyBudgetFilter" onchange="filterDiy()">
+      <option value="">Any budget</option>
+      <option value="budget">Budget ($600-$1,500)</option>
+      <option value="mid">Mid-range ($1,500-$3,500)</option>
+      <option value="high">High-end ($3,500-$8,000)</option>
+      <option value="pro">Pro / Extreme ($8,000+)</option>
+    </select>
+  </div>
+  <div class="diy-grid" id="diyGrid">
+
+    <div class="diy-card" data-tier="budget" data-target="7b">
+      <div class="diy-card-title">The 7B Daily Driver</div>
+      <div class="diy-card-sub">Best 7-13B performance under $1,000</div>
+      <div class="diy-spec-row"><span>GPU</span><span>NVIDIA RTX 4060 Ti 16 GB</span></div>
+      <div class="diy-spec-row"><span>CPU</span><span>Intel Core i5-13400 (10-core)</span></div>
+      <div class="diy-spec-row"><span>RAM</span><span>32 GB DDR5-5200</span></div>
+      <div class="diy-spec-row"><span>Storage</span><span>1 TB NVMe Gen4</span></div>
+      <div class="diy-spec-row"><span>PSU</span><span>650W 80+ Gold</span></div>
+      <div class="diy-spec-row"><span>Est. Cost</span><span><strong>~$850</strong></span></div>
+      <div class="diy-spec-row"><span>Max model (VRAM)</span><span>13B Q4 in VRAM</span></div>
+      <div class="diy-spec-row"><span>7B TG speed</span><span>~75 t/s</span></div>
+      <span class="diy-badge diy-badge-budget">Budget</span>
+      <p style="font-size:0.8em;color:#555;margin:0.6em 0 0">16 GB GDDR6 - best value VRAM for price. 7B and 13B Q4 models run fully in VRAM. Use ExLlamaV2 for maximum speed on CUDA.</p>
+    </div>
+
+    <div class="diy-card" data-tier="budget" data-target="7b">
+      <div class="diy-card-title">The AMD Value Build</div>
+      <div class="diy-card-sub">Best ROCm/Vulkan inference under $1,100</div>
+      <div class="diy-spec-row"><span>GPU</span><span>AMD RX 7900 GRE 16 GB</span></div>
+      <div class="diy-spec-row"><span>CPU</span><span>AMD Ryzen 5 7600 (6-core)</span></div>
+      <div class="diy-spec-row"><span>RAM</span><span>32 GB DDR5-6000</span></div>
+      <div class="diy-spec-row"><span>Storage</span><span>1 TB NVMe Gen4</span></div>
+      <div class="diy-spec-row"><span>PSU</span><span>650W 80+ Gold</span></div>
+      <div class="diy-spec-row"><span>Est. Cost</span><span><strong>~$950</strong></span></div>
+      <div class="diy-spec-row"><span>Max model (VRAM)</span><span>13B Q4 in VRAM</span></div>
+      <div class="diy-spec-row"><span>7B TG speed</span><span>~80 t/s (Vulkan)</span></div>
+      <span class="diy-badge diy-badge-budget">Budget</span>
+      <p style="font-size:0.8em;color:#555;margin:0.6em 0 0">RX 7900 GRE has 576 GB/s bandwidth and 16 GB VRAM. Use llama.cpp Vulkan backend for best inference speed. ROCm optional for PyTorch.</p>
+    </div>
+
+    <div class="diy-card" data-tier="budget" data-target="20b">
+      <div class="diy-card-title">The 20B Budget Build</div>
+      <div class="diy-card-sub">Run 20B Q4 for under $1,200</div>
+      <div class="diy-spec-row"><span>GPU</span><span>NVIDIA RTX 3090 24 GB (used)</span></div>
+      <div class="diy-spec-row"><span>CPU</span><span>AMD Ryzen 7 5700X (8-core)</span></div>
+      <div class="diy-spec-row"><span>RAM</span><span>64 GB DDR4-3600</span></div>
+      <div class="diy-spec-row"><span>Storage</span><span>2 TB NVMe Gen3</span></div>
+      <div class="diy-spec-row"><span>PSU</span><span>850W 80+ Gold</span></div>
+      <div class="diy-spec-row"><span>Est. Cost</span><span><strong>~$1,100</strong></span></div>
+      <div class="diy-spec-row"><span>Max model (VRAM)</span><span>20B Q4 in VRAM</span></div>
+      <div class="diy-spec-row"><span>7B TG speed</span><span>~130 t/s</span></div>
+      <span class="diy-badge diy-badge-budget">Budget</span>
+      <p style="font-size:0.8em;color:#555;margin:0.6em 0 0">Used RTX 3090 (24 GB / 936 GB/s) performs near-identically to an RTX 4090 for inference. Best value path to 20B Q4. Use a single GPU only - no SLI.</p>
+    </div>
+
+    <div class="diy-card" data-tier="mid" data-target="20b">
+      <div class="diy-card-title">The RTX 5090 Flagship Build</div>
+      <div class="diy-card-sub">Maximum consumer GPU inference speed</div>
+      <div class="diy-spec-row"><span>GPU</span><span>NVIDIA RTX 5090 32 GB</span></div>
+      <div class="diy-spec-row"><span>CPU</span><span>Intel Core i9-14900K (24-core)</span></div>
+      <div class="diy-spec-row"><span>RAM</span><span>128 GB DDR5-6400</span></div>
+      <div class="diy-spec-row"><span>Storage</span><span>4 TB NVMe Gen4</span></div>
+      <div class="diy-spec-row"><span>PSU</span><span>1200W 80+ Platinum</span></div>
+      <div class="diy-spec-row"><span>Est. Cost</span><span><strong>~$3,500</strong></span></div>
+      <div class="diy-spec-row"><span>Max model (VRAM)</span><span>26B Q4 in VRAM</span></div>
+      <div class="diy-spec-row"><span>7B TG speed</span><span>~250 t/s</span></div>
+      <span class="diy-badge diy-badge-mid">Mid-range</span>
+      <p style="font-size:0.8em;color:#555;margin:0.6em 0 0">1,792 GB/s GDDR7 bandwidth - fastest consumer card. 32 GB VRAM limits models to ~26B Q4. Ensure 360mm AIO or large tower for cooling.</p>
+    </div>
+
+    <div class="diy-card" data-tier="mid" data-target="20b">
+      <div class="diy-card-title">The Creator Mid-Range</div>
+      <div class="diy-card-sub">RTX 4090 all-rounder for 20B+ workloads</div>
+      <div class="diy-spec-row"><span>GPU</span><span>NVIDIA RTX 4090 24 GB</span></div>
+      <div class="diy-spec-row"><span>CPU</span><span>AMD Ryzen 9 7950X (16-core)</span></div>
+      <div class="diy-spec-row"><span>RAM</span><span>128 GB DDR5-6000</span></div>
+      <div class="diy-spec-row"><span>Storage</span><span>4 TB NVMe Gen4</span></div>
+      <div class="diy-spec-row"><span>PSU</span><span>1000W 80+ Gold</span></div>
+      <div class="diy-spec-row"><span>Est. Cost</span><span><strong>~$3,000</strong></span></div>
+      <div class="diy-spec-row"><span>Max model (VRAM)</span><span>20B Q4 in VRAM; 70B offloads to RAM</span></div>
+      <div class="diy-spec-row"><span>7B TG speed</span><span>~140 t/s</span></div>
+      <span class="diy-badge diy-badge-mid">Mid-range</span>
+      <p style="font-size:0.8em;color:#555;margin:0.6em 0 0">Comparable to Alienware Aurora R16 at ~20% lower cost. 128 GB system RAM allows 70B CPU offload (slow, ~3 t/s) but 20B in VRAM runs at full speed.</p>
+    </div>
+
+    <div class="diy-card" data-tier="mid" data-target="70b">
+      <div class="diy-card-title">The Ryzen AI Max 70B Build</div>
+      <div class="diy-card-sub">Cheapest x86 path to 70B at real speed</div>
+      <div class="diy-spec-row"><span>System</span><span>Minisforum AI Max+ 395 Mini PC</span></div>
+      <div class="diy-spec-row"><span>CPU/iGPU</span><span>Ryzen AI Max+ 395 (16-core, RDNA 3.5)</span></div>
+      <div class="diy-spec-row"><span>Unified RAM</span><span>128 GB LPDDR5X</span></div>
+      <div class="diy-spec-row"><span>Storage</span><span>2 TB NVMe (user-upgradeable)</span></div>
+      <div class="diy-spec-row"><span>Est. Cost</span><span><strong>~$1,600</strong></span></div>
+      <div class="diy-spec-row"><span>Max model (RAM)</span><span>70B Q4 (~40 GB used)</span></div>
+      <div class="diy-spec-row"><span>7B TG speed</span><span>~90 t/s (Vulkan)</span></div>
+      <span class="diy-badge diy-badge-mid">Mid-range</span>
+      <p style="font-size:0.8em;color:#555;margin:0.6em 0 0">Not strictly DIY, but highly upgradeable mini PC. Set iGPU VRAM allocation to 96-128 GB in BIOS. 70B Q4 runs at ~6 t/s; 7B at ~90 t/s. Best value for 70B access on Windows/Linux.</p>
+    </div>
+
+    <div class="diy-card" data-tier="high" data-target="70b">
+      <div class="diy-card-title">The A100 80 GB Single-GPU Build</div>
+      <div class="diy-card-sub">Single pro GPU that fits 70B Q4 natively</div>
+      <div class="diy-spec-row"><span>GPU</span><span>NVIDIA A100 80 GB PCIe (used)</span></div>
+      <div class="diy-spec-row"><span>CPU</span><span>AMD Threadripper PRO 5955WX (16-core)</span></div>
+      <div class="diy-spec-row"><span>RAM</span><span>256 GB ECC DDR4</span></div>
+      <div class="diy-spec-row"><span>Storage</span><span>8 TB NVMe Gen4</span></div>
+      <div class="diy-spec-row"><span>PSU</span><span>1600W 80+ Platinum</span></div>
+      <div class="diy-spec-row"><span>Est. Cost</span><span><strong>~$6,000</strong></span></div>
+      <div class="diy-spec-row"><span>Max model (VRAM)</span><span>70B Q4 fully in VRAM (80 GB HBM2e)</span></div>
+      <div class="diy-spec-row"><span>7B TG speed</span><span>~220 t/s</span></div>
+      <span class="diy-badge diy-badge-high">High-end</span>
+      <p style="font-size:0.8em;color:#555;margin:0.6em 0 0">Used A100 80 GB PCIe cards available for $4,000-6,000 on secondary market. Workstation chassis required. 1,935 GB/s HBM2e bandwidth. Best Linux vLLM platform for a single card.</p>
+    </div>
+
+    <div class="diy-card" data-tier="high" data-target="70b">
+      <div class="diy-card-title">The Dual A6000 Workstation</div>
+      <div class="diy-card-sub">96 GB VRAM for 70B Q4 plus headroom</div>
+      <div class="diy-spec-row"><span>GPU</span><span>2x NVIDIA RTX A6000 48 GB</span></div>
+      <div class="diy-spec-row"><span>CPU</span><span>AMD Threadripper PRO 5975WX (32-core)</span></div>
+      <div class="diy-spec-row"><span>RAM</span><span>256 GB DDR4 ECC</span></div>
+      <div class="diy-spec-row"><span>Storage</span><span>8 TB NVMe RAID</span></div>
+      <div class="diy-spec-row"><span>PSU</span><span>1600W 80+ Platinum</span></div>
+      <div class="diy-spec-row"><span>Est. Cost</span><span><strong>~$9,000</strong></span></div>
+      <div class="diy-spec-row"><span>Max model (VRAM)</span><span>70B Q4 with context headroom</span></div>
+      <div class="diy-spec-row"><span>7B TG speed</span><span>~360 t/s (tensor parallel)</span></div>
+      <span class="diy-badge diy-badge-high">High-end</span>
+      <p style="font-size:0.8em;color:#555;margin:0.6em 0 0">Requires WRX80 motherboard. Both A6000s share 96 GB via vLLM tensor parallelism. NVLink bridge optional. Linux + vLLM recommended.</p>
+    </div>
+
+    <div class="diy-card" data-tier="high" data-target="70b">
+      <div class="diy-card-title">The RTX 6000 Ada Pro Build</div>
+      <div class="diy-card-sub">Single 48 GB Ada GPU, NVLink-upgradeable</div>
+      <div class="diy-spec-row"><span>GPU</span><span>NVIDIA RTX 6000 Ada 48 GB</span></div>
+      <div class="diy-spec-row"><span>CPU</span><span>Intel Core i9-14900K (24-core)</span></div>
+      <div class="diy-spec-row"><span>RAM</span><span>128 GB DDR5-6400</span></div>
+      <div class="diy-spec-row"><span>Storage</span><span>4 TB NVMe Gen4</span></div>
+      <div class="diy-spec-row"><span>PSU</span><span>1200W 80+ Platinum</span></div>
+      <div class="diy-spec-row"><span>Est. Cost</span><span><strong>~$7,500</strong></span></div>
+      <div class="diy-spec-row"><span>Max model (VRAM)</span><span>40B Q4 easily; 70B Q3 marginal</span></div>
+      <div class="diy-spec-row"><span>7B TG speed</span><span>~200 t/s</span></div>
+      <span class="diy-badge diy-badge-high">High-end</span>
+      <p style="font-size:0.8em;color:#555;margin:0.6em 0 0">960 GB/s bandwidth with ECC memory. Supports NVLink for a second card later (96 GB / 1,920 GB/s combined). ATX-compatible in a standard full-tower. Windows and Linux supported.</p>
+    </div>
+
+    <div class="diy-card" data-tier="pro" data-target="120b">
+      <div class="diy-card-title">The 120B+ Extreme Workstation</div>
+      <div class="diy-card-sub">Quad A6000 - 192 GB VRAM for massive models</div>
+      <div class="diy-spec-row"><span>GPU</span><span>4x NVIDIA RTX A6000 48 GB</span></div>
+      <div class="diy-spec-row"><span>CPU</span><span>AMD Threadripper PRO 5995WX (64-core)</span></div>
+      <div class="diy-spec-row"><span>RAM</span><span>512 GB DDR4 ECC</span></div>
+      <div class="diy-spec-row"><span>Storage</span><span>16 TB NVMe RAID</span></div>
+      <div class="diy-spec-row"><span>PSU</span><span>2x 1600W redundant</span></div>
+      <div class="diy-spec-row"><span>Est. Cost</span><span><strong>~$18,000</strong></span></div>
+      <div class="diy-spec-row"><span>Max model (VRAM)</span><span>120B Q4 in 192 GB VRAM</span></div>
+      <div class="diy-spec-row"><span>7B TG speed</span><span>~720 t/s combined</span></div>
+      <span class="diy-badge diy-badge-pro">Pro / Extreme</span>
+      <p style="font-size:0.8em;color:#555;margin:0.6em 0 0">WRX80 EATX board required. Quad-slot GPU spacing mandatory - verify physical fitment. Linux + vLLM with tp=4. Requires a 30A+ dedicated circuit.</p>
+    </div>
+
+    <div class="diy-card" data-tier="pro" data-target="120b">
+      <div class="diy-card-title">The Dual H100 Server Build</div>
+      <div class="diy-card-sub">160 GB HBM3 - production inference at home</div>
+      <div class="diy-spec-row"><span>GPU</span><span>2x NVIDIA H100 80 GB PCIe (used/refurb)</span></div>
+      <div class="diy-spec-row"><span>CPU</span><span>AMD EPYC 7543 (32-core)</span></div>
+      <div class="diy-spec-row"><span>RAM</span><span>512 GB DDR4 ECC RDIMM</span></div>
+      <div class="diy-spec-row"><span>Storage</span><span>16 TB NVMe enterprise</span></div>
+      <div class="diy-spec-row"><span>Chassis</span><span>4U server chassis</span></div>
+      <div class="diy-spec-row"><span>Est. Cost</span><span><strong>~$25,000</strong></span></div>
+      <div class="diy-spec-row"><span>Max model (VRAM)</span><span>120B Q4 natively; 70B FP16</span></div>
+      <div class="diy-spec-row"><span>7B TG speed</span><span>~520 t/s combined</span></div>
+      <span class="diy-badge diy-badge-pro">Pro / Extreme</span>
+      <p style="font-size:0.8em;color:#555;margin:0.6em 0 0">Used H100 PCIe cards appear on secondary market for $12,000-18,000 each. Requires server-class motherboard with IOMMU support. vLLM with Flash Attention 2 and tp=2 is the recommended production stack.</p>
+    </div>
+
+  </div>
+
+  <div id="diy-comparison" style="margin-top:2em">
+    <h3 style="margin-top:0">DIY vs. Pre-built: When Each Makes Sense</h3>
     <div class="comparison-grid">
       <div class="comparison-card">
-        <h4>DIY Build: "The 4090 Killer"</h4>
-        <p><strong>Components:</strong> Intel Core i7-14700K, NVIDIA RTX 4090 (24GB), 64GB DDR5 RAM, 2TB NVMe SSD, 1000W PSU.</p>
-        <p><strong>Estimated DIY Cost:</strong> $3,200</p>
-        <p><strong>Comparable Pre-built:</strong> Alienware Aurora R16 (~$4,000)</p>
-        <p><strong>Savings:</strong> <span class="price-diff positive">~$800 (20%)</span></p>
-        <p><strong>Notes:</strong> Offers identical core performance for LLMs as the pre-built but requires assembly. You get to choose higher quality components (e.g., PSU, motherboard).</p>
+        <h4>Why Build DIY</h4>
+        <p><strong>Cost savings:</strong> An RTX 4090 DIY build runs ~$3,000 vs $4,000+ for the Alienware Aurora R16 - 20-30% less for identical performance.</p>
+        <p><strong>Component choice:</strong> Select your own PSU quality, motherboard stability, and case airflow. Pre-builds often cut corners on PSU brand and motherboard tier.</p>
+        <p><strong>Upgrade path:</strong> Replace the GPU in 2 years without buying a new system. Pre-built OEM cases often use non-standard form factors.</p>
+        <p><strong>Exact VRAM targeting:</strong> A used RTX 3090 at 24 GB costs $400-600 and performs nearly identically to an RTX 4090 for LLM inference.</p>
       </div>
       <div class="comparison-card">
-        <h4>DIY Build: "Dual 3090 Workstation"</h4>
-        <p><strong>Components:</strong> AMD Ryzen 9 7950X, 2x NVIDIA RTX 3090 (24GB, used), 128GB DDR5 RAM, 4TB NVMe SSD, 1600W PSU.</p>
-        <p><strong>Estimated DIY Cost:</strong> $4,500 (with used GPUs)</p>
-        <p><strong>Comparable Pre-built:</strong> Older high-end workstations (~$8,000+ new)</p>
-        <p><strong>Savings:</strong> <span class="price-diff positive">~$3,500+ (40-50%)</span></p>
-        <p><strong>Notes:</strong> By using second-hand RTX 3090s (known for their 24GB VRAM), you can build a 48GB VRAM machine for a fraction of the cost of a new professional workstation. NVLink support is absent, but performance is still excellent for the price.</p>
+        <h4>Why Buy Pre-built</h4>
+        <p><strong>Warranty &amp; support:</strong> A single vendor for all troubleshooting. For production AI work, downtime costs more than savings.</p>
+        <p><strong>Certified driver stacks:</strong> HP and Dell workstations ship with validated configurations for GPU-intensive workloads.</p>
+        <p><strong>Specialized hardware:</strong> Quad-GPU systems with NVLink bridges and server-class PSUs are impractical to DIY. The HP Z8 G4 and Dell Precision 7960 are only practical as pre-built or refurb.</p>
+        <p><strong>Apple Silicon:</strong> There is no DIY path to Apple unified memory. Mac Studio is the only option for 192 GB+ high-bandwidth unified memory.</p>
       </div>
-       <div class="comparison-card">
-        <h4>When to Buy Pre-built</h4>
-        <p><strong>Warranty & Support:</strong> A single point of contact for troubleshooting is invaluable for mission-critical work.</p>
-        <p><strong>Certified Drivers:</strong> Workstations from Dell, HP, and Lenovo come with optimized and certified drivers for professional applications.</p>
-        <p><strong>Time is Money:</strong> The time spent building, configuring, and troubleshooting a DIY machine can outweigh the cost savings for professionals.</p>
-        <p><strong>Specialized Hardware:</strong> Systems with multiple pro-grade GPUs (like Quad A100s) require chassis and motherboards not typically available to consumers.</p>
+      <div class="comparison-card">
+        <h4>Best Value Summary</h4>
+        <p><strong>Under $1,500 - DIY wins:</strong> RTX 3090 (used) + budget CPU + 64 GB DDR4 outperforms any pre-built at this price.</p>
+        <p><strong>$3,000-5,000 - DIY saves 20-30%:</strong> Self-built RTX 4090 or 5090 system matches Alienware/ROG for less money.</p>
+        <p><strong>$8,000-20,000 - Pre-built pulls ahead:</strong> Workstation-class multi-GPU configs from HP/Dell/Lenovo come with support and certified setups hard to replicate DIY.</p>
+        <p><strong>Apple Silicon - no DIY option:</strong> Mac Studio M3/M4 Ultra is unique in offering 192-512 GB high-bandwidth unified memory in a consumer form factor.</p>
       </div>
     </div>
   </div>
@@ -718,12 +1040,12 @@
         <label>System A (baseline)</label>
         <select id="cmpA">
           <optgroup label="Apple Silicon — Mac Studio">
-            <option value="m4_ultra_base">Mac Studio M4 Ultra 24-core CPU / 60-core GPU / 192 GB</option>
-            <option value="m4_ultra_high">Mac Studio M4 Ultra 24-core CPU / 76-core GPU / 192 GB</option>
-            <option value="m4_ultra_xl">Mac Studio M4 Ultra 24-core CPU / 76-core GPU / 512 GB</option>
-            <option value="m3_ultra_base" selected>Mac Studio M3 Ultra 24-core CPU / 60-core GPU / 192 GB</option>
-            <option value="m3_ultra_high">Mac Studio M3 Ultra 24-core CPU / 76-core GPU / 192 GB</option>
-            <option value="m3_ultra_xl">Mac Studio M3 Ultra 24-core CPU / 76-core GPU / 512 GB</option>
+            <option value="m4_ultra_base">Mac Studio M4 Ultra 28-core CPU / 64-core GPU / 192 GB</option>
+            <option value="m4_ultra_high">Mac Studio M4 Ultra 32-core CPU / 80-core GPU / 192 GB</option>
+            <option value="m4_ultra_xl">Mac Studio M4 Ultra 32-core CPU / 80-core GPU / 512 GB</option>
+            <option value="m3_ultra_base" selected>Mac Studio M3 Ultra 28-core CPU / 60-core GPU / 192 GB</option>
+            <option value="m3_ultra_high">Mac Studio M3 Ultra 32-core CPU / 80-core GPU / 192 GB</option>
+            <option value="m3_ultra_xl">Mac Studio M3 Ultra 32-core CPU / 80-core GPU / 512 GB</option>
           </optgroup>
           <optgroup label="Apple Silicon — MacBook Pro">
             <option value="m4_max_14_32">MacBook Pro M4 Max 14-core CPU / 32-core GPU / 64 GB</option>
@@ -750,12 +1072,12 @@
         <select id="cmpB">
           <option value="none">— none —</option>
           <optgroup label="Apple Silicon — Mac Studio">
-            <option value="m4_ultra_base">Mac Studio M4 Ultra 24-core CPU / 60-core GPU / 192 GB</option>
-            <option value="m4_ultra_high">Mac Studio M4 Ultra 24-core CPU / 76-core GPU / 192 GB</option>
-            <option value="m4_ultra_xl">Mac Studio M4 Ultra 24-core CPU / 76-core GPU / 512 GB</option>
-            <option value="m3_ultra_base">Mac Studio M3 Ultra 24-core CPU / 60-core GPU / 192 GB</option>
-            <option value="m3_ultra_high">Mac Studio M3 Ultra 24-core CPU / 76-core GPU / 192 GB</option>
-            <option value="m3_ultra_xl">Mac Studio M3 Ultra 24-core CPU / 76-core GPU / 512 GB</option>
+            <option value="m4_ultra_base">Mac Studio M4 Ultra 28-core CPU / 64-core GPU / 192 GB</option>
+            <option value="m4_ultra_high">Mac Studio M4 Ultra 32-core CPU / 80-core GPU / 192 GB</option>
+            <option value="m4_ultra_xl">Mac Studio M4 Ultra 32-core CPU / 80-core GPU / 512 GB</option>
+            <option value="m3_ultra_base">Mac Studio M3 Ultra 28-core CPU / 60-core GPU / 192 GB</option>
+            <option value="m3_ultra_high">Mac Studio M3 Ultra 32-core CPU / 80-core GPU / 192 GB</option>
+            <option value="m3_ultra_xl">Mac Studio M3 Ultra 32-core CPU / 80-core GPU / 512 GB</option>
           </optgroup>
           <optgroup label="Apple Silicon — MacBook Pro">
             <option value="m4_max_14_32" selected>MacBook Pro M4 Max 16-core CPU / 40-core GPU / 128 GB</option>
@@ -782,12 +1104,12 @@
         <select id="cmpC">
           <option value="none" selected>— none —</option>
           <optgroup label="Apple Silicon — Mac Studio">
-            <option value="m4_ultra_base">Mac Studio M4 Ultra 24-core CPU / 60-core GPU / 192 GB</option>
-            <option value="m4_ultra_high">Mac Studio M4 Ultra 24-core CPU / 76-core GPU / 192 GB</option>
-            <option value="m4_ultra_xl">Mac Studio M4 Ultra 24-core CPU / 76-core GPU / 512 GB</option>
-            <option value="m3_ultra_base">Mac Studio M3 Ultra 24-core CPU / 60-core GPU / 192 GB</option>
-            <option value="m3_ultra_high">Mac Studio M3 Ultra 24-core CPU / 76-core GPU / 192 GB</option>
-            <option value="m3_ultra_xl">Mac Studio M3 Ultra 24-core CPU / 76-core GPU / 512 GB</option>
+            <option value="m4_ultra_base">Mac Studio M4 Ultra 28-core CPU / 64-core GPU / 192 GB</option>
+            <option value="m4_ultra_high">Mac Studio M4 Ultra 32-core CPU / 80-core GPU / 192 GB</option>
+            <option value="m4_ultra_xl">Mac Studio M4 Ultra 32-core CPU / 80-core GPU / 512 GB</option>
+            <option value="m3_ultra_base">Mac Studio M3 Ultra 28-core CPU / 60-core GPU / 192 GB</option>
+            <option value="m3_ultra_high">Mac Studio M3 Ultra 32-core CPU / 80-core GPU / 192 GB</option>
+            <option value="m3_ultra_xl">Mac Studio M3 Ultra 32-core CPU / 80-core GPU / 512 GB</option>
           </optgroup>
           <optgroup label="Apple Silicon — MacBook Pro">
             <option value="m4_max_14_32">MacBook Pro M4 Max 16-core CPU / 40-core GPU / 128 GB</option>
@@ -1815,6 +2137,7 @@
     var searchInput = document.getElementById("searchInput").value.toUpperCase();
     var modelFilter = document.getElementById("modelFilter").value;
     var typeFilter = document.getElementById("typeFilter").value.toUpperCase();
+    var osFilter = document.getElementById("osFilter") ? document.getElementById("osFilter").value.toLowerCase() : '';
     table = document.getElementById("hardwareTable");
     tr = table.getElementsByTagName("tr");
 
@@ -1851,6 +2174,14 @@
                 if (typeCell.innerText.toUpperCase().indexOf(typeFilter) === -1) {
                     isVisible = false;
                 }
+            }
+        }
+
+        // OS filter
+        if (isVisible && osFilter) {
+            let osAttr = tr[i].getAttribute('data-os') || '';
+            if (!osAttr.includes(osFilter)) {
+                isVisible = false;
             }
         }
         
@@ -2007,22 +2338,22 @@
 
   // Systems dataset for recommendation engine
   const SYSTEMS = [
-    { name:"HP Z8 G4 (Quad A100 40GB)",    os:["linux","windows"], ff:"desktop",  minPrice:25000, maxPrice:35000, maxModel:120, tg7b:540,  tg70b:50,  priority:["speed","capacity"] },
-    { name:"Dell Precision 7960 Tower",    os:["linux","windows"], ff:"desktop",  minPrice:15000, maxPrice:25000, maxModel:120, tg7b:450,  tg70b:40,  priority:["speed","capacity"] },
-    { name:"Apple Mac Studio (M3 Ultra 512GB)", os:["macos"],   ff:"desktop",  minPrice:9500,  maxPrice:11000, maxModel:200, tg7b:120,  tg70b:20,  priority:["capacity","value"] },
-    { name:"Apple Mac Studio (M3 Ultra 192GB)", os:["macos"],   ff:"desktop",  minPrice:7500,  maxPrice:9500,  maxModel:120, tg7b:120,  tg70b:18,  priority:["capacity","value"] },
-    { name:"Lenovo ThinkStation P620 (2×A6000)", os:["linux","windows"], ff:"desktop", minPrice:12000, maxPrice:18000, maxModel:70, tg7b:300, tg70b:20, priority:["capacity","speed"] },
-    { name:"HP OMEN 45L (RTX 5090)",       os:["linux","windows"], ff:"desktop",  minPrice:3500,  maxPrice:5500,  maxModel:30,  tg7b:250,  tg70b:null, priority:["speed","value"] },
-    { name:"Alienware Aurora R16 (RTX 4090)", os:["linux","windows"], ff:"desktop", minPrice:3000, maxPrice:5000, maxModel:30, tg7b:140, tg70b:null, priority:["speed","value"] },
-    { name:"DIY RTX 5090 Build",           os:["linux","windows"], ff:"desktop",  minPrice:2500,  maxPrice:4000,  maxModel:30,  tg7b:250,  tg70b:null, priority:["speed","value"] },
-    { name:"DIY RTX 4090 Build",           os:["linux","windows"], ff:"desktop",  minPrice:2000,  maxPrice:3500,  maxModel:30,  tg7b:140,  tg70b:null, priority:["speed","value"] },
-    { name:"DIY RTX 3090 Build (used)",    os:["linux","windows"], ff:"desktop",  minPrice:1200,  maxPrice:2000,  maxModel:14,  tg7b:130,  tg70b:null, priority:["value"] },
-    { name:"Apple MacBook Pro 16 (M4 Max 128GB)", os:["macos"], ff:"laptop",   minPrice:3800,  maxPrice:5000,  maxModel:70,  tg7b:75,   tg70b:6,   priority:["capacity","portable"] },
-    { name:"Apple MacBook Pro 16 (M3 Max 128GB)", os:["macos"], ff:"laptop",   minPrice:3200,  maxPrice:4200,  maxModel:70,  tg7b:60,   tg70b:5,   priority:["capacity","portable"] },
-    { name:"Asus ROG Strix Scar 18 (RTX 5090 Laptop)", os:["linux","windows"], ff:"laptop", minPrice:3500, maxPrice:5000, maxModel:30, tg7b:140, tg70b:null, priority:["speed","portable"] },
-    { name:"Asus ROG Flow Z13 / Ryzen AI Max+ 395", os:["linux","windows"], ff:"laptop", minPrice:1400, maxPrice:2800, maxModel:70, tg7b:90, tg70b:6, priority:["capacity","value","portable"] },
-    { name:"Minisforum AI MAX+ 395 Mini PC", os:["linux","windows"], ff:"laptop", minPrice:1200, maxPrice:2000, maxModel:70, tg7b:90, tg70b:6, priority:["capacity","value","portable"] },
-    { name:"ASUS Zenbook A14 (Snapdragon X Elite)", os:["windows"], ff:"laptop",  minPrice:900,  maxPrice:1600,  maxModel:7,   tg7b:25,   tg70b:null, priority:["portable"] },
+    { name:"HP Z8 G4 (Quad A100 40GB)",    mfr:'hp',          os:["linux","windows"], ff:"desktop", unified:false, memGB:160, vramGB:160, bwGBs:3840, minPrice:25000, maxPrice:35000, maxModel:120, tg7b:540, tg13b:400, tg70b:50,  priority:["speed","capacity"] },
+    { name:"Dell Precision 7960 Tower",    mfr:'dell',        os:["linux","windows"], ff:"desktop", unified:false, memGB:80,  vramGB:80,  bwGBs:1935, minPrice:15000, maxPrice:25000, maxModel:120, tg7b:450, tg13b:350, tg70b:40,  priority:["speed","capacity"] },
+    { name:"Apple Mac Studio (M3 Ultra 512GB)", mfr:'apple',  os:["macos"],           ff:"desktop", unified:true,  memGB:512, vramGB:512, bwGBs:800,  minPrice:9500,  maxPrice:11000, maxModel:200, tg7b:120, tg13b:72,  tg70b:20,  ramTiers:[{label:'192 GB',tg7b:120,tg70b:18},{label:'512 GB',tg7b:120,tg70b:20}], priority:["capacity","value"] },
+    { name:"Apple Mac Studio (M3 Ultra 192GB)", mfr:'apple',  os:["macos"],           ff:"desktop", unified:true,  memGB:192, vramGB:192, bwGBs:800,  minPrice:7500,  maxPrice:9500,  maxModel:120, tg7b:120, tg13b:72,  tg70b:18,  ramTiers:[{label:'192 GB',tg7b:120,tg70b:18}], priority:["capacity","value"] },
+    { name:"Lenovo ThinkStation P620 (2×A6000)", mfr:'lenovo', os:["linux","windows"], ff:"desktop", unified:false, memGB:96, vramGB:96,  bwGBs:1536, minPrice:12000, maxPrice:18000, maxModel:70,  tg7b:300, tg13b:200, tg70b:20,  priority:["capacity","speed"] },
+    { name:"HP OMEN 45L (RTX 5090)",       mfr:'hp',          os:["linux","windows"], ff:"desktop", unified:false, memGB:32,  vramGB:32,  bwGBs:1792, minPrice:3500,  maxPrice:5500,  maxModel:30,  tg7b:250, tg13b:180, tg70b:null, priority:["speed","value"] },
+    { name:"Alienware Aurora R16 (RTX 4090)", mfr:'alienware', os:["linux","windows"], ff:"desktop", unified:false, memGB:24, vramGB:24,  bwGBs:1008, minPrice:3000,  maxPrice:5000,  maxModel:30,  tg7b:140, tg13b:95,  tg70b:null, priority:["speed","value"] },
+    { name:"DIY RTX 5090 Build",           mfr:'diy',         os:["linux","windows"], ff:"desktop", unified:false, memGB:32,  vramGB:32,  bwGBs:1792, minPrice:2500,  maxPrice:4000,  maxModel:30,  tg7b:250, tg13b:180, tg70b:null, priority:["speed","value"] },
+    { name:"DIY RTX 4090 Build",           mfr:'diy',         os:["linux","windows"], ff:"desktop", unified:false, memGB:24,  vramGB:24,  bwGBs:1008, minPrice:2000,  maxPrice:3500,  maxModel:30,  tg7b:140, tg13b:95,  tg70b:null, priority:["speed","value"] },
+    { name:"DIY RTX 3090 Build (used)",    mfr:'diy',         os:["linux","windows"], ff:"desktop", unified:false, memGB:24,  vramGB:24,  bwGBs:936,  minPrice:1200,  maxPrice:2000,  maxModel:14,  tg7b:130, tg13b:85,  tg70b:null, priority:["value"] },
+    { name:"Apple MacBook Pro 16 (M4 Max 128GB)", mfr:'apple', os:["macos"],          ff:"laptop",  unified:true,  memGB:128, vramGB:128, bwGBs:410,  minPrice:3800,  maxPrice:5000,  maxModel:70,  tg7b:75,  tg13b:45,  tg70b:6,   ramTiers:[{label:'64 GB',tg7b:65,tg70b:null},{label:'128 GB',tg7b:75,tg70b:6}], priority:["capacity","portable"] },
+    { name:"Apple MacBook Pro 16 (M3 Max 128GB)", mfr:'apple', os:["macos"],          ff:"laptop",  unified:true,  memGB:128, vramGB:128, bwGBs:300,  minPrice:3200,  maxPrice:4200,  maxModel:70,  tg7b:60,  tg13b:36,  tg70b:5,   ramTiers:[{label:'64 GB',tg7b:55,tg70b:null},{label:'128 GB',tg7b:60,tg70b:5}], priority:["capacity","portable"] },
+    { name:"Asus ROG Strix Scar 18 (RTX 5090 Laptop)", mfr:'asus', os:["linux","windows"], ff:"laptop", unified:false, memGB:16, vramGB:16, bwGBs:576, minPrice:3500, maxPrice:5000, maxModel:30, tg7b:140, tg13b:95, tg70b:null, priority:["speed","portable"] },
+    { name:"Asus ROG Flow Z13 / Ryzen AI Max+ 395", mfr:'asus', os:["linux","windows"], ff:"laptop", unified:true, memGB:128, vramGB:128, bwGBs:256, minPrice:1400, maxPrice:2800, maxModel:70, tg7b:90, tg13b:55, tg70b:6, ramTiers:[{label:'64 GB',tg7b:90,tg70b:null},{label:'128 GB',tg7b:90,tg70b:6}], priority:["capacity","value","portable"] },
+    { name:"Minisforum AI MAX+ 395 Mini PC", mfr:'minisforum', os:["linux","windows"], ff:"laptop", unified:true, memGB:128, vramGB:128, bwGBs:256, minPrice:1200, maxPrice:2000, maxModel:70, tg7b:90, tg13b:55, tg70b:6, ramTiers:[{label:'64 GB',tg7b:90,tg70b:null},{label:'128 GB',tg7b:90,tg70b:6}], priority:["capacity","value","portable"] },
+    { name:"ASUS Zenbook A14 (Snapdragon X Elite)", mfr:'asus', os:["windows"],        ff:"laptop",  unified:true,  memGB:32,  vramGB:32,  bwGBs:68,   minPrice:900,   maxPrice:1600,  maxModel:7,   tg7b:25,  tg13b:null, tg70b:null, priority:["portable"] },
   ];
 
   let selectedOs = 'any';
@@ -2088,8 +2419,8 @@
     };
 
     resultsEl.innerHTML = `
-      <div class="result-card">
-        <div class="result-rank">Best match for ${osLabel} &middot; ${modelLabel} target &middot; ${priorityLabel}</div>
+      <div class="result-card" style="cursor:pointer" onclick="openSysModal('${best.name}')" title="Click for full details">
+        <div class="result-rank">Best match for ${osLabel} &middot; ${modelLabel} target &middot; ${priorityLabel} &nbsp;<span style="font-size:0.85em;color:#007bff">(click to view details)</span></div>
         <div class="result-name">${best.name}</div>
         <div class="result-meta">
           <span class="result-meta-chip">From $${best.minPrice.toLocaleString()}</span>
@@ -2108,7 +2439,7 @@
       <div class="alt-results">
         <h4>Also consider</h4>
         ${alts.map(s => `
-          <div class="alt-card">
+          <div class="alt-card" style="cursor:pointer" onclick="openSysModal('${s.name}')" title="Click for full details">
             <div>
               <div class="alt-name">${s.name}</div>
               <div class="alt-reason">${s.tg7b} t/s · up to ${s.maxModel}B · ${s.ff} · ${s.os.join('/')}</div>
@@ -2130,43 +2461,43 @@
   const CMP_DATA = {
     // ── Apple Mac Studio ──────────────────────────────────────
     m3_ultra_base: {
-      name: 'Mac Studio M3 Ultra', sub: '24-core CPU / 60-core GPU / 192 GB',
-      mfr: 'apple', memGB: 192, bwGBs: 800, cpuCores: 24, gpuCores: 60, unified: true,
+      name: 'Mac Studio M3 Ultra', sub: '28-core CPU / 60-core GPU / 192 GB',
+      mfr: 'apple', memGB: 192, bwGBs: 800, cpuCores: 28, gpuCores: 60, unified: true,
       tg7b: 115, tg13b: 68, tg70b: 18, tg120b: 9, price: 8000,
       framework: 'MLX / llama.cpp Metal', vramGB: 192,
       notes: 'Baseline M3 Ultra. 60-core GPU. Single-user 70B runs comfortably.'
     },
     m3_ultra_high: {
-      name: 'Mac Studio M3 Ultra', sub: '24-core CPU / 76-core GPU / 192 GB',
-      mfr: 'apple', memGB: 192, bwGBs: 800, cpuCores: 24, gpuCores: 76, unified: true,
+      name: 'Mac Studio M3 Ultra', sub: '32-core CPU / 80-core GPU / 192 GB',
+      mfr: 'apple', memGB: 192, bwGBs: 800, cpuCores: 32, gpuCores: 80, unified: true,
       tg7b: 120, tg13b: 72, tg70b: 20, tg120b: 10, price: 8500,
       framework: 'MLX / llama.cpp Metal', vramGB: 192,
       notes: '76-core GPU adds ~5% token speed vs 60-core at same bandwidth — GPU core count is secondary to memory bandwidth.'
     },
     m3_ultra_xl: {
-      name: 'Mac Studio M3 Ultra', sub: '24-core CPU / 76-core GPU / 512 GB',
-      mfr: 'apple', memGB: 512, bwGBs: 800, cpuCores: 24, gpuCores: 76, unified: true,
+      name: 'Mac Studio M3 Ultra', sub: '32-core CPU / 80-core GPU / 512 GB',
+      mfr: 'apple', memGB: 512, bwGBs: 800, cpuCores: 32, gpuCores: 80, unified: true,
       tg7b: 120, tg13b: 72, tg70b: 20, tg120b: 11, price: 10000,
       framework: 'MLX / llama.cpp Metal', vramGB: 512,
       notes: '512 GB unified. Enables 405B and MoE 671B (quantised). Token speed identical to 192 GB — bandwidth is unchanged; only capacity increases.'
     },
     m4_ultra_base: {
-      name: 'Mac Studio M4 Ultra', sub: '24-core CPU / 60-core GPU / 192 GB',
-      mfr: 'apple', memGB: 192, bwGBs: 900, cpuCores: 24, gpuCores: 60, unified: true,
+      name: 'Mac Studio M4 Ultra', sub: '28-core CPU / 64-core GPU / 192 GB',
+      mfr: 'apple', memGB: 192, bwGBs: 900, cpuCores: 28, gpuCores: 64, unified: true,
       tg7b: 130, tg13b: 78, tg70b: 22, tg120b: 11, price: 8500,
       framework: 'MLX / llama.cpp Metal', vramGB: 192,
       notes: 'M4 Ultra. ~12% bandwidth increase over M3 Ultra at same memory tier.'
     },
     m4_ultra_high: {
-      name: 'Mac Studio M4 Ultra', sub: '24-core CPU / 76-core GPU / 192 GB',
-      mfr: 'apple', memGB: 192, bwGBs: 900, cpuCores: 24, gpuCores: 76, unified: true,
+      name: 'Mac Studio M4 Ultra', sub: '32-core CPU / 80-core GPU / 192 GB',
+      mfr: 'apple', memGB: 192, bwGBs: 900, cpuCores: 32, gpuCores: 80, unified: true,
       tg7b: 135, tg13b: 80, tg70b: 23, tg120b: 12, price: 9000,
       framework: 'MLX / llama.cpp Metal', vramGB: 192,
       notes: 'M4 Ultra 76-core GPU. Marginal gain over 60-core at same bandwidth.'
     },
     m4_ultra_xl: {
-      name: 'Mac Studio M4 Ultra', sub: '24-core CPU / 76-core GPU / 512 GB',
-      mfr: 'apple', memGB: 512, bwGBs: 900, cpuCores: 24, gpuCores: 76, unified: true,
+      name: 'Mac Studio M4 Ultra', sub: '32-core CPU / 80-core GPU / 512 GB',
+      mfr: 'apple', memGB: 512, bwGBs: 900, cpuCores: 32, gpuCores: 80, unified: true,
       tg7b: 135, tg13b: 80, tg70b: 23, tg120b: 12, price: 11000,
       framework: 'MLX / llama.cpp Metal', vramGB: 512,
       notes: 'Maximum capacity M4 Ultra. 405B unquantised possible. Bandwidth, not capacity, sets speed.'
@@ -2525,6 +2856,153 @@
     document.getElementById('compareMain').innerHTML =
       headerHtml + factorIntro + specsHtml + tokHtml + fitHtml + ramImpactHtml;
   }
+
+  /* ══════════════════════════════════════════════════════════════
+     DIY FILTER
+  ══════════════════════════════════════════════════════════════ */
+  function filterDiy() {
+    const targetVal = document.getElementById('diyTargetFilter').value;
+    const budgetVal = document.getElementById('diyBudgetFilter').value;
+    const tierOrder = { budget: 1, mid: 2, high: 3, pro: 4 };
+    const targetOrder = { '7b': 1, '20b': 2, '70b': 3, '120b': 4 };
+
+    document.querySelectorAll('#diyGrid .diy-card').forEach(card => {
+      const cardTier   = card.getAttribute('data-tier');
+      const cardTarget = card.getAttribute('data-target');
+
+      let show = true;
+      if (budgetVal && cardTier !== budgetVal) show = false;
+      // For target filter: show cards whose target level <= selected level
+      if (targetVal && show) {
+        const cardLevel   = targetOrder[cardTarget] || 99;
+        const filterLevel = targetOrder[targetVal]  || 0;
+        // Show if this card's target is the same or lower than selected
+        if (cardLevel > filterLevel) show = false;
+      }
+      card.classList.toggle('diy-hidden', !show);
+    });
+
+    // If nothing visible, show a no-result message
+    const visible = document.querySelectorAll('#diyGrid .diy-card:not(.diy-hidden)').length;
+    let msg = document.getElementById('diy-no-result');
+    if (!msg) {
+      msg = document.createElement('p');
+      msg.id = 'diy-no-result';
+      msg.style.cssText = 'color:#888;font-style:italic;grid-column:1/-1;margin:0.5em 0';
+      document.getElementById('diyGrid').appendChild(msg);
+    }
+    msg.style.display = visible === 0 ? '' : 'none';
+    msg.textContent   = 'No builds match the selected filters. Try broadening your criteria.';
+  }
+
+  /* ══════════════════════════════════════════════════════════════
+     SYSTEM DETAIL MODAL
+  ══════════════════════════════════════════════════════════════ */
+  const MODEL_FIT_SIZES = [
+    { label: '7B Q4',   gb: 4.1  },
+    { label: '13B Q4',  gb: 7.4  },
+    { label: '20B Q4',  gb: 11.2 },
+    { label: '30B Q4',  gb: 16.5 },
+    { label: '70B Q4',  gb: 38.5 },
+    { label: '120B Q4', gb: 65   },
+    { label: '200B Q4', gb: 110  },
+  ];
+
+  function computeModelFit(memGB, modelGB) {
+    if (memGB >= modelGB * 1.1) return 'yes';
+    if (memGB >= modelGB * 0.82) return 'partial';
+    return 'no';
+  }
+
+  let _modalActiveMem = null;   // tracks current RAM tier for re-render
+
+  function openSysModal(sysName) {
+    const s = SYSTEMS.find(x => x.name === sysName);
+    if (!s) return;
+    _modalActiveMem = s.memGB;
+    document.getElementById('modalTitle').textContent = s.name;
+    renderModalBody(s, _modalActiveMem);
+    document.getElementById('sysModal').classList.add('open');
+  }
+
+  function closeSysModal() {
+    document.getElementById('sysModal').classList.remove('open');
+  }
+
+  function renderModalBody(s, memGB) {
+    const tg7bVal  = s.ramTiers ? (s.ramTiers.find(t => parseInt(t.label) === memGB) || s.ramTiers[s.ramTiers.length-1]).tg7b  : s.tg7b;
+    const tg70bVal = s.ramTiers ? (s.ramTiers.find(t => parseInt(t.label) === memGB) || s.ramTiers[s.ramTiers.length-1]).tg70b : s.tg70b;
+
+    // RAM tier selector (only if multiple tiers available)
+    let ramSel = '';
+    if (s.ramTiers && s.ramTiers.length > 1) {
+      const opts = s.ramTiers.map(t => `<option value="${parseInt(t.label)}" ${parseInt(t.label) === memGB ? 'selected' : ''}>${t.label}</option>`).join('');
+      ramSel = `<div class="modal-ram-row">
+        <label style="font-weight:600;font-size:0.9em">Memory configuration:</label>
+        <select onchange="switchModalRam(SYSTEMS.find(x=>x.name==='${s.name}'), this.value)" style="margin-left:0.6em;padding:0.3em 0.6em;border-radius:4px;border:1px solid #ccc">${opts}</select>
+        <span style="font-size:0.82em;color:#666;margin-left:0.6em">( affects model fit &amp; token speed below )</span>
+      </div>`;
+    }
+
+    // Stats grid
+    const statsHtml = `<div class="modal-stats">
+      <div class="modal-stat"><span>Memory</span><strong>${memGB} GB${s.unified ? ' unified' : ' VRAM'}</strong></div>
+      <div class="modal-stat"><span>Bandwidth</span><strong>${s.bwGBs.toLocaleString()} GB/s</strong></div>
+      <div class="modal-stat"><span>7B Q4 speed</span><strong>~${tg7bVal} t/s</strong></div>
+      <div class="modal-stat"><span>70B Q4 speed</span><strong>${tg70bVal ? '~' + tg70bVal + ' t/s' : 'does not fit'}</strong></div>
+      <div class="modal-stat"><span>Form factor</span><strong>${s.ff === 'laptop' ? 'Laptop / portable' : 'Desktop'}</strong></div>
+      <div class="modal-stat"><span>OS</span><strong>${s.os.join(', ')}</strong></div>
+      <div class="modal-stat"><span>Est. price</span><strong>$${s.minPrice.toLocaleString()}${s.maxPrice !== s.minPrice ? ' – $' + s.maxPrice.toLocaleString() : ''}</strong></div>
+      <div class="modal-stat"><span>Max model</span><strong>${s.maxModel >= 200 ? '200B+' : s.maxModel + 'B'} supported</strong></div>
+    </div>`;
+
+    // Model fit grid
+    const fitCells = MODEL_FIT_SIZES.map(m => {
+      const fit = computeModelFit(memGB, m.gb);
+      const label = fit === 'yes' ? 'Fits' : fit === 'partial' ? 'Marginal' : 'Too large';
+      return `<div class="modal-fit-cell mfc-${fit}"><div style="font-weight:700">${m.label}</div><div style="font-size:0.82em">${label}</div></div>`;
+    }).join('');
+
+    // Framework/tips
+    const framework = s.unified
+      ? (s.os.includes('macos') ? 'MLX + llama.cpp Metal' : 'llama.cpp Vulkan / ROCm')
+      : 'CUDA (llama.cpp / ExLlamaV2 / vLLM)';
+    const tip = s.unified && s.os.includes('macos')
+      ? 'MLX is the fastest inference framework for Apple Silicon. llama.cpp Metal is a close alternative with wider model format support.'
+      : s.unified
+      ? 'Unified memory allows the GPU to access all system RAM. Set iGPU VRAM allocation to match total installed RAM in BIOS for best results.'
+      : 'CUDA provides the best performance for NVIDIA GPUs. Use ExLlamaV2 for 7–30B models; vLLM for concurrent multi-user inference.';
+
+    document.getElementById('modalBody').innerHTML = `
+      ${ramSel}
+      <div class="modal-sec-title">System Specifications</div>
+      ${statsHtml}
+      <div class="modal-sec-title" style="margin-top:1.2em">Model Compatibility <span style="font-size:0.8em;color:#888;font-weight:400;margin-left:0.5em">at ${memGB} GB</span></div>
+      <div class="modal-fit-grid">${fitCells}</div>
+      <div style="font-size:0.78em;color:#777;margin-top:0.5em">Green = fits with headroom &middot; Yellow = marginal (limited context) &middot; Red = does not fit</div>
+      <div class="modal-sec-title" style="margin-top:1.2em">Recommended Framework</div>
+      <p style="margin:0.3em 0 0;font-size:0.93em"><strong>${framework}</strong></p>
+      <p style="margin:0.4em 0 0;font-size:0.88em;color:#555">${tip}</p>
+    `;
+  }
+
+  function switchModalRam(s, val) {
+    if (!s) return;
+    _modalActiveMem = parseInt(val);
+    renderModalBody(s, _modalActiveMem);
+  }
+
+
 </script>
+<!-- System Detail Modal -->
+<div id="sysModal" class="modal-overlay" onclick="if(event.target===this)closeSysModal()">
+  <div class="modal-box">
+    <div class="modal-header">
+      <h3 id="modalTitle">System Detail</h3>
+      <button class="modal-close" onclick="closeSysModal()">&times;</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
 </body>
 </html>
