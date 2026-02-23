@@ -30,7 +30,7 @@
       color: var(--text-color);
       line-height: 1.6;
     }
-    header { text-align: center; margin-bottom: 1.5em; }
+    header { text-align: left; margin-bottom: 1.5em; }
     header h1 { font-size: 2em; margin-bottom: .2em; }
     header .subtitle { font-size: 1em; color: var(--muted); }
     .back-link {
@@ -314,6 +314,62 @@
       line-height: 1.5;
     }
 
+    /* ── UPGRADE CARDS ── */
+    .upgrade-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: .8em;
+      margin-top: .2em;
+    }
+    .upgrade-card {
+      border: 1px solid var(--table-border-color);
+      border-radius: var(--border-radius);
+      padding: .9em 1em;
+      display: flex;
+      flex-direction: column;
+    }
+    .upgrade-card.recommended {
+      border-color: var(--accent-color);
+      box-shadow: 0 0 0 2px rgba(0,123,255,.15);
+    }
+    .upgrade-budget {
+      font-size: .7em;
+      font-weight: 700;
+      letter-spacing: .05em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: .3em;
+    }
+    .upgrade-name {
+      font-size: .95em;
+      font-weight: 700;
+      margin-bottom: .3em;
+    }
+    .upgrade-desc {
+      font-size: .8em;
+      color: var(--muted);
+      line-height: 1.45;
+      flex: 1;
+      margin-bottom: .55em;
+    }
+    .upgrade-tag {
+      display: inline-block;
+      font-size: .72em;
+      font-weight: 700;
+      padding: .2em .6em;
+      border-radius: 3px;
+      background: var(--note-bg-color);
+      color: var(--accent-color);
+      align-self: flex-start;
+    }
+    .upgrade-tag.best-next {
+      background: #d4edda;
+      color: #155724;
+    }
+    @media (prefers-color-scheme: dark) {
+      .upgrade-tag.best-next { background: #1a3a25; color: #6dca8a; }
+    }
+
     /* ── DETAIL TOGGLE ── */
     .detail-toggle {
       background: transparent;
@@ -558,6 +614,11 @@ $vram = if ($vramRaw -gt 1GB) { [math]::Round($vramRaw / 1GB) } else { 0 }
     <div class="card-body">
       <ul class="tip-list" id="tipList"></ul>
     </div>
+  </div>
+
+  <div class="section-card">
+    <div class="card-header">Upgrade Path Recommendations</div>
+    <div class="card-body" id="upgradeBody"></div>
   </div>
 
 </div>
@@ -1175,6 +1236,7 @@ function showResults() {
   ).join('');
 
   document.getElementById('tipList').innerHTML = buildTips(sc, rec).map(t=>`<li>${t}</li>`).join('');
+  document.getElementById('upgradeBody').innerHTML = buildUpgradeSection(sc, rec);
   document.getElementById('results').style.display = 'block';
 }
 
@@ -1205,6 +1267,86 @@ function buildTips(sc, rec) {
 
   return tips.slice(0,6);
 }
+
+function buildUpgradeSection(sc, rec) {
+  const { ramGB, vramGB } = sc;
+  const RANK = { '<1B':0,'1B':1,'3B':2,'7B':3,'13B':4,'30B':5,'70B':6,'405B':7 };
+  const curRank = RANK[rec.max] ?? 0;
+
+  const tiers = [
+    {
+      budget: 'Tweaks · $0 – $200',
+      name: 'Optimize Your Current Setup',
+      desc: 'No new GPU needed. Use Q4_K_M quantized GGUF models (best quality-per-GB), enable all GPU layers in LM Studio or Ollama, and close background apps before inference.'
+            + (ramGB < 16 ? ' Upgrading to 16–32 GB RAM (~$30–60 for DDR4) is the single highest-ROI hardware change at this tier.' : ''),
+      gains: '1.5–3× speed improvement',
+      tagClass: '',
+      newMax: ramGB < 16 ? '7B' : rec.max,
+      show: true,
+    },
+    {
+      budget: 'Entry GPU · $280 – $450',
+      name: 'RTX 4060 8 GB  /  RTX 4060 Ti 16 GB',
+      desc: 'RTX 4060 (~$280) runs 7B Q4 fully in VRAM at 40–60 tok/s — a massive leap over CPU-only. RTX 4060 Ti 16 GB (~$400) handles 13B Q4 comfortably in VRAM and is the best value entry pick for most home users.',
+      gains: '7–10× faster than CPU-only',
+      newMax: '13B',
+      show: vramGB < 14,
+    },
+    {
+      budget: 'Mid GPU · $500 – $900',
+      name: 'RTX 3090 24 GB (used)  /  RTX 4070 Ti Super 16 GB',
+      desc: 'Used RTX 3090 (~$500) offers 24 GB VRAM — enough to load 30B Q4 models entirely on-GPU. RTX 4070 Ti Super 16 GB (~$800) delivers newer architecture with great efficiency at 16 GB for 13B inference.',
+      gains: '10–15× CPU speed; 30B capable',
+      newMax: '30B',
+      show: vramGB < 20,
+    },
+    {
+      budget: 'High-End GPU · $1,600 – $2,000',
+      name: 'RTX 4090 24 GB  /  RTX 5090 32 GB',
+      desc: 'RTX 4090 (~$1,600) is the fastest consumer GPU for LLM inference — 24 GB VRAM at 180+ tok/s for 7B. RTX 5090 (~$2,000) adds 32 GB VRAM and 30% more memory bandwidth, handling all 30B models and 70B with partial offload.',
+      gains: '20× CPU speed; best consumer pick',
+      newMax: '70B',
+      show: vramGB < 24,
+    },
+    {
+      budget: 'Workstation · $2,000 – $5,000',
+      name: 'Mac Studio M4 Pro 48 GB  /  Used NVIDIA A100 80 GB',
+      desc: 'Mac Studio M4 Pro (~$2,000, 48 GB unified memory) runs 30–70B at 15–25 tok/s natively. Used A100 80 GB PCIe (~$2,500) is the professional server standard: fits 70B Q4 fully in VRAM at 40+ tok/s.',
+      gains: '70B fully in memory; workstation reliability',
+      newMax: '70B',
+      show: vramGB < 48,
+    },
+    {
+      budget: 'Pro Tier · $5,000+',
+      name: 'Mac Studio M4 Ultra 192 GB  /  Dual RTX 6000 Ada 96 GB',
+      desc: 'Mac Studio M4 Ultra (~$5,000, 192 GB unified) runs Llama 3.1 70B at 30+ tok/s and Llama 3.1 405B Q4 comfortably. Dual RTX 6000 Ada (~$9,000, 96 GB NVLink VRAM) delivers peak commercial batched throughput.',
+      gains: '405B Q4 capable; multi-user serving',
+      newMax: '405B',
+      show: vramGB < 80,
+    },
+  ];
+
+  const visibleTiers = tiers.filter(t => t.show);
+  const bestNextIdx  = tiers.findIndex(t => t.show && (RANK[t.newMax] ?? 0) > curRank);
+
+  if (!visibleTiers.length) {
+    return `<p style="color:var(--muted);font-size:.9em;margin:0">Your system is already well configured for advanced local AI workloads. For multi-user or commercial serving consider a dual-GPU or cloud-based setup.</p>`;
+  }
+
+  const cards = visibleTiers.map(t => {
+    const isBest = (tiers.indexOf(t) === bestNextIdx);
+    return `<div class="upgrade-card${isBest ? ' recommended' : ''}">
+      <div class="upgrade-budget">${t.budget}</div>
+      <div class="upgrade-name">${t.name}</div>
+      <div class="upgrade-desc">${t.desc}</div>
+      <span class="upgrade-tag${isBest ? ' best-next' : ''}">${isBest ? '★ Best Next Step' : '→ ' + t.gains}</span>
+    </div>`;
+  }).join('');
+
+  return `<p style="font-size:.85em;color:var(--muted);margin:0 0 .8em 0">Based on your detected hardware — showing options that meaningfully improve inference speed or max model size.</p>
+<div class="upgrade-grid">${cards}</div>`;
+}
+
 
 /* ═══════════════════════════════════════════════════════════
    UI HELPERS
