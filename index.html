@@ -2,378 +2,30 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AI Workstation & GPU Performance Report (2026)</title>
-  <style>
-    :root {
-      --table-border-color: #ddd;
-      --table-header-bg: #f2f2f2;
-      --table-row-hover-bg: #f5f5f5;
-      --font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
-      --accent-color: #007bff;
-      --text-color: #333;
-      --bg-color: #fff;
-      --note-bg-color: #f9f9f9;
-      --border-radius: 6px;
-    }
-    body { 
-      font-family: var(--font-family); 
-      margin: 0; 
-      padding: 1.5em; 
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      line-height: 1.6;
-    }
-    header {
-      text-align: left;
-      margin-bottom: 2em;
-    }
-    h1 {
-      font-size: 2.2em;
-      margin-bottom: 0.2em;
-    }
-    .subtitle {
-      font-size: 1.1em;
-      color: #666;
-    }
-    .tabs {
-      display: flex;
-      border-bottom: 2px solid var(--table-border-color);
-      margin-bottom: 1.5em;
-    }
-    .tab-button {
-      padding: 10px 20px;
-      cursor: pointer;
-      border: none;
-      background-color: transparent;
-      font-size: 1em;
-      border-bottom: 2px solid transparent;
-      margin-bottom: -2px;
-    }
-    .tab-button.active {
-      border-bottom-color: var(--accent-color);
-      font-weight: 600;
-    }
-    .tab-content { display: none; }
-    .tab-content.active { display: block; }
-    #controls {
-      display: flex;
-      gap: 1em;
-      margin-bottom: 1.5em;
-      align-items: center;
-      flex-wrap: wrap;
-    }
-    #controls input, #controls select {
-      padding: 0.6em;
-      border: 1px solid #ccc;
-      border-radius: var(--border-radius);
-      font-size: 0.95em;
-    }
-    table { 
-      border-collapse: collapse; 
-      width: 100%; 
-      margin-top: 1em;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.05);
-    }
-    th, td { 
-      border: 1px solid var(--table-border-color); 
-      padding: 0.75em; 
-      text-align: left; 
-      vertical-align: top;
-    }
-    th { 
-      background: var(--table-header-bg); 
-      cursor: pointer; 
-      font-weight: 600;
-      position: sticky;
-      top: 0;
-    }
-    tr:hover { background: var(--table-row-hover-bg); }
-    .notes-cell {
-      font-size: 0.9em;
-      line-height: 1.5;
-      background-color: var(--note-bg-color);
-    }
-    .notes-cell ul {
-      padding-left: 1.2em;
-      margin: 0;
-    }
-    .notes-cell li {
-      margin-bottom: 0.5em;
-    }
-    .highlight-best {
-      background-color: #e8f5e9; /* Light green */
-      font-weight: bold;
-    }
-    .highlight-best td:first-child::before {
-      content: '';
-    }
-    #diy-comparison {
-      padding: 1em;
-    }
-    #diy-comparison h3 {
-      margin-top: 0;
-    }
-    .comparison-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 1.5em;
-    }
-    .comparison-card {
-      border: 1px solid var(--table-border-color);
-      border-radius: var(--border-radius);
-      padding: 1.5em;
-    }
-    .comparison-card h4 {
-      margin-top: 0;
-      color: var(--accent-color);
-    }
-    .price-diff {
-      font-weight: bold;
-    }
-    .price-diff.positive { color: #28a745; }
-    .price-diff.negative { color: #dc3545; }
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+  <link rel="stylesheet" href="css/styles.css">
 
-    /* ── GPU Rankings tab ─────────────────────────────────────── */
-    #gpu-controls { display: flex; gap: 0.8em; flex-wrap: wrap; margin-bottom: 1.2em; align-items: center; }
-    #gpu-controls select, #gpu-controls input { padding: 0.55em 0.75em; border: 1px solid #ccc; border-radius: var(--border-radius); font-size: 0.93em; }
-    .mfr-filter-group { display: flex; gap: 0.4em; }
-    .mfr-btn {
-      padding: 0.45em 1em; border: 2px solid #ccc; border-radius: 20px;
-      background: #fff; cursor: pointer; font-size: 0.9em; font-weight: 500; transition: all 0.15s;
-    }
-    .mfr-btn.active-nvidia  { border-color: #76b900; background: #76b900; color: #fff; }
-    .mfr-btn.active-amd     { border-color: #ed1c24; background: #ed1c24; color: #fff; }
-    .mfr-btn.active-apple   { border-color: #555;    background: #555;    color: #fff; }
-    .mfr-btn.active-all     { border-color: var(--accent-color); background: var(--accent-color); color: #fff; }
-    .score-bar-wrap { display: flex; align-items: center; gap: 0.5em; min-width: 120px; }
-    .score-bar { height: 10px; border-radius: 5px; background: var(--accent-color); transition: width 0.3s; }
-    .score-num { font-size: 0.85em; white-space: nowrap; }
-    .mfr-badge {
-      display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.78em;
-      font-weight: 700; letter-spacing: 0.04em;
-    }
-    .badge-nvidia { background: #d4edda; color: #155724; }
-    .badge-amd    { background: #fde8e8; color: #721c24; }
-    .badge-apple  { background: #e2e3e5; color: #383d41; }
-    .mfr-comparison-section { margin-top: 2em; }
-    .mfr-comparison-section h3 { margin-bottom: 0.8em; }
-    .mfr-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.2em; }
-    .mfr-card { border-radius: var(--border-radius); padding: 1.4em; border: 1px solid var(--table-border-color); }
-    .mfr-card.nvidia { border-top: 4px solid #76b900; }
-    .mfr-card.amd    { border-top: 4px solid #ed1c24; }
-    .mfr-card.apple  { border-top: 4px solid #555; }
-    .mfr-card h4 { margin: 0 0 0.7em; font-size: 1.05em; }
-    .mfr-card ul { margin: 0; padding-left: 1.2em; font-size: 0.92em; line-height: 1.7; }
-    .mfr-card .verdict { margin-top: 0.8em; padding: 0.6em 0.9em; background: var(--note-bg-color); border-radius: 4px; font-size: 0.88em; }
-    #gpuTable th { white-space: nowrap; }
-
-    /* ── Best Match Finder tab ────────────────────────────────── */
-    #bestmatch { padding: 0; }
-    .finder-layout { display: grid; grid-template-columns: 340px 1fr; gap: 2em; align-items: start; }
-    @media (max-width: 800px) { .finder-layout { grid-template-columns: 1fr; } }
-    .finder-form { background: var(--note-bg-color); border: 1px solid var(--table-border-color); border-radius: var(--border-radius); padding: 1.6em; }
-    .finder-form h3 { margin-top: 0; }
-    .form-group { margin-bottom: 1.1em; }
-    .form-group label { display: block; font-weight: 600; margin-bottom: 0.35em; font-size: 0.95em; }
-    .form-group select, .form-group input[type=range] { width: 100%; padding: 0.55em 0.7em; border: 1px solid #ccc; border-radius: var(--border-radius); font-size: 0.93em; box-sizing: border-box; }
-    input[type=range] { accent-color: var(--accent-color); }
-    .budget-display { font-size: 1.05em; font-weight: 700; color: var(--accent-color); margin-top: 0.25em; }
-    .os-btn-group { display: flex; gap: 0.4em; flex-wrap: wrap; }
-    .os-btn {
-      flex: 1; padding: 0.55em 0.5em; border: 2px solid #ccc; border-radius: var(--border-radius);
-      background: #fff; cursor: pointer; font-size: 0.9em; font-weight: 500; text-align: center; transition: all 0.15s;
-    }
-    .os-btn.active { border-color: var(--accent-color); background: var(--accent-color); color: #fff; }
-    .find-btn {
-      width: 100%; padding: 0.75em; background: var(--accent-color); color: #fff;
-      border: none; border-radius: var(--border-radius); font-size: 1em; font-weight: 700;
-      cursor: pointer; margin-top: 0.4em; transition: opacity 0.15s;
-    }
-    .find-btn:hover { opacity: 0.88; }
-    .result-area { min-height: 200px; }
-    .result-placeholder { color: #999; font-style: italic; margin-top: 1em; }
-    .result-card {
-      border: 2px solid var(--accent-color); border-radius: var(--border-radius);
-      padding: 1.6em; background: #f0f7ff;
-    }
-    .result-card .result-rank { font-size: 0.82em; color: #666; text-transform: uppercase; letter-spacing: 0.06em; }
-    .result-card .result-name { font-size: 1.5em; font-weight: 700; margin: 0.15em 0 0.5em; }
-    .result-card .result-meta { display: flex; flex-wrap: wrap; gap: 0.6em; margin-bottom: 1em; }
-    .result-meta-chip {
-      background: #fff; border: 1px solid #ccc; border-radius: 20px;
-      padding: 0.25em 0.75em; font-size: 0.85em; font-weight: 500;
-    }
-    .result-card .result-why { font-size: 0.93em; line-height: 1.6; }
-    .result-card .result-why strong { color: var(--accent-color); }
-    .alt-results { margin-top: 1.4em; }
-    .alt-results h4 { margin-bottom: 0.6em; font-size: 0.95em; color: #555; }
-    .alt-card {
-      border: 1px solid var(--table-border-color); border-radius: var(--border-radius);
-      padding: 0.9em 1.1em; margin-bottom: 0.7em; background: #fff;
-      display: flex; justify-content: space-between; align-items: flex-start; gap: 1em;
-    }
-    .alt-card .alt-name { font-weight: 600; }
-    .alt-card .alt-reason { font-size: 0.85em; color: #666; margin-top: 0.2em; }
-    .alt-card .alt-price { font-weight: 700; white-space: nowrap; color: #333; }
-    .no-result { padding: 1.5em; background: #fff8e1; border: 1px solid #ffe082; border-radius: var(--border-radius); }
-
-    /* ── Compare Systems tab ──────────────────────────────────── */
-    #compare { padding: 0; }
-    .compare-layout { display: grid; grid-template-columns: 280px 1fr; gap: 2em; align-items: start; }
-    @media (max-width: 860px) { .compare-layout { grid-template-columns: 1fr; } }
-    .compare-sidebar { position: sticky; top: 1em; background: var(--note-bg-color); border: 1px solid var(--table-border-color); border-radius: var(--border-radius); padding: 1.4em; }
-    .compare-sidebar h3 { margin-top: 0; font-size: 1em; }
-    .cmp-group { margin-bottom: 1.1em; }
-    .cmp-group label { display: block; font-weight: 600; font-size: 0.86em; margin-bottom: 0.3em; color: #555; text-transform: uppercase; letter-spacing: 0.05em; }
-    .cmp-group select { width: 100%; padding: 0.5em 0.65em; border: 1px solid #ccc; border-radius: var(--border-radius); font-size: 0.92em; box-sizing: border-box; }
-    .cmp-run-btn { width: 100%; padding: 0.7em; background: var(--accent-color); color: #fff; border: none; border-radius: var(--border-radius); font-size: 0.97em; font-weight: 700; cursor: pointer; margin-top: 0.5em; }
-    .cmp-run-btn:hover { opacity: 0.88; }
-    .compare-main { min-height: 300px; }
-    .cmp-placeholder { color: #999; font-style: italic; padding: 1em 0; }
-    .cmp-systems-bar { display: grid; gap: 1em; margin-bottom: 1.4em; }
-    .cmp-sys-header { padding: 1em 1.3em; border-radius: var(--border-radius); border-top: 4px solid var(--accent-color); background: #f0f7ff; }
-    .cmp-sys-header.sys-nvidia  { border-top-color: #76b900; background: #f1fbe8; }
-    .cmp-sys-header.sys-amd     { border-top-color: #ed1c24; background: #fff0f0; }
-    .cmp-sys-header.sys-apple   { border-top-color: #555;    background: #f4f4f4; }
-    .cmp-sys-header .sys-name   { font-size: 1.1em; font-weight: 700; margin-bottom: 0.2em; }
-    .cmp-sys-header .sys-sub    { font-size: 0.82em; color: #666; }
-    .cmp-section { margin-bottom: 1.6em; border: 1px solid var(--table-border-color); border-radius: var(--border-radius); overflow: hidden; }
-    .cmp-section-title { background: var(--table-header-bg); padding: 0.6em 1em; font-weight: 700; font-size: 0.88em; border-bottom: 1px solid var(--table-border-color); }
-    .cmp-table { width: 100%; border-collapse: collapse; font-size: 0.9em; }
-    .cmp-table td, .cmp-table th { padding: 0.6em 0.9em; border-bottom: 1px solid var(--table-border-color); vertical-align: middle; }
-    .cmp-table th { background: var(--table-header-bg); font-weight: 600; font-size: 0.82em; white-space: nowrap; }
-    .cmp-table tr:last-child td, .cmp-table tr:last-child th { border-bottom: none; }
-    .cmp-table .row-label { color: #555; font-size: 0.85em; width: 160px; font-weight: 600; }
-    .cmp-val { font-weight: 600; }
-    .cmp-bar-wrap { display: flex; align-items: center; gap: 0.5em; }
-    .cmp-bar { height: 8px; border-radius: 4px; background: var(--accent-color); min-width: 2px; display: inline-block; }
-    .cmp-bar.bar-nvidia { background: #76b900; }
-    .cmp-bar.bar-amd    { background: #ed1c24; }
-    .cmp-bar.bar-apple  { background: #888; }
-    .cmp-delta { display: inline-block; padding: 0.12em 0.55em; border-radius: 3px; font-size: 0.78em; font-weight: 700; margin-left: 0.4em; }
-    .cmp-delta.faster  { background: #d4edda; color: #155724; }
-    .cmp-delta.slower  { background: #f8d7da; color: #721c24; }
-    .cmp-delta.same    { background: #e2e3e5; color: #383d41; }
-    .cmp-winner-badge  { display: inline-block; background: var(--accent-color); color: #fff; font-size: 0.72em; padding: 0.15em 0.55em; border-radius: 3px; margin-left: 0.4em; vertical-align: middle; font-weight: 700; }
-    .model-fit-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 0.6em; padding: 0.9em; }
-    .mf-cell { border: 1px solid var(--table-border-color); border-radius: 4px; padding: 0.55em 0.7em; text-align: center; font-size: 0.82em; }
-    .mf-cell .mf-size { font-weight: 700; font-size: 1em; }
-    .mf-cell .mf-label { font-size: 0.72em; color: #666; margin-top: 0.1em; }
-    .mf-cell.fit-yes     { background: #d4edda; border-color: #a3d4ae; }
-    .mf-cell.fit-partial { background: #fff3cd; border-color: #e5c44a; }
-    .mf-cell.fit-no      { background: #f8d7da; border-color: #e4a0a6; }
-    .impact-positive { color: #28a745; font-weight: 600; }
-    .impact-negative { color: #dc3545; font-weight: 600; }
-    .factor-key { display: inline-block; width: 10px; height: 10px; border-radius: 2px; margin-right: 0.3em; vertical-align: middle; }
-
-    /* ── Optimization Guide tab ───────────────────────────────── */
-    #optimization { padding: 0; }
-    .opt-intro { font-size: 0.93em; color: #555; margin-bottom: 1.5em; line-height: 1.7; }
-    .opt-section { margin-bottom: 2em; }
-    .opt-section > h3 { margin-bottom: 0.6em; font-size: 1.05em; padding-bottom: 0.4em; border-bottom: 2px solid var(--table-border-color); }
-    .opt-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(290px, 1fr)); gap: 1.2em; }
-    .opt-card { border: 1px solid var(--table-border-color); border-radius: var(--border-radius); overflow: hidden; }
-    .opt-card-header { padding: 0.75em 1.1em; font-weight: 700; font-size: 0.92em; display: flex; align-items: center; gap: 0.6em; border-bottom: 1px solid var(--table-border-color); }
-    .opt-card-header.opt-nvidia { background: #f1fbe8; border-left: 4px solid #76b900; }
-    .opt-card-header.opt-amd    { background: #fff0f0; border-left: 4px solid #ed1c24; }
-    .opt-card-header.opt-apple  { background: #f4f4f4; border-left: 4px solid #555; }
-    .opt-card-header.opt-general{ background: #f0f7ff; border-left: 4px solid var(--accent-color); }
-    .opt-card-body { padding: 1em 1.1em; font-size: 0.9em; }
-    .opt-card-body ul { margin: 0; padding-left: 1.2em; }
-    .opt-card-body li { margin-bottom: 0.6em; line-height: 1.5; }
-    .opt-table { width: 100%; border-collapse: collapse; margin-top: 0.8em; font-size: 0.88em; }
-    .opt-table th, .opt-table td { padding: 0.55em 0.75em; border: 1px solid var(--table-border-color); text-align: left; }
-    .opt-table th { background: var(--table-header-bg); font-weight: 600; }
-    .speedup-tag { display: inline-block; padding: 0.15em 0.55em; border-radius: 3px; font-size: 0.82em; font-weight: 700; }
-    .speedup-high   { background: #d4edda; color: #155724; }
-    .speedup-medium { background: #fff3cd; color: #856404; }
-    .speedup-low    { background: #f8d7da; color: #721c24; }
-    .speedup-neutral{ background: #e2e3e5; color: #383d41; }
-    /* ── Operating Systems tab ── */
-    .opt-card-header.os-header-windows { background: #e8f4fd; border-left: 4px solid #0078d4; }
-    .opt-card-header.os-header-mac     { background: #f4f4f4; border-left: 4px solid #555; }
-    .opt-card-header.os-header-linux   { background: #fff8f0; border-left: 4px solid #e67e00; }
-    .support-yes     { color: #155724; font-weight: 600; }
-    .support-partial { color: #856404; font-weight: 600; }
-    .support-no      { color: #721c24; font-weight: 600; }
-    /* ── Software tab ── */
-    .sw-tag { display: inline-block; padding: 0.1em 0.5em; border-radius: 3px; font-size: 0.78em; font-weight: 700; margin: 0 0.15em 0.25em 0; vertical-align: middle; }
-    .sw-free     { background: #d4edda; color: #155724; }
-    .sw-freemium { background: #fff3cd; color: #856404; }
-    .sw-paid     { background: #f8d7da; color: #721c24; }
-    .sw-win      { background: #e8f4fd; color: #004a8c; }
-    .sw-mac      { background: #f0f0f0; color: #333; }
-    .sw-lin      { background: #fff0e0; color: #8a3c00; }
-    .sw-all      { background: #e9e9e9; color: #333; }
-    .sw-tool-name { font-size: 1em; font-weight: 700; margin-bottom: 0.2em; }
-    .sw-tool-desc { font-size: 0.88em; color: #555; margin-bottom: 0.5em; }
-    /* ── Featured recommendations ── */
-    .feat-section { margin-bottom: 1.8em; }
-    .feat-cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1em; }
-    .feat-col { border: 1px solid var(--table-border-color); border-radius: var(--border-radius); overflow: hidden; }
-    .feat-header { padding: 0.55em 1em; font-weight: 700; font-size: 0.88em; text-transform: uppercase; letter-spacing: 0.05em; }
-    .feat-macos   { background: #f4f4f4; border-bottom: 1px solid #ddd; color: #333; }
-    .feat-windows { background: #e8f4fd; border-bottom: 1px solid #ddd; color: #004a8c; }
-    .feat-linux   { background: #fff8f0; border-bottom: 1px solid #ddd; color: #7a3700; }
-    .feat-card { padding: 0.7em 1em; border-bottom: 1px solid #f0f0f0; }
-    .feat-card:last-child { border-bottom: none; }
-    .feat-tier { font-size: 0.7em; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: #888; margin-bottom: 0.2em; }
-    .feat-name { font-weight: 600; font-size: 0.9em; margin-bottom: 0.15em; }
-    .feat-price { font-size: 0.82em; color: #555; }
-    .feat-detail { font-size: 0.78em; color: #888; margin-top: 0.15em; }
-    /* ── DIY builds ── */
-    .diy-controls { display: flex; gap: 0.8em; flex-wrap: wrap; margin-bottom: 1.2em; align-items: center; }
-    .diy-controls select { padding: 0.5em 0.7em; border: 1px solid #ccc; border-radius: var(--border-radius); font-size: 0.9em; }
-    .diy-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); gap: 1em; }
-    .diy-card { border: 1px solid var(--table-border-color); border-radius: var(--border-radius); padding: 1em 1.1em; font-size: 0.89em; position: relative; }
-    .diy-card-title { font-weight: 700; font-size: 1em; margin-bottom: 0.25em; }
-    .diy-card-sub { font-size: 0.78em; color: #888; margin-bottom: 0.6em; }
-    .diy-spec-row { display: flex; justify-content: space-between; padding: 0.22em 0; border-bottom: 1px solid #f4f4f4; font-size: 0.84em; }
-    .diy-badge { display: inline-block; padding: 0.1em 0.5em; border-radius: 3px; font-size: 0.74em; font-weight: 700; margin-right: 0.3em; margin-top: 0.5em; }
-    .diy-badge-budget { background: #d4edda; color: #155724; }
-    .diy-badge-mid    { background: #fff3cd; color: #856404; }
-    .diy-badge-high   { background: #cce5ff; color: #004085; }
-    .diy-badge-pro    { background: #f8d7da; color: #721c24; }
-    /* ── DIY savings vs pre-built ── */
-    .diy-savings-bar {
-      display: flex;
-      align-items: baseline;
-      gap: 0.5em;
-      background: #d4edda;
-      border: 1px solid #b1dfbb;
-      border-radius: 4px;
-      padding: 0.35em 0.7em;
-      margin: 0.5em 0 0.4em;
-      flex-wrap: wrap;
-    }
-    .diy-savings-pct { font-size: 1.05em; font-weight: 800; color: #155724; white-space: nowrap; }
-    .diy-savings-vs  { font-size: 0.78em; color: #2d6a4f; }
-    .diy-hidden { display: none !important; }
-    /* ── System detail modal ── */
-    .modal-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,0.52); z-index:1000; overflow-y:auto; }
-    .modal-overlay.open { display:flex; align-items:flex-start; justify-content:center; padding:2em 1em; }
-    .modal-box { background:#fff; border-radius:8px; max-width:880px; width:100%; box-shadow:0 8px 32px rgba(0,0,0,0.2); }
-    .modal-header { padding:1.1em 1.4em; border-bottom:1px solid #eee; display:flex; justify-content:space-between; align-items:center; }
-    .modal-header h3 { margin:0; font-size:1.1em; }
-    .modal-close { cursor:pointer; font-size:1.5em; color:#888; background:none; border:none; line-height:1; padding:0 0.2em; }
-    .modal-close:hover { color:#333; }
-    .modal-body { padding:1.2em 1.4em; }
-    .modal-sec-title { font-weight:700; font-size:0.82em; text-transform:uppercase; letter-spacing:0.07em; color:#888; margin:1.2em 0 0.5em; border-top:1px solid #eee; padding-top:0.8em; }
-    .modal-sec-title:first-child { margin-top:0; border-top:none; padding-top:0; }
-    .modal-stats { display:flex; gap:0.8em; flex-wrap:wrap; }
-    .modal-stat { background:#f9f9f9; border:1px solid #eee; border-radius:4px; padding:0.45em 0.9em; font-size:0.85em; min-width:90px; }
-    .modal-stat strong { display:block; font-size:0.72em; color:#888; text-transform:uppercase; font-weight:700; margin-bottom:0.1em; }
-    .modal-fit-grid { display:flex; flex-wrap:wrap; gap:0.35em; margin-top:0.5em; }
-    .modal-fit-cell { padding:0.35em 0.7em; border-radius:4px; font-size:0.75em; line-height:1.4; min-width:78px; text-align:center; }
-    .mfc-yes     { background:#d4edda; color:#155724; }
-    .mfc-partial { background:#fff3cd; color:#856404; }
-    .mfc-no      { background:#f8d7da; color:#721c24; }
-    .modal-ram-row { display:flex; gap:0.7em; align-items:center; flex-wrap:wrap; margin-bottom:0.4em; }
-    .modal-ram-row label { font-size:0.88em; font-weight:600; }
-    .modal-ram-row select { padding:0.3em 0.6em; border:1px solid #ccc; border-radius:4px; font-size:0.88em; }
-  </style>
 </head>
 <body>
+
+<!-- Mobile Warning Modal -->
+<div id="mobile-modal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:9999;align-items:center;justify-content:center">
+  <div style="background:#fff;border-radius:12px;padding:2em;max-width:90%;width:360px;text-align:left;box-shadow:0 8px 32px rgba(0,0,0,0.3)">
+    <svg xmlns="http://www.w3.org/2000/svg" width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#28a745" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="margin-bottom:0.8em"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+    <h2 style="margin:0 0 0.5em 0;font-size:1.2em">Desktop recommended</h2>
+    <p style="color:#555;font-size:0.92em;line-height:1.5;margin:0 0 1.2em 0">This tool has a lot of tables and comparison features that work better on a larger screen.</p>
+    <button onclick="document.getElementById('mobile-modal').style.display='none'" style="background:#28a745;color:#fff;border:none;padding:0.6em 1.5em;border-radius:6px;font-size:0.95em;cursor:pointer">Continue</button>
+  </div>
+</div>
+<script>
+(function(){
+  var isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) || window.innerWidth < 768;
+  if(isMobile) document.getElementById('mobile-modal').style.display = 'flex';
+})();
+</script>
+
 <header>
   <h1>AI Workstation & GPU Performance Report (2026)</h1>
   <p class="subtitle">A comparative analysis of pre-built and DIY systems for local AI development.</p>
@@ -1775,6 +1427,7 @@
             <li><strong>AMD discrete GPU ROCm is not available on Windows.</strong> AMD users should use the Vulkan backend in llama.cpp/Ollama (which works well for inference) as an alternative. For PyTorch training with AMD discrete GPUs, Linux is required.</li>
             <li><strong>DirectML</strong> accelerates ONNX Runtime models (Phi-3, Mistral, Llama via ONNX) on any Windows GPU including Intel Arc. Slower than CUDA but hardware-agnostic &mdash; useful when CUDA is not an option.</li>
             <li><strong>Recommended setup:</strong> NVIDIA drivers natively &rarr; WSL2 + Ubuntu 22.04 &rarr; Ollama and LM Studio on native Windows for daily chat &rarr; Claude Code and Python tools (vLLM, transformers, axolotl) inside WSL2.</li>
+            <li><strong>AI coding tool overhead.</strong> Windows NTFS filesystem operations are measurably slower than macOS APFS or Linux ext4. AI coding agents (Claude Code, Aider, Cursor) perform frequent file reads, diffs, and writes during each interaction. On Windows, this translates to longer response latencies and higher token consumption per task &mdash; the agent spends more time waiting on I/O and generates more retries. In practice, the same coding task can cost 10&ndash;30% more tokens on Windows compared to macOS or Linux. For heavy agentic coding use, WSL2 with files stored inside the Linux filesystem (not /mnt/c/) mitigates this, but native macOS or Linux remains faster.</li>
           </ul>
         </div>
       </div>
@@ -3255,16 +2908,26 @@
   </div>
 </div>
 
-<footer style="margin-top:3em;padding:1.5em 0 1em;border-top:1px solid var(--table-border-color);font-size:0.82em;color:#888;line-height:1.8">
-  <div style="max-width:1400px;margin:0 auto;padding:0 1.5em;display:flex;flex-wrap:wrap;justify-content:space-between;gap:1em;align-items:flex-end">
-    <div>
-      <strong style="color:#555">AI Workstation &amp; GPU Performance Report 2026</strong><br>
-      Released under the <strong><a href="https://opensource.org/licenses/MIT" style="color:#007bff;text-decoration:none">MIT License</a></strong> &mdash; free to use, modify, and distribute.<br>
-      Data current as of February 2026. Benchmark figures sourced from community measurements on r/LocalLLaMA and llama.cpp llama-bench.
+<footer class="license-section">
+  <div style="max-width:1400px;margin:0 auto;padding:0 1.5em;">
+    <div class="footer-links">
+      <span class="license-badge">
+        MIT License
+        <div class="license-tooltip">
+          Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files, to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software.
+        </div>
+      </span>
+      <a href="https://attest.ink/verify/?data=eyJ2ZXJzaW9uIjoiMi4wIiwiaWQiOiJiZXN0Zm9yYWktMjAyNi0wMi0yMSIsImNvbnRlbnRfbmFtZSI6IkFJIFdvcmtzdGF0aW9uICYgR1BVIFBlcmZvcm1hbmNlIFJlcG9ydCIsInRpbWVzdGFtcCI6IjIwMjYtMDItMjFUMDA6MDA6MDAuMDAwWiIsInBsYXRmb3JtIjoiYXR0ZXN0LmluayIsIm1vZGVsIjoiY2xhdWRlLTMtNy1zb25uZXQiLCJyb2xlIjoiYXNzaXN0ZWQifQ==" class="attest-badge" target="_blank" rel="noopener">built with ai</a>
     </div>
-    <div style="text-align:right">
-      Open source &mdash; <a href="https://github.com/" style="color:#007bff;text-decoration:none">View on GitHub</a><br>
-      No tracking. No cookies. No server required &mdash; open <code>index.html</code> directly in any browser.
+    <div class="author-info">
+      Created by <strong>97 115 104</strong> · 
+      <a href="https://github.com/97115104/bestforai">View source on GitHub</a> · 
+      <a href="https://github.com/sponsors/97115104"><svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="#db61a2" style="vertical-align:-1px;margin-right:3px"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>Sponsor</a> · 
+      <a href="https://97115104.com/projects/">Other projects</a>
+    </div>
+    <div style="margin-top:0.5em;color:#888;font-size:0.95em;">
+      Data current as of February 2026. Benchmark figures sourced from community measurements on r/LocalLLaMA and llama.cpp llama-bench.<br>
+      No tracking. No cookies. No server required.
     </div>
   </div>
 </footer>

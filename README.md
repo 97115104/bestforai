@@ -1,14 +1,22 @@
 # AI Workstation and GPU Performance Report (2026)
 
-A single-page reference tool for choosing the right hardware to run local AI models. Open `index.html` in any modern browser and it works immediately with no build step, server, or internet connection required.
+A browser-based reference tool for choosing the right hardware to run local AI models. No build step, server, or signup required.
 
 Released under the [MIT License](https://opensource.org/licenses/MIT). Free to use, fork, and modify.
 
-## What this tool does
+## Quick Start
+
+1. Clone or download this repository
+2. Open `index.html` in any browser to explore hardware options
+3. Open `benchmark.html` to test your current system
+
+## What This Tool Does
 
 Running large language models locally requires matching your hardware to the model you want to run. The wrong system either cannot load the model at all, or runs it so slowly it becomes unusable. This tool surfaces the data you need to make a good decision before spending money.
 
-The site covers eight areas:
+### Hardware Reference (`index.html`)
+
+The main page covers eight areas:
 
 **Pre-built Systems** is a sortable, filterable table of real workstations and laptops tested for local AI inference. Filter by operating system, form factor, or the largest model the system can handle. Every row includes notes on real-world tradeoffs observed in the community.
 
@@ -26,13 +34,23 @@ The site covers eight areas:
 
 **Software** gives an overview of inference engines (llama.cpp, Ollama, LM Studio, vLLM), fine-tuning tools (Axolotl, Unsloth), AI coding assistants (Cursor, GitHub Copilot, Aider), and model sources.
 
-## Data sources
+### System Benchmark (`benchmark.html`)
+
+The benchmark tool tests your actual hardware and provides personalized recommendations:
+
+- **Hardware Detection** — Automatically detects CPU, GPU, RAM, and VRAM via browser APIs
+- **Model Compatibility** — Shows which model sizes your system can run (1B through 405B)
+- **Performance Estimates** — Estimates tokens/second for each model tier based on your hardware
+- **Upgrade Recommendations** — Mac-aware suggestions that understand Apple Silicon limitations (soldered RAM, not upgradeable) and provide appropriate next-tier recommendations
+- **Budget Tiers** — Upgrade paths from $0 optimizations through $5,000+ workstation builds
+
+For Mac users, the tool detects Apple Silicon and shows Mac-specific upgrade paths (Mac mini → MacBook Pro → Mac Studio) rather than suggesting GPU upgrades that don't apply.
+
+## Data Sources
 
 Community benchmarks from r/LocalLLaMA, measured with llama.cpp (`llama-bench`) and Apple MLX. All pricing reflects February 2026 market rates. Token speed figures are estimates at Q4 quantization unless otherwise noted.
 
-## Usage
-
-Clone or download the repository, then open `index.html` in any browser. There is no build step, no npm install, no server. All logic is self-contained in a single HTML file.
+See [research.md](research.md) for detailed methodology, benchmark sources, and technical references.
 
 ## License
 

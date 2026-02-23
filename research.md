@@ -1,6 +1,8 @@
 # AI Workstation Research Notes
 *Sourced primarily from r/LocalLLaMA (905K members) — community benchmarks, anecdotes, and real-world feedback. Benchmark tool: llama.cpp (llama-bench) or MLX unless noted. PP = prompt processing (prefill) t/s; TG = token generation t/s.*
 
+**Note:** This document includes M3-era benchmarks as baseline references. The M4 Ultra (released 2025) offers similar memory bandwidth (~800 GB/s) with improved GPU performance. Expect ~10-20% higher token generation speeds on M4 variants compared to M3 benchmarks cited below.
+
 ---
 
 ## 1. Apple Mac Studio (M3 Ultra, 192GB / 512GB)
